@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>京韵遗风 · 数据看板</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <style>
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 248, 235, 0.5);
+            backdrop-filter: blur(4px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid #c9af8b;
+        }
+        
+        .user-stats {
+            display: flex;
+            gap: 1.5rem;
+            color: #4f3a26;
+            font-weight: 500;
+        }
+        
+        .user-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .user-stats i { color: #a6552b; }
+        .filter-label { color: #4f3a26; font-weight: 500; }
+        .filter-select {
+            background: #fffcf2;
+            border: 1px solid #b99e7c;
+            border-radius: 40px;
+            padding: 0.4rem 1.5rem;
+            color: #2e1e12;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+        
+        .chart-card {
+            background: rgba(255, 248, 235, 0.85);
+            backdrop-filter: blur(8px);
+            border: 2px solid #c9af8b;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 12px 28px rgba(60, 40, 20, 0.4);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3c291b;
+            border-left: 8px solid #a6552b;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'STKaiti', serif;
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 380px;
+            flex: 1;
+        }
+        
+        .card-footer-note {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #8d765b;
+            margin-top: 0.5rem;
+            border-top: 1px dashed #d6bc9a;
+            padding-top: 0.5rem;
+        }
+
+        .wordcloud-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem 1.5rem;
+            min-height: 200px;
+            padding: 1rem;
+            background: rgba(250, 239, 224, 0.4);
+            border-radius: 1rem;
+        }
+        
+        .word-item {
+            display: inline-block;
+            transition: 0.2s;
+            cursor: default;
+            white-space: nowrap;
+            text-shadow: 1px 1px 0 rgba(255,245,200,0.8);
+        }
+        
+        .word-item:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 4px rgba(180,100,40,0.5);
+        }
+        
+        .full-width { grid-column: span 2; }
+        @media (max-width: 992px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+        
+        .map-controls {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            z-index: 20;
+            background: rgba(255,248,235,0.9);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 0.3rem;
+            display: flex;
+            gap: 0.5rem;
+            border: 1px solid #b6844e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .map-controls button {
+            background: #b6844e;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .map-controls button:hover {
+            background: #c79b65;
+        }
+        
+        .map-legend {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: rgba(255, 248, 235, 0.9);
+            backdrop-filter: blur(4px);
+            border: 1px solid #b6844e;
+            border-radius: 0.6rem;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 15;
+            pointer-events: none;
+            color: #4a2e1e;
+        }
+        
+        .map-legend h6 {
+            margin: 0 0 0.2rem 0;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-bottom: 1px dashed #b6844e;
+            padding-bottom: 0.1rem;
+        }
+        
+        .map-legend ul {
+            margin: 0;
+            padding-left: 1rem;
+        }
+        
+        .map-legend li {
+            list-style: none;
+            margin-bottom: 0.1rem;
+            font-size: 0.7rem;
+        }
+        
+        .legend-marker {
+            display: inline-block;
+            width: 18px;
+            text-align: left;
+            font-weight: bold;
+            color: #b6844e;
+        }
+        
+        body.theme-dark .map-controls,
+        body.theme-dark .map-legend {
+            background: rgba(45,45,45,0.9);
+            color: #e0e0e0;
+            border-color: #5a4a3a;
+        }
+        
+        body.theme-soft .map-controls,
+        body.theme-soft .map-legend {
+            background: rgba(255,248,231,0.9);
+            color: #5f4b3a;
+            border-color: #d6bc9a;
+        }
+        
+        body.theme-dark .map-controls button {
+            background: #5a4a3a;
+        }
+        
+        body.theme-soft .map-controls button {
+            background: #c2a27e;
+        }
+
+        body.theme-dark .wordcloud-container {
+            background: rgba(45,45,45,0.6);
+        }
+        
+        body.theme-dark .word-item {
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+        }
+        
+        body.theme-soft .wordcloud-container {
+            background: rgba(255,248,231,0.6);
+        }
+        
+        body.theme-soft .word-item {
+            text-shadow: 1px 1px 0 rgba(255,245,220,0.8);
+        }
+    </style>
+</head>
+<body>
+<div class="container-jingyun">
+    <nav class="navbar-jingyun d-flex justify-content-between align-items-center">
+        <div class="navbar-brand"><i class="fas fa-landmark"></i> 京韵遗风·互动平台</div>
+        <div class="d-flex">
+            <a href="Index.html" class="nav-link-jingyun"><i class="fas fa-home"></i> 首页</a>
+            <a href="Digital.html" class="nav-link-jingyun"><i class="fas fa-building"></i> 数字展厅</a>
+            <a href="Map.html" class="nav-link-jingyun"><i class="fas fa-map-location-dot"></i> 非遗地图</a>
+            <a href="AI.html" class="nav-link-jingyun"><i class="fas fa-robot"></i> 京小智</a>
+            <a href="Data.html" class="nav-link-jingyun active"><i class="fas fa-chart-pie"></i> 数据看板</a>
+            <a href="Activity.html" class="nav-link-jingyun"><i class="fas fa-handshake"></i> 传承人平台</a>
+            <a href="Person.html" class="nav-link-jingyun"><i class="fas fa-user"></i> 我的护照</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>非·遗·活·态·监·测</h1>
+        <p>数据洞察 · 传承有数</p>
+    </div>
+
+    <div class="filter-bar">
+        <div class="user-stats">
+            <span><i class="fas fa-users"></i> 总用户: <span id="totalUsers">0</span></span>
+            <span><i class="fas fa-user"></i> 普通用户: <span id="normalUsers">0</span></span>
+            <span><i class="fas fa-crown"></i> 传承人: <span id="inheritorUsers">0</span></span>
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="filter-label"><i class="fas fa-calendar-alt"></i> 统计时段：</span>
+            <select class="filter-select" id="periodSelect">
+                <option value="week" selected>近7天</option>
+                <option value="month">本月</option>
+                <option value="year">本年度</option>
+                <option value="all">全部历史</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="chart-card">
+            <div class="chart-title"><i class="fas fa-fire-flame-curved"></i> 非遗项目收藏排行榜 · TOP10</div>
+            <div id="chartBar" class="chart-container"></div>
+            <div class="card-footer-note">基于用户收藏数据统计</div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title"><i class="fas fa-chart-pie"></i> 用户年龄结构图</div>
+            <div id="chartRoseAge" class="chart-container"></div>
+            <div class="card-footer-note">数据来源：用户数据库</div>
+        </div>
+
+        <div class="chart-card" style="position: relative;">
+            <div class="chart-title"><i class="fas fa-map-marked-alt"></i> 北京非遗地点区县分布</div>
+            <div id="beijingMap" class="chart-container"></div>
+            <div class="map-controls">
+                <button id="mapZoomIn" title="放大">+</button>
+                <button id="mapZoomOut" title="缩小">-</button>
+                <button id="mapReset" title="重置视图">⟳</button>
+            </div>
+            <div class="map-legend">
+                <h6>图例</h6>
+                <ul>
+                    <li><span class="legend-marker">A</span> 东城区</li>
+                    <li><span class="legend-marker">B</span> 西城区</li>
+                    <li><span class="legend-marker">C</span> 石景山区</li>
+                </ul>
+            </div>
+            <div class="card-footer-note">颜色越深代表该区县非遗项目数量越多（A/B/C为小面积区县标记）</div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title"><i class="fas fa-clock"></i> 用户活跃时段分布</div>
+            <div id="chartLine" class="chart-container"></div>
+            <div class="card-footer-note">基于用户登录时间统计</div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-title"><i class="fas fa-cloud"></i> 非遗词云</div>
+            <div id="wordcloud" class="wordcloud-container"></div>
+            <div class="card-footer-note">来自AI对话和用户评论，已过滤无效内容</div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-copyright"></i> 京韵遗风 · 数字博物馆  |  数据驱动非遗保护
+    </div>
+</div>
+
+<div class="theme-switcher">
+    <div class="theme-btn light active" data-theme="light" title="日间模式"></div>
+    <div class="theme-btn dark" data-theme="dark" title="夜间模式"></div>
+    <div class="theme-btn soft" data-theme="soft" title="护眼模式"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+    (function() {
+        const API_BASE_URL = 'http://localhost:8080/api';
+        let barChart, roseAgeChart, beijingMapChart, lineChart;
+        let activeRequestId = 0;
+        let currentMapZoom = 0.95;
+        let currentMapCenter = [116.42, 40.00];
+
+        function initCharts() {
+            const barDom = document.getElementById('chartBar');
+            const roseAgeDom = document.getElementById('chartRoseAge');
+            const mapDom = document.getElementById('beijingMap');
+            const lineDom = document.getElementById('chartLine');
+            if (!barDom || !roseAgeDom || !mapDom || !lineDom) return false;
+            barDom.style.height = '380px';
+            roseAgeDom.style.height = '380px';
+            mapDom.style.height = '380px';
+            lineDom.style.height = '380px';
+            barChart = echarts.init(barDom);
+            roseAgeChart = echarts.init(roseAgeDom);
+            beijingMapChart = echarts.init(mapDom);
+            lineChart = echarts.init(lineDom);
+            barChart.setOption({ backgroundColor: 'transparent' });
+            roseAgeChart.setOption({ backgroundColor: 'transparent' });
+            beijingMapChart.setOption({ backgroundColor: 'transparent' });
+            lineChart.setOption({ backgroundColor: 'transparent' });
+            return true;
+        }
+
+        async function fetchData(url, params = {}, requestId) {
+            const token = getToken();
+            if (!token) {
+                window.location.href = 'Index.html';
+                throw new Error('未登录');
+            }
+            const query = new URLSearchParams(params).toString();
+            const fullUrl = query ? `${url}?${query}` : url;
+            const response = await fetch(fullUrl, {
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+            });
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = 'Index.html';
+                throw new Error('未授权');
+            }
+            const result = await response.json();
+            if (requestId !== activeRequestId) {
+                console.log(`丢弃过期请求: ${fullUrl}, requestId=${requestId}, active=${activeRequestId}`);
+                return null;
+            }
+            if (result.code !== 200) throw new Error(result.msg);
+            return result.data;
+        }
+
+        async function loadUserStats() {
+            try {
+                const data = await fetchData(`${API_BASE_URL}/chart/user-stats`, {}, activeRequestId);
+                if (data) {
+                    document.getElementById('totalUsers').innerText = data.total ?? 0;
+                    document.getElementById('normalUsers').innerText = data.normal ?? 0;
+                    document.getElementById('inheritorUsers').innerText = data.inheritor ?? 0;
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function getAxisSeries(data) {
+            let xAxis = data.xAxis || data.xaxis || [];
+            let series = data.series || [];
+            if (!Array.isArray(xAxis)) xAxis = [];
+            if (!Array.isArray(series)) series = [];
+            return { xAxis, series };
+        }
+
+        async function loadHotRanking(period, requestId) {
+            try {
+                const data = await fetchData(`${API_BASE_URL}/chart/hot`, { period }, requestId);
+                if (!data) return;
+                const { xAxis, series } = getAxisSeries(data);
+                if (xAxis.length === 0) {
+                    barChart.setOption({ title: { show: true, text: '暂无数据', left: 'center', top: 'center' } }, { notMerge: true });
+                    return;
+                }
+                barChart.setOption({
+                    title: { show: false },
+                    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                    grid: { left: '12%', right: '5%', top: 20, bottom: 40, containLabel: true },
+                    xAxis: {
+                        type: 'category', name: '非遗项目', nameLocation: 'middle', nameGap: 110,
+                        nameTextStyle: { fontWeight: 'bold', fontSize: 14, color: '#3c291b' },
+                        data: xAxis, axisLabel: { rotate: 45, interval: 0, margin: 35, color: '#5a3e28' }
+                    },
+                    yAxis: {
+                        type: 'value', name: '收藏次数', nameLocation: 'middle', nameGap: 55,
+                        nameTextStyle: { fontWeight: 'bold', fontSize: 14, color: '#3c291b' },
+                        axisLabel: { color: '#5a3e28' }, min: 0
+                    },
+                    series: [{
+                        data: series, type: 'bar', barWidth: '60%',
+                        itemStyle: { color: '#b6844e', borderRadius: [8,8,0,0] },
+                        label: { show: true, position: 'top', color: '#4a2e1e' }
+                    }]
+                }, { notMerge: true });
+            } catch (err) { console.error(err); barChart.setOption({ title: { show: true, text: '数据加载失败', left: 'center', top: 'center' } }, { notMerge: true }); }
+        }
+
+        async function loadAgeRose(period, requestId) {
+            try {
+                const data = await fetchData(`${API_BASE_URL}/chart/age`, { period }, requestId);
+                if (!data) return;
+                let pieData = data?.data || [];
+                if (!Array.isArray(pieData)) pieData = [];
+                const filtered = pieData.filter(item => item.value > 0 && item.name !== '暂无年龄数据');
+                if (filtered.length === 0) {
+                    roseAgeChart.setOption({ title: { show: true, text: '暂无数据', left: 'center', top: 'center' } }, { notMerge: true });
+                    return;
+                }
+                roseAgeChart.setOption({
+                    title: { show: false },
+                    tooltip: { trigger: 'item' },
+                    legend: { orient: 'vertical', left: 'left', top: 'center', textStyle: { color: '#4f3a26' } },
+                    color: ['#e6b87e', '#b6844e', '#8b5a2b', '#6b4a2a', '#4a2e1e'],
+                    series: [{
+                        type: 'pie',
+                        radius: ['20%', '80%'],
+                        center: ['55%', '50%'],
+                        roseType: 'area',
+                        data: filtered,
+                        label: { show: true, color: '#2e1e12' },
+                        emphasis: { scale: true }
+                    }]
+                }, { notMerge: true });
+            } catch (err) { console.error(err); roseAgeChart.setOption({ title: { show: true, text: '数据加载失败', left: 'center', top: 'center' } }, { notMerge: true }); }
+        }
+
+        async function loadBeijingMap(requestId) {
+            try {
+                const regionData = await fetchData(`${API_BASE_URL}/chart/region`, {}, requestId);
+                if (!regionData) return;
+                let roseData = regionData?.data || [];
+                if (!Array.isArray(roseData)) roseData = [];
+                if (roseData.length === 0) {
+                    beijingMapChart.setOption({ title: { show: true, text: '暂无区县数据', left: 'center', top: 'center' } }, { notMerge: true });
+                    return;
+                }
+                const valueMap = {};
+                roseData.forEach(item => { valueMap[item.name] = item.value; });
+                const geoJsonUrl = 'https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json';
+                const response = await fetch(geoJsonUrl);
+                if (!response.ok) throw new Error('加载GeoJSON失败');
+                const geoJson = await response.json();
+                const features = geoJson.features.filter(f => f.properties.level === 'district');
+                const mapData = features.map(feature => {
+                    const name = feature.properties.name;
+                    return { name: name, value: valueMap[name] || 0 };
+                });
+                if (echarts.registerMap) {
+                    echarts.registerMap('beijing_districts', { features: features });
+                } else {
+                    throw new Error('registerMap不可用');
+                }
+                const maxValue = Math.max(...mapData.map(d => d.value), 1);
+                beijingMapChart.setOption({
+                    title: { show: false },
+                    tooltip: { trigger: 'item', formatter: '{b}<br/>非遗项目数量：{c}' },
+                    visualMap: {
+                        min: 0, max: maxValue, calculable: true,
+                        inRange: { color: ['#fff0d4', '#e6b87e', '#b6844e', '#8b5a2b'] },
+                        outOfRange: { color: ['#ccc'] },
+                        textStyle: { color: '#3c291b' }
+                    },
+                    series: [{
+                        type: 'map', map: 'beijing_districts', data: mapData,
+                        roam: true, 
+                        zoom: currentMapZoom,
+                        center: currentMapCenter,
+                        label: {
+                            show: true,
+                            formatter: (params) => {
+                                const replaceMap = { '东城区': 'A', '西城区': 'B', '石景山区': 'C' };
+                                if (replaceMap[params.name]) return replaceMap[params.name];
+                                return params.name;
+                            },
+                            fontSize: 10, color: '#4a2e1e', fontWeight: 'normal'
+                        },
+                        emphasis: { label: { show: true, fontSize: 12, fontWeight: 'bold' } },
+                        itemStyle: { borderColor: '#d6bc9a', borderWidth: 1, areaColor: '#f7efd6' }
+                    }]
+                }, { notMerge: true });
+                
+                beijingMapChart.off('georoam');
+                beijingMapChart.on('georoam', () => {
+                    const option = beijingMapChart.getOption();
+                    const series = option.series[0];
+                    if (series) {
+                        currentMapZoom = series.zoom || 0.95;
+                        currentMapCenter = series.center || [116.42, 40.00];
+                    }
+                });
+            } catch (err) {
+                console.error('加载北京地图失败', err);
+                beijingMapChart.setOption({ title: { show: true, text: '地图加载失败，请检查网络', left: 'center', top: 'center' } }, { notMerge: true });
+            }
+        }
+
+        function zoomMap(delta) {
+            if (!beijingMapChart) return;
+            const option = beijingMapChart.getOption();
+            let zoom = option.series[0].zoom || currentMapZoom;
+            zoom += delta;
+            if (zoom < 0.5) zoom = 0.5;
+            if (zoom > 3) zoom = 3;
+            beijingMapChart.setOption({ series: [{ zoom: zoom }] });
+            currentMapZoom = zoom;
+        }
+        
+        function resetMap() {
+            if (!beijingMapChart) return;
+            const defaultZoom = 0.95;
+            const defaultCenter = [116.42, 40.00];
+            beijingMapChart.setOption({ series: [{ zoom: defaultZoom, center: defaultCenter }] });
+            currentMapZoom = defaultZoom;
+            currentMapCenter = defaultCenter;
+        }
+
+        function processActiveData(xAxis, series) {
+            if (!xAxis.length) return { xAxis: [], series: [] };
+            const evenIndices = [];
+            for (let i = 0; i < xAxis.length; i += 2) evenIndices.push(i);
+            const newXAxis = evenIndices.map(i => xAxis[i]);
+            const newSeries = evenIndices.map(i => series[i]);
+            if (xAxis[0]) {
+                newXAxis.push("24点");
+                newSeries.push(series[0]);
+            }
+            return { xAxis: newXAxis, series: newSeries };
+        }
+
+        async function loadActiveLine(period, requestId) {
+            try {
+                const data = await fetchData(`${API_BASE_URL}/chart/active`, { period }, requestId);
+                if (!data) return;
+                let { xAxis, series } = getAxisSeries(data);
+                const processed = processActiveData(xAxis, series);
+                xAxis = processed.xAxis;
+                series = processed.series;
+                if (xAxis.length === 0) {
+                    lineChart.setOption({ title: { show: true, text: '暂无数据', left: 'center', top: 'center' } }, { notMerge: true });
+                    return;
+                }
+                lineChart.setOption({
+                    title: { show: false },
+                    tooltip: { trigger: 'axis' },
+                    grid: { left: '10%', right: '5%', top: 20, bottom: 35, containLabel: true },
+                    xAxis: {
+                        type: 'category', name: '时段', nameLocation: 'middle', nameGap: 45,
+                        nameTextStyle: { fontWeight: 'bold', fontSize: 14, color: '#3c291b' },
+                        data: xAxis, axisLabel: { rotate: 0, interval: 0, margin: 10, color: '#5a3e28' }
+                    },
+                    yAxis: {
+                        type: 'value', name: '登录次数', nameLocation: 'middle', nameGap: 50,
+                        nameTextStyle: { fontWeight: 'bold', fontSize: 14, color: '#3c291b' },
+                        axisLabel: { color: '#5a3e28' }, min: 0
+                    },
+                    series: [{
+                        data: series, type: 'line', smooth: true, lineStyle: { color: '#b45f2e', width: 3 },
+                        areaStyle: { opacity: 0.2 }, symbol: 'circle', symbolSize: 6
+                    }]
+                }, { notMerge: true });
+            } catch (err) { console.error(err); lineChart.setOption({ title: { show: true, text: '数据加载失败', left: 'center', top: 'center' } }, { notMerge: true }); }
+        }
+
+        // 词云配色深色系
+        async function loadWordCloud(period, requestId) {
+            try {
+                const words = await fetchData(`${API_BASE_URL}/chart/wordcloud`, { period }, requestId);
+                if (!words) return;
+                const container = document.getElementById('wordcloud');
+                container.innerHTML = '';
+                if (!words || words.length === 0) {
+                    container.innerHTML = '<div class="text-center text-muted">暂无词云数据</div>';
+                    return;
+                }
+                const sorted = [...words].sort((a, b) => b.value - a.value);
+                const maxWeight = sorted[0].value, minWeight = sorted[sorted.length - 1].value;
+                const range = maxWeight - minWeight;
+                
+                // 深色配色方案
+                const colorPalette = [
+                    '#b6844e',  // 主色
+                    '#8b5a2b',  // 深棕
+                    '#6b4a2a',  // 暗棕
+                    '#4a2e1e',  // 最深棕
+                    '#3a2214'   // 极深褐
+                ];
+                
+                sorted.forEach(w => {
+                    const span = document.createElement('span');
+                    span.className = 'word-item';
+                    span.innerText = w.name;
+                    span.title = w.name;
+                    const ratio = range === 0 ? 0.5 : (w.value - minWeight) / range;
+                    let size = 14 + ratio * 30;
+                    if (w.name.length > 8) size = Math.max(12, size * (12 / w.name.length));
+                    span.style.fontSize = size + 'px';
+                    const colorIdx = Math.min(Math.floor(ratio * (colorPalette.length - 0.01)), colorPalette.length - 1);
+                    span.style.color = colorPalette[colorIdx];
+                    span.style.fontWeight = ratio >= 0.7 ? 'bold' : (ratio >= 0.4 ? '600' : 'normal');
+                    span.style.opacity = 0.9 + ratio * 0.1;
+                    span.style.textShadow = '1px 1px 0 rgba(255,245,200,0.7)';
+                    container.appendChild(span);
+                });
+            } catch (err) { 
+                console.error(err); 
+                document.getElementById('wordcloud').innerHTML = '<div class="text-center text-danger">词云数据加载失败</div>';
+            }
+        }
+
+        async function refreshAll() {
+            const period = document.getElementById('periodSelect').value;
+            const currentRequestId = ++activeRequestId;
+            await Promise.all([
+                loadHotRanking(period, currentRequestId),
+                loadAgeRose(period, currentRequestId),
+                loadBeijingMap(currentRequestId),
+                loadActiveLine(period, currentRequestId),
+                loadWordCloud(period, currentRequestId)
+            ]);
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!initCharts()) return;
+            document.getElementById('periodSelect').addEventListener('change', () => refreshAll());
+            window.addEventListener('resize', () => {
+                if (barChart) barChart.resize();
+                if (roseAgeChart) roseAgeChart.resize();
+                if (beijingMapChart) beijingMapChart.resize();
+                if (lineChart) lineChart.resize();
+            });
+            document.getElementById('mapZoomIn').addEventListener('click', () => zoomMap(0.2));
+            document.getElementById('mapZoomOut').addEventListener('click', () => zoomMap(-0.2));
+            document.getElementById('mapReset').addEventListener('click', () => resetMap());
+            
+            await loadUserStats();
+            await refreshAll();
+        });
+    })();
+</script>
+</body>
+</html>

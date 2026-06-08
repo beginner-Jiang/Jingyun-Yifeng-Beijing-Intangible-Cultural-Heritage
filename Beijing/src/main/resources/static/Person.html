@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>京韵遗风 · 我的护照</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .passport-card {
+      background: rgba(255, 248, 235, 0.85);
+      backdrop-filter: blur(8px);
+      border: 2px solid #c9af8b;
+      border-radius: 2.5rem;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(40, 25, 10, 0.5);
+      height: 100%;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #3c291b;
+      border-left: 8px solid #a6552b;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+      font-family: 'STKaiti', serif;
+      transition: color 0.3s;
+    }
+
+    .avatar-lg {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #b6844e;
+      background: #dacbb6;
+    }
+
+    .info-row { margin-bottom: 1rem; }
+
+    .info-label {
+      font-weight: 600;
+      color: #815f3f;
+      width: 100px;
+      display: inline-block;
+      transition: color 0.3s;
+    }
+
+    .info-value {
+      color: #2e1e12;
+      transition: color 0.3s;
+    }
+
+    .category-tag {
+      background: #e9dac8;
+      border: 1px solid #b2916d;
+      border-radius: 40px;
+      padding: 0.3rem 1.2rem;
+      display: inline-block;
+      margin: 0.2rem;
+      font-size: 0.9rem;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+
+    .category-tag.selected {
+      background: #a97c53;
+      color: #fff6e5;
+      border-color: #6d4b2a;
+    }
+
+    .radar-container {
+      width: 100%;
+      height: 260px;
+      margin-top: 1.5rem;
+      background: #faefe0;
+      border-radius: 1.5rem;
+      padding: 0.5rem;
+      border: 1px solid #dabd9b;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .nav-tabs-jingyun {
+      border-bottom: 2px solid #d6b58a;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .nav-tabs-jingyun .nav-link {
+      background: transparent;
+      border: none;
+      color: #5f432b;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px 40px 0 0;
+      transition: 0.2s, color 0.3s;
+    }
+
+    .nav-tabs-jingyun .nav-link i { margin-right: 8px; }
+
+    .nav-tabs-jingyun .nav-link.active {
+      background: #ecdac0;
+      color: #321f12;
+      border-bottom: 4px solid #b07644;
+    }
+
+    .tab-pane { padding: 1rem 0; }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .collect-card {
+      background: #faefe0;
+      border: 1px solid #d6bc9a;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      transition: 0.2s, background 0.3s, border-color 0.3s;
+    }
+
+    .collect-card:hover {
+      border-color: #b6844e;
+      transform: translateY(-3px);
+    }
+
+    .collect-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      background: #bc9f7e;
+    }
+
+    .collect-body { padding: 0.8rem; }
+
+    .collect-title {
+      font-weight: 600;
+      color: #2e1e12;
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .collect-sub {
+      font-size: 0.8rem;
+      color: #7b5b3c;
+      transition: color 0.3s;
+    }
+
+    .timeline {
+      list-style: none;
+      padding: 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed #d6bc9a;
+      transition: border-color 0.3s;
+    }
+
+    .timeline-time {
+      min-width: 80px;
+      color: #8d765b;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .timeline-content { flex: 1; }
+
+    .timeline-title {
+      font-weight: 600;
+      color: #2e1e12;
+      transition: color 0.3s;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: #5f4b33;
+      transition: color 0.3s;
+    }
+
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #b6844e;
+      margin-bottom: 1rem;
+    }
+
+    .category-item {
+      background: #f7ede1;
+      border: 1px solid #c6a77c;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      color: #4a3522;
+      cursor: pointer;
+      transition: 0.2s, background 0.3s, border-color 0.3s, color 0.3s;
+      user-select: none;
+      display: inline-block;
+      margin: 0.2rem;
+    }
+
+    .category-item i {
+      margin-right: 5px;
+      color: #aa6f39;
+      font-size: 0.8rem;
+    }
+
+    .category-item.selected {
+      background: #a97c53;
+      border-color: #6d4b2a;
+      color: #fffbee;
+      box-shadow: 0 2px 8px rgba(170, 120, 60, 0.5);
+    }
+
+    .category-item.selected i { color: #ffd89c; }
+
+    .btn-group-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .btn-group-row .btn-jingyun {
+      flex: 0 1 auto;
+      min-width: 0;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      .btn-group-row .btn-jingyun {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* 无数据提示红色居中 */
+    .no-data {
+      color: #dc3545 !important;
+      text-align: center;
+      width: 100%;
+      margin: 2rem 0;
+    }
+
+    /* 主题覆盖 */
+    body.theme-dark .passport-card,
+    body.theme-dark .category-tag,
+    body.theme-dark .category-item,
+    body.theme-dark .radar-container,
+    body.theme-dark .collect-card {
+      background: #2d2d2d !important;
+      border-color: #5a4a3a !important;
+      color: #e0e0e0 !important;
+    }
+    body.theme-dark .info-label,
+    body.theme-dark .info-value,
+    body.theme-dark .collect-title,
+    body.theme-dark .collect-sub,
+    body.theme-dark .timeline-title,
+    body.theme-dark .timeline-desc {
+      color: #e0e0e0 !important;
+    }
+    body.theme-dark .category-tag.selected,
+    body.theme-dark .category-item.selected {
+      background: #5a4a3a !important;
+    }
+    body.theme-dark .nav-tabs-jingyun .nav-link {
+      color: #e0e0e0 !important;
+    }
+    body.theme-dark .nav-tabs-jingyun .nav-link.active {
+      background: #5a4a3a !important;
+      border-bottom-color: #b6844e !important;
+    }
+    body.theme-dark .timeline-item {
+      border-bottom-color: #5a4a3a !important;
+    }
+
+    body.theme-soft .passport-card,
+    body.theme-soft .category-tag,
+    body.theme-soft .category-item,
+    body.theme-soft .radar-container,
+    body.theme-soft .collect-card {
+      background: #fff8e7 !important;
+      border-color: #d6bc9a !important;
+      color: #5f4b3a !important;
+    }
+    body.theme-soft .info-label,
+    body.theme-soft .info-value,
+    body.theme-soft .collect-title,
+    body.theme-soft .collect-sub,
+    body.theme-soft .timeline-title,
+    body.theme-soft .timeline-desc {
+      color: #5f4b3a !important;
+    }
+    body.theme-soft .category-tag.selected,
+    body.theme-soft .category-item.selected {
+      background: #d6bc9a !important;
+    }
+    body.theme-soft .nav-tabs-jingyun .nav-link {
+      color: #5f4b3a !important;
+    }
+    body.theme-soft .nav-tabs-jingyun .nav-link.active {
+      background: #d6bc9a !important;
+      border-bottom-color: #b6844e !important;
+    }
+    body.theme-soft .timeline-item {
+      border-bottom-color: #d6bc9a !important;
+    }
+  </style>
+</head>
+<body>
+<div class="container-jingyun">
+  <nav class="navbar-jingyun d-flex justify-content-between align-items-center">
+    <div class="navbar-brand">
+      <i class="fas fa-landmark"></i> 京韵遗风·互动平台
+    </div>
+    <div class="d-flex">
+      <a href="Index.html" class="nav-link-jingyun"><i class="fas fa-home"></i> 首页</a>
+      <a href="Digital.html" class="nav-link-jingyun"><i class="fas fa-building"></i> 数字展厅</a>
+      <a href="Map.html" class="nav-link-jingyun"><i class="fas fa-map-location-dot"></i> 非遗地图</a>
+      <a href="AI.html" class="nav-link-jingyun"><i class="fas fa-robot"></i> 京小智</a>
+      <a href="Data.html" class="nav-link-jingyun"><i class="fas fa-chart-pie"></i> 数据看板</a>
+      <a href="Activity.html" class="nav-link-jingyun"><i class="fas fa-handshake"></i> 传承人平台</a>
+      <a href="Person.html" class="nav-link-jingyun active"><i class="fas fa-user"></i> 我的护照</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>我·的·非·遗·护·照</h1>
+    <p>记录您的文化足迹 · 解锁传承人身份</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-4">
+      <div class="passport-card">
+        <div class="d-flex flex-column align-items-center text-center mb-4">
+          <img src="" class="avatar-lg mb-3" id="avatarImg" alt="头像">
+          <h3 class="card-title" id="displayName" style="color: #2e1e12;">加载中...</h3>
+          <p class="text-muted" id="userLocation"><i class="fas fa-map-pin"></i> 加载中...</p>
+          <div class="btn-group-row mt-2">
+            <button class="btn-jingyun btn-sm" id="logoutBtn" onclick="logout()" title="注销账户"><i class="fas fa-sign-out-alt"></i> 注销账户</button>
+            <button class="btn-jingyun btn-sm" data-bs-toggle="modal" data-bs-target="#editProfileModal"><i class="fas fa-edit"></i> 编辑资料</button>
+            <button class="btn-jingyun btn-sm" data-bs-toggle="modal" data-bs-target="#changePwdModal"><i class="fas fa-key"></i> 修改密码</button>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label"><i class="fas fa-envelope"></i> 邮箱</span>
+          <span class="info-value" id="userEmail">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label"><i class="fas fa-phone"></i> 手机</span>
+          <span class="info-value" id="userPhone">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label"><i class="fas fa-calendar-alt"></i> 年龄</span>
+          <span class="info-value" id="userAge">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label"><i class="fas fa-feather"></i> 简介</span>
+          <span class="info-value" id="userBio">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label"><i class="fas fa-tags"></i> 感兴趣</span>
+          <div class="info-value" id="interestTagsContainer"></div>
+        </div>
+
+        <div id="upgradeContainer"></div>
+
+        <div class="mt-4">
+          <h5><i class="fas fa-chart-radar"></i> 个人非遗画像</h5>
+          <div id="radarChart" class="radar-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="passport-card">
+        <ul class="nav nav-tabs-jingyun nav-tabs" id="passportTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="col-projects-tab" data-bs-toggle="tab" data-bs-target="#col-projects" type="button" role="tab"><i class="fas fa-building"></i> 收藏项目</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="col-sites-tab" data-bs-toggle="tab" data-bs-target="#col-sites" type="button" role="tab"><i class="fas fa-map-location-dot"></i> 收藏点位</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="col-activities-tab" data-bs-toggle="tab" data-bs-target="#col-activities" type="button" role="tab"><i class="fas fa-calendar-alt"></i> 收藏活动</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="activity-info-tab" data-bs-toggle="tab" data-bs-target="#activity-info" type="button" role="tab"><i class="fas fa-calendar-check"></i> 活动信息</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="recruit-info-tab" data-bs-toggle="tab" data-bs-target="#recruit-info" type="button" role="tab"><i class="fas fa-handshake"></i> 招募信息</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="passportTabContent">
+          <div class="tab-pane fade show active" id="col-projects" role="tabpanel">
+            <div class="collection-grid" id="projectsGrid"></div>
+            <div id="projectsEmpty" class="no-data" style="display: none;">暂无收藏项目</div>
+          </div>
+          <div class="tab-pane fade" id="col-sites" role="tabpanel">
+            <div class="collection-grid" id="sitesGrid"></div>
+            <div id="sitesEmpty" class="no-data" style="display: none;">暂无收藏点位</div>
+          </div>
+          <div class="tab-pane fade" id="col-activities" role="tabpanel">
+            <div class="collection-grid" id="activitiesGrid"></div>
+            <div id="activitiesEmpty" class="no-data" style="display: none;">暂无收藏活动</div>
+          </div>
+          <div class="tab-pane fade" id="activity-info" role="tabpanel">
+            <ul class="timeline" id="activityInfoList"></ul>
+            <div id="activityInfoEmpty" class="no-data" style="display: none;">暂无活动信息</div>
+          </div>
+          <div class="tab-pane fade" id="recruit-info" role="tabpanel">
+            <div id="recruitInfoApplications"></div>
+            <div id="recruitInfoPosts"></div>
+            <div id="recruitInfoEmpty" class="no-data" style="display: none;">暂无招募信息</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-copyright"></i> 京韵遗风 · 数字博物馆  |  您的文化护照 永不过期
+  </div>
+</div>
+
+<!-- 模态框：编辑个人资料 -->
+<div class="modal fade modal-jingyun" id="editProfileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">编辑个人资料</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProfileForm">
+          <div class="text-center mb-3">
+            <img src="" id="avatarPreview" class="avatar-preview" alt="头像预览">
+            <div>
+              <label for="avatarUpload" class="btn btn-jingyun-outline btn-sm"><i class="fas fa-upload"></i> 上传头像</label>
+              <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+            </div>
+            <small class="text-muted">支持JPG、PNG格式，大小不超过2MB</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">用户名</label>
+            <input type="text" class="form-control" id="editUsername" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">年龄</label>
+            <input type="number" class="form-control" id="editAge" min="1" max="120" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">个人简介</label>
+            <textarea class="form-control" rows="3" id="editBio"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">感兴趣的非遗类别</label>
+            <div class="category-group" id="editInterestTags"></div>
+            <input type="hidden" id="editSelectedCategories" value="">
+            <small class="text-muted">点击可多选</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-jingyun" id="saveProfileBtn">保存修改</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 模态框：修改密码（手机号验证） -->
+<div class="modal fade modal-jingyun" id="changePwdModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">修改密码</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="changePwdForm">
+          <div class="mb-3">
+            <label class="form-label">手机号（用于验证）</label>
+            <input type="text" class="form-control" id="verifyPhone" placeholder="请输入注册手机号" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">新密码</label>
+            <input type="password" class="form-control" id="newPassword" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">确认新密码</label>
+            <input type="password" class="form-control" id="confirmNewPassword" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-jingyun" id="changePwdBtn">确认修改</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 模态框：升级传承人（移除提示文字） -->
+<div class="modal fade modal-jingyun" id="upgradeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">申请传承人认证</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>请输入您获得的邀请码：</p>
+        <input type="text" class="form-control" id="inviteCodeInput" placeholder="例如：JINGYUN-2026">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-jingyun" id="applyInheritorBtn">提交认证</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="theme-switcher">
+  <div class="theme-btn light active" data-theme="light" title="日间模式"></div>
+  <div class="theme-btn dark" data-theme="dark" title="夜间模式"></div>
+  <div class="theme-btn soft" data-theme="soft" title="护眼模式"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+  (function checkAccess() {
+    if (window.location.port !== '8080' && !window.location.hostname.includes('localhost')) {
+      alert('请通过后端地址访问页面，例如 http://localhost:8080/Person.html，否则头像无法正常加载。');
+    }
+  })();
+
+  window.logout = async function() {
+    if (confirm('确定要永久注销账户吗？此操作不可恢复！')) {
+      const token = getToken();
+      if (!token) { alert('未登录'); window.location.replace('Index.html'); return; }
+      try {
+        const response = await fetch('http://localhost:8080/api/user/delete', {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await response.json();
+        if (result.code === 200) {
+          alert('账户已注销');
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          sessionStorage.clear();
+          window.location.replace('Index.html');
+        } else { alert(result.msg || '注销失败'); }
+      } catch (err) { console.error('注销请求失败', err); alert('网络错误，请稍后重试'); }
+    }
+  };
+
+  (function() {
+    const API_BASE_URL = 'http://localhost:8080/api';
+
+    let currentUser = null;
+
+    const categoryIconMap = {
+      '传统技艺': 'fa-hands', '曲艺': 'fa-microphone-lines', '传统戏剧': 'fa-mask',
+      '民间文学': 'fa-book', '传统美术': 'fa-paint-brush', '传统医药': 'fa-leaf',
+      '民俗': 'fa-dragon', '传统音乐': 'fa-music', '传统舞蹈': 'fa-shoe-prints', '传统体育': 'fa-futbol'
+    };
+
+    async function loadUserInfo() {
+      try {
+        currentUser = await fetchWithAuth(`${API_BASE_URL}/user/info`);
+        renderUserInfo();
+      } catch (err) { console.error('加载用户信息失败', err); }
+    }
+
+    function renderUserInfo() {
+      document.getElementById('avatarImg').src = currentUser.avatar || 'https://picsum.photos/120/120?random=1001';
+      document.getElementById('displayName').innerText = currentUser.username || '未设置';
+      const roleText = currentUser.role === 'inheritor' ? '传承人' : '普通用户';
+      document.getElementById('userLocation').innerHTML = `<i class="fas fa-map-pin"></i> ${roleText}`;
+      document.getElementById('userEmail').innerText = currentUser.email || '-';
+      document.getElementById('userPhone').innerText = currentUser.phone || '-';
+      document.getElementById('userAge').innerText = currentUser.age || '-';
+      document.getElementById('userBio').innerText = currentUser.bio || '暂无简介';
+      const tagsContainer = document.getElementById('interestTagsContainer');
+      tagsContainer.innerHTML = '';
+      if (currentUser.interestTags) {
+        currentUser.interestTags.split(',').forEach(tag => {
+          const span = document.createElement('span'); span.className = 'category-tag selected';
+          const icon = categoryIconMap[tag] || 'fa-tag';
+          span.innerHTML = `<i class="fas ${icon}"></i> ${tag}`;
+          tagsContainer.appendChild(span);
+        });
+      } else tagsContainer.innerHTML = '<span class="text-muted">未设置</span>';
+
+      document.getElementById('editUsername').value = currentUser.username || '';
+      document.getElementById('editAge').value = currentUser.age || '';
+      document.getElementById('editBio').value = currentUser.bio || '';
+      document.getElementById('avatarPreview').src = currentUser.avatar || 'https://picsum.photos/120/120?random=1001';
+
+      const allCategories = Object.keys(categoryIconMap);
+      const userSelected = currentUser.interestTags ? currentUser.interestTags.split(',') : [];
+      const editTagsDiv = document.getElementById('editInterestTags');
+      editTagsDiv.innerHTML = '';
+      allCategories.forEach(cat => {
+        const span = document.createElement('span');
+        span.className = `category-item ${userSelected.includes(cat) ? 'selected' : ''}`;
+        span.setAttribute('data-value', cat);
+        span.innerHTML = `<i class="fas ${categoryIconMap[cat]}"></i> ${cat}`;
+        span.addEventListener('click', function() { this.classList.toggle('selected'); updateEditSelectedCategories(); });
+        editTagsDiv.appendChild(span);
+      });
+      updateEditSelectedCategories();
+
+      const upgradeContainer = document.getElementById('upgradeContainer');
+      if (currentUser.role === 'inheritor') {
+        upgradeContainer.innerHTML = `
+          <div class="mt-4 p-3" style="background: #f7ede1; border-radius: 1.5rem; border: 1px dashed #b99e7c;">
+            <h5><i class="fas fa-crown" style="color: #b6844e;"></i> 您已经成为传承人</h5>
+            <p class="small">无需再激活认证，您现在可以发布活动/作品/招募。</p>
+          </div>
+        `;
+      } else {
+        upgradeContainer.innerHTML = `
+          <div class="mt-4 p-3" style="background: #f7ede1; border-radius: 1.5rem; border: 1px dashed #b99e7c;">
+            <h5><i class="fas fa-crown" style="color: #b6844e;"></i> 升级为传承人</h5>
+            <p class="small">获得邀请码后可申请认证，解锁发布活动/作品权限。</p>
+            <button class="btn-jingyun btn-sm w-100" data-bs-toggle="modal" data-bs-target="#upgradeModal"><i class="fas fa-ticket-alt"></i> 申请传承人认证</button>
+          </div>
+        `;
+      }
+    }
+
+    function updateEditSelectedCategories() {
+      const selected = [];
+      document.querySelectorAll('#editInterestTags .category-item.selected').forEach(item => selected.push(item.getAttribute('data-value')));
+      document.getElementById('editSelectedCategories').value = selected.join(',');
+    }
+
+    document.getElementById('avatarUpload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = ev => document.getElementById('avatarPreview').src = ev.target.result;
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('saveProfileBtn').addEventListener('click', async function() {
+      const username = document.getElementById('editUsername').value.trim();
+      const age = parseInt(document.getElementById('editAge').value, 10);
+      const bio = document.getElementById('editBio').value.trim();
+      const interestTags = document.getElementById('editSelectedCategories').value;
+      const avatarFile = document.getElementById('avatarUpload').files[0];
+      if (!username) { alert('用户名不能为空'); return; }
+      if (!age || isNaN(age) || age < 1 || age > 120) { alert('年龄必须为1-120的整数'); return; }
+      try {
+        let avatarUrl = currentUser.avatar;
+        if (avatarFile) {
+          const formData = new FormData(); formData.append('file', avatarFile);
+          avatarUrl = await uploadWithAuth(`${API_BASE_URL}/user/upload-avatar`, formData);
+          document.getElementById('avatarImg').src = avatarUrl;
+        }
+        await fetchWithAuth(`${API_BASE_URL}/user/update`, {
+          method: 'PUT',
+          body: JSON.stringify({ username, age, bio, avatar: avatarUrl, interestTags })
+        });
+        alert('资料更新成功');
+        await loadUserInfo();
+        bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+        document.getElementById('avatarUpload').value = '';
+      } catch (err) { alert('更新失败：' + err.message); }
+    });
+
+    document.getElementById('changePwdBtn').addEventListener('click', async function() {
+      const verifyPhone = document.getElementById('verifyPhone').value.trim();
+      const newPwd = document.getElementById('newPassword').value.trim();
+      const confirmPwd = document.getElementById('confirmNewPassword').value.trim();
+
+      if (!verifyPhone || !newPwd || !confirmPwd) {
+        alert('请填写手机号和新密码');
+        return;
+      }
+      if (newPwd !== confirmPwd) {
+        alert('新密码与确认密码不一致');
+        return;
+      }
+      if (newPwd.length < 6) {
+        alert('新密码至少6位');
+        return;
+      }
+
+      try {
+        await fetchWithAuth(`${API_BASE_URL}/user/reset-password-by-phone`, {
+          method: 'POST',
+          body: JSON.stringify({ phone: verifyPhone, newPassword: newPwd })
+        });
+        alert('密码修改成功');
+        bootstrap.Modal.getInstance(document.getElementById('changePwdModal')).hide();
+        document.getElementById('changePwdForm').reset();
+      } catch (err) {
+        alert('修改失败：' + err.message);
+      }
+    });
+
+    document.getElementById('applyInheritorBtn').addEventListener('click', async function() {
+      const inviteCode = document.getElementById('inviteCodeInput').value.trim();
+      if (!inviteCode) { alert('请输入邀请码'); return; }
+      try {
+        await fetchWithAuth(`${API_BASE_URL}/user/apply-inheritor?inviteCode=${encodeURIComponent(inviteCode)}`, { method: 'POST' });
+        alert('申请成功，等待审核或已升级为传承人');
+        bootstrap.Modal.getInstance(document.getElementById('upgradeModal')).hide();
+        await loadUserInfo();
+      } catch (err) { alert('申请失败：' + err.message); }
+    });
+
+    async function loadRadarData() {
+      const radarChart = echarts.init(document.getElementById('radarChart'));
+      const container = document.getElementById('radarChart');
+      const existingMsg = document.getElementById('radarMsg');
+      if (existingMsg) existingMsg.remove();
+
+      try {
+        const radarData = await fetchWithAuth(`${API_BASE_URL}/user/radar`);
+        const dataArray = radarData.data;
+
+        if (dataArray && dataArray.some(v => v > 0)) {
+          radarChart.setOption({
+            radar: {
+              indicator: [
+                { name: '传统手工艺', max: 100 },
+                { name: '曲艺', max: 100 },
+                { name: '传统戏剧', max: 100 },
+                { name: '民俗', max: 100 },
+                { name: '传统医药', max: 100 },
+                { name: '民间文学', max: 100 }
+              ],
+              center: ['50%', '50%'],
+              radius: '65%',
+              name: { textStyle: { color: '#5f432b', fontSize: 11 } }
+            },
+            series: [{
+              type: 'radar',
+              data: [{ value: dataArray, name: '我的画像' }],
+              areaStyle: { color: 'rgba(180, 95, 46, 0.4)' },
+              lineStyle: { color: '#b45f2e', width: 2 },
+              itemStyle: { color: '#b6844e' }
+            }]
+          });
+        } else {
+          radarChart.clear();
+          const msg = document.createElement('div');
+          msg.id = 'radarMsg';
+          msg.className = 'no-data';
+          msg.innerText = '暂无雷达数据';
+          msg.style.marginTop = '100px';
+          container.appendChild(msg);
+        }
+      } catch (err) {
+        console.error('雷达数据加载失败', err);
+        radarChart.clear();
+        const msg = document.createElement('div');
+        msg.id = 'radarMsg';
+        msg.className = 'no-data';
+        msg.innerText = '雷达图加载失败';
+        msg.style.marginTop = '100px';
+        container.appendChild(msg);
+      }
+    }
+
+    async function loadCollections(targetType, gridId, emptyId) {
+      try {
+        const data = await fetchWithAuth(`${API_BASE_URL}/collection/list?targetType=${targetType}&limit=16`);
+        const grid = document.getElementById(gridId);
+        const empty = document.getElementById(emptyId);
+        if (data && data.length > 0) {
+          grid.innerHTML = data.map(item => {
+            return `
+              <div class="collect-card">
+                <img src="${item.imageUrl || 'https://picsum.photos/200/120?random=' + item.id}" class="collect-img" alt="${item.name}">
+                <div class="collect-body">
+                  <div class="collect-title">${item.name}</div>
+                  <div class="collect-sub">${item.category || ''} · ${item.region || ''}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+          grid.style.display = 'grid';
+          empty.style.display = 'none';
+        } else {
+          grid.innerHTML = '';
+          empty.style.display = 'block';
+        }
+      } catch (err) {
+        console.error(`加载${targetType}收藏失败`, err);
+        document.getElementById(gridId).innerHTML = '';
+        document.getElementById(emptyId).style.display = 'block';
+      }
+    }
+
+    async function loadActivityInfo() {
+      try {
+        // 获取用户参与的活动（报名记录）
+        const signups = await fetchWithAuth(`${API_BASE_URL}/activity/my-signups?limit=30`);
+        let activityList = signups.map(act => ({
+          ...act,
+          type: 'signup'
+        }));
+
+        // 如果是传承人，获取用户发布的活动
+        if (currentUser.role === 'inheritor') {
+          const myActivities = await fetchWithAuth(`${API_BASE_URL}/activity/list?inheritorId=${currentUser.id}`);
+          const myActs = myActivities.map(act => ({
+            ...act,
+            type: 'publish'
+          }));
+          activityList = activityList.concat(myActs);
+        }
+
+        activityList.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+
+        const list = document.getElementById('activityInfoList');
+        const empty = document.getElementById('activityInfoEmpty');
+        if (activityList.length > 0) {
+          list.innerHTML = activityList.map(act => {
+            const startTime = act.startTime ? new Date(act.startTime).toLocaleString('zh-CN') : '时间未知';
+            const endTime = act.endTime ? new Date(act.endTime).toLocaleString('zh-CN') : '时间未知';
+            const status = act.status === 1 ? '进行中' : (act.status === 2 ? '已结束' : '');
+            return `
+              <li class="timeline-item">
+                <span class="timeline-time">${startTime}</span>
+                <div class="timeline-content">
+                  <span class="timeline-title">${act.title}</span>
+                  <span class="timeline-desc">${act.type === 'publish' ? '（我发布的）' : '（我报名的）'} 时间: ${startTime} ~ ${endTime} ${status}</span>
+                </div>
+              </li>
+            `;
+          }).join('');
+          list.style.display = 'block';
+          empty.style.display = 'none';
+        } else {
+          list.innerHTML = '';
+          empty.style.display = 'block';
+        }
+      } catch (err) {
+        console.error('加载活动信息失败', err);
+        document.getElementById('activityInfoEmpty').style.display = 'block';
+      }
+    }
+
+    async function loadRecruitInfo() {
+      try {
+        const applications = await fetchWithAuth(`${API_BASE_URL}/recruit/my-applications?limit=30`);
+        const posts = (currentUser && currentUser.role === 'inheritor') ? await fetchWithAuth(`${API_BASE_URL}/recruit/my-posts?limit=30`) : [];
+
+        const empty = document.getElementById('recruitInfoEmpty');
+        const applicationsDiv = document.getElementById('recruitInfoApplications');
+        const postsDiv = document.getElementById('recruitInfoPosts');
+
+        applicationsDiv.innerHTML = '';
+        postsDiv.innerHTML = '';
+
+        if (applications.length === 0 && posts.length === 0) {
+          empty.style.display = 'block';
+        } else {
+          empty.style.display = 'none';
+
+          if (applications.length > 0) {
+            let appHtml = '<h6>我申请的招募：</h6><ul class="timeline">';
+            applications.forEach(app => {
+              const applyTime = app.applyTime ? new Date(app.applyTime).toLocaleString('zh-CN') : '时间未知';
+              const statusText = app.status === 'pending' ? '待审核' : (app.status === 'accepted' ? '已通过' : '已拒绝');
+              appHtml += `
+                <li class="timeline-item">
+                  <span class="timeline-time">${applyTime}</span>
+                  <div class="timeline-content">
+                    <span class="timeline-title">${app.recruitTitle}</span>
+                    <span class="timeline-desc">状态：${statusText}</span>
+                  </div>
+                </li>
+              `;
+            });
+            appHtml += '</ul>';
+            applicationsDiv.innerHTML = appHtml;
+          }
+
+          if (posts.length > 0) {
+            let postHtml = '<h6 class="mt-3">我发布的招募：</h6><ul class="timeline">';
+            posts.forEach(post => {
+              const createTime = post.createTime ? new Date(post.createTime).toLocaleString('zh-CN') : '时间未知';
+              const statusText = post.status === 0 ? '招募中' : '已结束';
+              postHtml += `
+                <li class="timeline-item">
+                  <span class="timeline-time">${createTime}</span>
+                  <div class="timeline-content">
+                    <span class="timeline-title">${post.title}</span>
+                    <span class="timeline-desc">状态：${statusText}，申请人数：${post.applicantCount}</span>
+                  </div>
+                </li>
+              `;
+            });
+            postHtml += '</ul>';
+            postsDiv.innerHTML = postHtml;
+          }
+        }
+      } catch (err) {
+        console.error('加载招募信息失败', err);
+        document.getElementById('recruitInfoEmpty').style.display = 'block';
+      }
+    }
+
+    async function init() {
+      const token = getToken();
+      if (!token) { alert('请先登录'); window.location.href = 'Index.html'; return; }
+      await loadUserInfo();
+      await loadRadarData();
+      await loadCollections('item', 'projectsGrid', 'projectsEmpty');
+      await loadCollections('site', 'sitesGrid', 'sitesEmpty');
+      await loadCollections('activity', 'activitiesGrid', 'activitiesEmpty');
+      await loadActivityInfo();
+      await loadRecruitInfo();
+    }
+
+    init();
+  })();
+</script>
+</body>
+</html>

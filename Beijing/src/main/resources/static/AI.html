@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京韵遗风 · 京小智AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        .ai-card {
+            background: rgba(255, 248, 235, 0.85);
+            backdrop-filter: blur(8px);
+            border: 2px solid #c9af8b;
+            border-radius: 2.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(40, 25, 10, 0.5);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .mode-tabs {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .mode-tab {
+            background: #ecdac0;
+            border: 2px solid #b99e7c;
+            border-radius: 60px;
+            padding: 0.8rem 2.2rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #4a2e1e;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .mode-tab i {
+            color: #a6552b;
+            font-size: 1.6rem;
+        }
+
+        .mode-tab.active {
+            background: #a97c53;
+            border-color: #6d4b2a;
+            color: #fff6e5;
+            box-shadow: 0 8px 16px #6d4b2a80;
+        }
+
+        .mode-tab.active i { color: #ffdba5; }
+
+        .chat-container { position: relative; }
+        .chat-history {
+            background: #faefe0;
+            border: 2px solid #dabd9b;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .chat-history:not(.active) { display: none; }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            max-width: 85%;
+        }
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        .message-avatar {
+            width: 60px;
+            height: 60px;
+            background: #b6844e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff2d7;
+            font-size: 2rem;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .message-avatar.avatar-ai {
+            background: none;
+            padding: 0;
+            overflow: hidden;
+        }
+        .message-avatar.avatar-ai img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+        .message-bubble {
+            background: #fffbf2;
+            border: 1px solid #c6a77c;
+            border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(100, 70, 30, 0.1);
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .message.user .message-bubble {
+            background: #e9d7c0;
+            border-color: #b6844e;
+        }
+        .message-time {
+            font-size: 0.8rem;
+            color: #8d765b;
+            margin-top: 0.3rem;
+            text-align: right;
+        }
+        .media-container {
+            max-width: 100%;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+        .media-container img,
+        .media-container video {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 0.5rem;
+            border: 1px solid #b6844e;
+        }
+        .export-btn {
+            background: transparent;
+            border: none;
+            color: #b6844e;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            font-size: 1rem;
+        }
+        .export-btn:hover { color: #a0522d; }
+        .message-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .input-area { margin-top: 1rem; }
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .input-row input {
+            flex: 1;
+            border: 2px solid #c6a77c;
+            border-radius: 60px;
+            padding: 0.8rem 1.5rem;
+            background: #fffcf2;
+            font-size: 1rem;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .voice-btn {
+            background: #b6844e;
+            border: none;
+            border-radius: 60px;
+            width: 46px;
+            height: 46px;
+            color: white;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .voice-btn:hover { background: #c79b65; }
+        .voice-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: inherit;
+            font-size: 0.9rem;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #b6844e; }
+        input:focus + .slider { box-shadow: 0 0 1px #b6844e; }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        .file-attach {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: #e9dac8;
+            border-radius: 60px;
+            padding: 0.3rem 1rem;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .file-attach label {
+            margin: 0;
+            cursor: pointer;
+            color: inherit;
+        }
+        .file-attach span {
+            font-size: 0.85rem;
+            color: inherit;
+        }
+
+        .btn-outline-jingyun {
+            background: transparent;
+            border: 2px solid #b6844e;
+            border-radius: 60px;
+            padding: 0.8rem 1rem;
+            color: inherit;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .btn-outline-jingyun:hover {
+            background: #b6844e;
+            color: #fff5e6;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .blink { animation: blink 1.5s infinite; }
+        .ai-disclaimer {
+            text-align: right;
+            color: inherit;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        body.theme-dark .ai-card,
+        body.theme-dark .chat-history,
+        body.theme-dark .message-bubble,
+        body.theme-dark .file-attach,
+        body.theme-dark .btn-outline-jingyun {
+            background: #2d2d2d !important;
+            border-color: #5a4a3a !important;
+            color: #e0e0e0 !important;
+        }
+        body.theme-dark .message.user .message-bubble {
+            background: #3d3d3d !important;
+        }
+        body.theme-dark .message-avatar {
+            background: #5a4a3a !important;
+        }
+        body.theme-dark .input-row input {
+            background: #3d3d3d !important;
+            border-color: #5a4a3a !important;
+            color: #e0e0e0 !important;
+        }
+
+        body.theme-soft .ai-card,
+        body.theme-soft .chat-history,
+        body.theme-soft .message-bubble,
+        body.theme-soft .file-attach,
+        body.theme-soft .btn-outline-jingyun {
+            background: #fff8e7 !important;
+            border-color: #d6bc9a !important;
+            color: #5f4b3a !important;
+        }
+        body.theme-soft .message.user .message-bubble {
+            background: #f5e6d3 !important;
+        }
+        body.theme-soft .message-avatar {
+            background: #c2a27e !important;
+        }
+        body.theme-soft .input-row input {
+            background: #fff8e7 !important;
+            border-color: #d6bc9a !important;
+            color: #5f4b3a !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container-jingyun">
+    <nav class="navbar-jingyun d-flex justify-content-between align-items-center">
+        <div class="navbar-brand"><i class="fas fa-landmark"></i> 京韵遗风·互动平台</div>
+        <div class="d-flex">
+            <a href="Index.html" class="nav-link-jingyun"><i class="fas fa-home"></i> 首页</a>
+            <a href="Digital.html" class="nav-link-jingyun"><i class="fas fa-building"></i> 数字展厅</a>
+            <a href="Map.html" class="nav-link-jingyun"><i class="fas fa-map-location-dot"></i> 非遗地图</a>
+            <a href="AI.html" class="nav-link-jingyun active"><i class="fas fa-robot"></i> 京小智</a>
+            <a href="Data.html" class="nav-link-jingyun"><i class="fas fa-chart-pie"></i> 数据看板</a>
+            <a href="Activity.html" class="nav-link-jingyun"><i class="fas fa-handshake"></i> 传承人平台</a>
+            <a href="Person.html" class="nav-link-jingyun"><i class="fas fa-user"></i> 我的护照</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>京·小·智·AI</h1>
+        <p>非遗问答 · 创意生成 · 传承之眼</p>
+    </div>
+
+    <div class="ai-card">
+        <div class="mode-tabs">
+            <div class="mode-tab" data-mode="text"><i class="fas fa-message"></i> 文生文</div>
+            <div class="mode-tab" data-mode="image"><i class="fas fa-image"></i> 文生图</div>
+            <div class="mode-tab" data-mode="video"><i class="fas fa-video"></i> 文生视频</div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-history" id="chatText"></div>
+            <div class="chat-history" id="chatImage"></div>
+            <div class="chat-history" id="chatVideo"></div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-row">
+                <input type="text" id="messageInput" placeholder="输入您的问题或描述...">
+                <button class="voice-btn" id="voiceInputBtn" title="语音输入"><i class="fas fa-microphone"></i></button>
+                <div class="file-attach" id="fileAttach" style="display: none;">
+                    <label for="fileUpload"><i class="fas fa-paperclip"></i> 上传参考</label>
+                    <input type="file" id="fileUpload" accept="" style="display: none;">
+                    <span id="fileName"></span>
+                </div>
+                <div class="voice-toggle-container">
+                    <span>🔊</span>
+                    <label class="switch">
+                        <input type="checkbox" id="voiceToggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <button class="btn-jingyun" id="sendBtn"><i class="fas fa-paper-plane"></i> 发送</button>
+                <button class="btn-outline-jingyun" id="clearBtn" title="清空对话"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            <div class="ai-disclaimer">内容由AI生成，仅供参考</div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-copyright"></i> 京韵遗风 · 数字博物馆  |  京小智 · 让非遗触手可及
+    </div>
+</div>
+
+<div class="theme-switcher">
+    <div class="theme-btn light active" data-theme="light" title="日间模式"></div>
+    <div class="theme-btn dark" data-theme="dark" title="夜间模式"></div>
+    <div class="theme-btn soft" data-theme="soft" title="护眼模式"></div>
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">图片预览</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">视频播放</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <video src="" id="modalVideo" controls style="width:100%; max-height:80vh;"></video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+    (function() {
+        const API_BASE_URL = 'http://localhost:8080/api';
+
+        const MODE_AVATAR = {
+            text: '/images/AI/AI1.png',
+            image: '/images/AI/AI2.png',
+            video: '/images/AI/AI3.png'
+        };
+
+        let recognition = null;
+        const synth = window.speechSynthesis;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'zh-CN';
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('messageInput').value = transcript;
+            };
+            recognition.onerror = function(event) {
+                console.error('语音识别错误:', event.error);
+                alert('语音识别失败：' + event.error);
+            };
+        } else {
+            console.warn('当前浏览器不支持语音识别');
+        }
+
+        function speakText(text) {
+            if (!synth) return;
+            const voiceToggle = document.getElementById('voiceToggle');
+            if (!voiceToggle || !voiceToggle.checked) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.onerror = (e) => console.error('语音合成失败', e);
+            synth.speak(utterance);
+        }
+
+        async function saveMessage(mode, role, type, content) {
+            const token = window.getToken();
+            if (!token) {
+                console.warn('未登录，无法保存消息');
+                return;
+            }
+            const message = { role, type, content, timestamp: new Date().toISOString() };
+            try {
+                await fetchWithAuth(`${API_BASE_URL}/ai/chat/save`, {
+                    method: 'POST',
+                    body: JSON.stringify({ mode, message })
+                });
+            } catch (err) {
+                console.error('保存消息失败', err);
+            }
+        }
+
+        async function clearChat(mode) {
+            try {
+                await fetchWithAuth(`${API_BASE_URL}/ai/chat/clear?mode=${mode}`, { method: 'DELETE' });
+                return true;
+            } catch (err) {
+                console.error('清空对话失败', err);
+                alert('清空失败：' + err.message);
+                return false;
+            }
+        }
+
+        function downloadFile(url, filename) {
+            fetch(url)
+                .then(resp => resp.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = filename;
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                })
+                .catch(() => alert('下载失败，请重试'));
+        }
+
+        // 检测视频有效性
+        function validateVideoElement(videoElement, videoUrl) {
+            videoElement.addEventListener('loadedmetadata', function() {
+                if (videoElement.duration === 0 || isNaN(videoElement.duration)) {
+                    console.warn('视频时长为0，可能生成失败', videoUrl);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'text-danger small mt-1';
+                    errorDiv.innerText = '⚠️ 生成的视频无效，请尝试重新生成';
+                    videoElement.parentNode.appendChild(errorDiv);
+                    videoElement.controls = false;
+                    videoElement.style.opacity = '0.5';
+                }
+            });
+            videoElement.addEventListener('error', function() {
+                console.error('视频加载失败', videoUrl);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'text-danger small mt-1';
+                errorDiv.innerText = '⚠️ 视频加载失败，请检查网络后重试';
+                videoElement.parentNode.appendChild(errorDiv);
+            });
+        }
+
+        function addMessageElement(chatId, messageData, isUser, isHistorical = false) {
+            const chat = document.getElementById(chatId);
+            if (!chat) return;
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+            const time = messageData.timestamp ? new Date(messageData.timestamp).toLocaleString() : new Date().toLocaleString();
+            const type = messageData.type || 'text';
+            const content = messageData.content || '';
+
+            let avatarHtml;
+            if (isUser) {
+                avatarHtml = `<div class="message-avatar"><i class="fas fa-user"></i></div>`;
+            } else {
+                let imgSrc = MODE_AVATAR.text;
+                if (chatId === 'chatText') imgSrc = MODE_AVATAR.text;
+                else if (chatId === 'chatImage') imgSrc = MODE_AVATAR.image;
+                else if (chatId === 'chatVideo') imgSrc = MODE_AVATAR.video;
+                avatarHtml = `<div class="message-avatar avatar-ai"><img src="${imgSrc}" alt="AI形象"></div>`;
+            }
+
+            let bubbleContent = '';
+            if (type === 'text') {
+                bubbleContent = `<div class="message-bubble">${escapeHtml(content)}</div>`;
+            } else if (type === 'image') {
+                if (isHistorical) {
+                    bubbleContent = `<div class="message-bubble"><a href="${content}" target="_blank">🔗 查看图片</a></div>`;
+                } else {
+                    bubbleContent = `<div class="message-bubble">
+                        <div class="media-container" onclick="showImageModal('${content}')">
+                            <img src="${content}" alt="生成图片" style="max-width:100%; max-height:200px; border-radius:0.5rem; border:1px solid #b6844e;"
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/200x150?text=图片加载失败';">
+                        </div>
+                    </div>`;
+                }
+            } else if (type === 'video') {
+                if (isHistorical) {
+                    bubbleContent = `<div class="message-bubble"><a href="${content}" target="_blank">🔗 查看视频</a></div>`;
+                } else {
+                    bubbleContent = `<div class="message-bubble">
+                        <div class="media-container" onclick="showVideoModal('${content}')">
+                            <video src="${content}" controls style="max-width:100%; max-height:200px; border-radius:0.5rem;"
+                                   onerror="this.onerror=null; this.outerHTML='<div style=\'color:red\'>视频加载失败</div>';">
+                            </video>
+                        </div>
+                    </div>`;
+                    // 为新生成的视频元素绑定有效性检测
+                    setTimeout(() => {
+                        const videoElem = msgDiv.querySelector('video');
+                        if (videoElem) validateVideoElement(videoElem, content);
+                    }, 100);
+                }
+            } else {
+                bubbleContent = `<div class="message-bubble">${escapeHtml(content)}</div>`;
+            }
+
+            let exportButton = '';
+            if (!isUser && !isHistorical && (type === 'image' || type === 'video')) {
+                const filename = type === 'image' ? '京小智图片.jpg' : '京小智视频.mp4';
+                exportButton = `<div class="message-footer"><button class="export-btn" onclick="downloadFile('${content}', '${filename}')"><i class="fas fa-download"></i> 导出</button></div>`;
+            }
+
+            msgDiv.innerHTML = `
+                ${avatarHtml}
+                <div>
+                    ${bubbleContent}
+                    ${exportButton}
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+            chat.appendChild(msgDiv);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function getWelcomeMessage(mode) {
+            if (mode === 'text') return '您好，我是京小智（文生文模式）！有什么非遗问题问我吗？';
+            if (mode === 'image') return '您好，我是京小智（文生图模式）！有什么非遗相关的图片想让我生成嘛？';
+            if (mode === 'video') return '您好，我是京小智（文生视频模式）！有什么非遗相关的视频想让我生成嘛？';
+            return '您好，我是京小智！有什么可以帮助您的吗？';
+        }
+
+        function showDefaultWelcome(chatId, mode) {
+            const chat = document.getElementById(chatId);
+            if (!chat) return;
+            chat.innerHTML = '';
+            const welcomeMsg = { role: 'assistant', type: 'text', content: getWelcomeMessage(mode), timestamp: new Date() };
+            addMessageElement(chatId, welcomeMsg, false, false);
+        }
+
+        async function loadHistory(mode, chatId) {
+            const token = window.getToken();
+            if (!token) {
+                showDefaultWelcome(chatId, mode);
+                return;
+            }
+            try {
+                const history = await fetchWithAuth(`${API_BASE_URL}/ai/chat/history?mode=${mode}`);
+                const chat = document.getElementById(chatId);
+                if (!chat) return;
+                chat.innerHTML = '';
+
+                if (!history || history.length === 0) {
+                    const welcomeMsg = { role: 'assistant', type: 'text', content: getWelcomeMessage(mode), timestamp: new Date() };
+                    addMessageElement(chatId, welcomeMsg, false, false);
+                    await saveMessage(mode, 'assistant', 'text', getWelcomeMessage(mode));
+                } else {
+                    const reversed = [...history].reverse();
+                    reversed.forEach(msg => {
+                        addMessageElement(chatId, msg, msg.role === 'user', true);
+                    });
+                }
+            } catch (err) {
+                console.error('加载历史失败，将显示默认欢迎语', err);
+                const chat = document.getElementById(chatId);
+                if (chat && chat.children.length === 0) {
+                    showDefaultWelcome(chatId, mode);
+                }
+            }
+        }
+
+        let currentMode = 'text';
+        let currentFile = null;
+        const modeTabs = document.querySelectorAll('.mode-tab');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const voiceInputBtn = document.getElementById('voiceInputBtn');
+        const fileAttach = document.getElementById('fileAttach');
+        const fileUpload = document.getElementById('fileUpload');
+        const fileNameSpan = document.getElementById('fileName');
+
+        if (voiceInputBtn) {
+            voiceInputBtn.addEventListener('click', function() {
+                if (recognition) {
+                    try { recognition.start(); } catch (e) { console.error('启动语音识别失败:', e); }
+                } else {
+                    alert('您的浏览器不支持语音识别，请使用 Chrome 或 Edge 等现代浏览器。');
+                }
+            });
+        }
+
+        async function updateModeUI(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.chat-history').forEach(el => el.classList.remove('active'));
+            let chatId;
+            if (mode === 'text') {
+                chatId = 'chatText';
+                fileAttach.style.display = 'none';
+                fileUpload.value = '';
+                currentFile = null;
+                fileNameSpan.innerText = '';
+                messageInput.placeholder = '输入您的问题...';
+            } else if (mode === 'image') {
+                chatId = 'chatImage';
+                fileAttach.style.display = 'flex';
+                fileUpload.accept = 'image/*';
+                messageInput.placeholder = '描述您想要的图片...';
+            } else {
+                chatId = 'chatVideo';
+                fileAttach.style.display = 'flex';
+                fileUpload.accept = 'video/*';
+                messageInput.placeholder = '描述您想要的视频...';
+            }
+            document.getElementById(chatId).classList.add('active');
+            await loadHistory(mode, chatId);
+        }
+
+        function initModeFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const modeParam = urlParams.get('mode');
+            if (modeParam && ['text', 'image', 'video'].includes(modeParam)) {
+                const targetTab = document.querySelector(`.mode-tab[data-mode="${modeParam}"]`);
+                if (targetTab) {
+                    modeTabs.forEach(t => t.classList.remove('active'));
+                    targetTab.classList.add('active');
+                    updateModeUI(modeParam);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        modeTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                modeTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const mode = this.dataset.mode;
+                updateModeUI(mode);
+            });
+        });
+
+        fileUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                currentFile = file;
+                fileNameSpan.innerText = file.name;
+            } else {
+                currentFile = null;
+                fileNameSpan.innerText = '';
+            }
+        });
+
+        clearBtn.addEventListener('click', async function() {
+            const token = window.getToken();
+            if (!token) {
+                alert('请先登录');
+                window.location.href = 'Index.html';
+                return;
+            }
+            if (!confirm('确定要清空当前模式的全部对话记录吗？')) return;
+            const success = await clearChat(currentMode);
+            if (success) {
+                const chatId = currentMode === 'text' ? 'chatText' : (currentMode === 'image' ? 'chatImage' : 'chatVideo');
+                document.getElementById(chatId).innerHTML = '';
+                const welcomeMsg = { role: 'assistant', type: 'text', content: getWelcomeMessage(currentMode), timestamp: new Date() };
+                addMessageElement(chatId, welcomeMsg, false, false);
+                await saveMessage(currentMode, 'assistant', 'text', getWelcomeMessage(currentMode));
+            }
+        });
+
+        sendBtn.addEventListener('click', async function() {
+            const content = messageInput.value.trim();
+            if (!content) { alert('请输入内容'); return; }
+
+            const token = window.getToken();
+            if (!token) {
+                alert('请先登录');
+                window.location.href = 'Index.html';
+                return;
+            }
+
+            const chatId = currentMode === 'text' ? 'chatText' : (currentMode === 'image' ? 'chatImage' : 'chatVideo');
+
+            const userMsg = { role: 'user', type: 'text', content, timestamp: new Date() };
+            addMessageElement(chatId, userMsg, true, false);
+            await saveMessage(currentMode, 'user', 'text', content);
+
+            const placeholderId = 'placeholder-' + Date.now();
+            const placeholderDiv = document.createElement('div');
+            placeholderDiv.className = 'message assistant';
+            placeholderDiv.id = placeholderId;
+            const avatarSrc = MODE_AVATAR[currentMode];
+            placeholderDiv.innerHTML = `
+                <div class="message-avatar avatar-ai"><img src="${avatarSrc}" alt="AI形象"></div>
+                <div>
+                    <div class="message-bubble blink">正在生成中...</div>
+                </div>
+            `;
+            document.getElementById(chatId).appendChild(placeholderDiv);
+            document.getElementById(chatId).scrollTop = document.getElementById(chatId).scrollHeight;
+
+            let url, body;
+            if (currentMode === 'text') {
+                url = `${API_BASE_URL}/ai/text`;
+                body = JSON.stringify({ prompt: content });
+            } else if (currentMode === 'image') {
+                url = `${API_BASE_URL}/ai/image`;
+                body = JSON.stringify({ prompt: content, refImage: null });
+            } else {
+                url = `${API_BASE_URL}/ai/video`;
+                body = JSON.stringify({ prompt: content, refVideo: null });
+            }
+
+            messageInput.value = '';
+
+            try {
+                const data = await fetchWithAuth(url, { method: 'POST', body });
+                document.getElementById(placeholderId)?.remove();
+
+                let assistantMsg;
+                if (currentMode === 'text') {
+                    assistantMsg = { role: 'assistant', type: 'text', content: data, timestamp: new Date() };
+                } else if (currentMode === 'image') {
+                    assistantMsg = { role: 'assistant', type: 'image', content: data, timestamp: new Date() };
+                } else {
+                    assistantMsg = { role: 'assistant', type: 'video', content: data, timestamp: new Date() };
+                }
+
+                addMessageElement(chatId, assistantMsg, false, false);
+                await saveMessage(currentMode, 'assistant', assistantMsg.type, assistantMsg.content);
+
+                if (currentMode === 'text') speakText(data);
+                else if (currentMode === 'image') speakText('图片已生成，请查看。');
+                else if (currentMode === 'video') speakText('视频已生成，请查看。');
+            } catch (err) {
+                document.getElementById(placeholderId)?.remove();
+                const errorMsg = { role: 'assistant', type: 'text', content: `生成失败：${err.message}`, timestamp: new Date() };
+                addMessageElement(chatId, errorMsg, false, false);
+                await saveMessage(currentMode, 'assistant', 'text', errorMsg.content);
+                speakText('生成失败，请重试。');
+            }
+        });
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendBtn.click();
+        });
+
+        window.showImageModal = function(url) {
+            document.getElementById('modalImage').src = url;
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        };
+
+        window.showVideoModal = function(url) {
+            const modalVideo = document.getElementById('modalVideo');
+            modalVideo.src = url;
+            modalVideo.load();
+            // 对模态框中的视频也进行有效性检测
+            validateVideoElement(modalVideo, url);
+            const modal = new bootstrap.Modal(document.getElementById('videoModal'));
+            modal.show();
+            document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+                modalVideo.pause();
+                modalVideo.src = '';
+            }, { once: true });
+        };
+
+        window.downloadFile = downloadFile;
+
+        (async function init() {
+            const token = window.getToken();
+            if (!token) {
+                const chatId = 'chatText';
+                document.getElementById(chatId).classList.add('active');
+                showDefaultWelcome(chatId, 'text');
+                modeTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const mode = this.dataset.mode;
+                        const newChatId = mode === 'text' ? 'chatText' : (mode === 'image' ? 'chatImage' : 'chatVideo');
+                        document.querySelectorAll('.chat-history').forEach(el => el.classList.remove('active'));
+                        document.getElementById(newChatId).classList.add('active');
+                        if (document.getElementById(newChatId).children.length === 0) {
+                            showDefaultWelcome(newChatId, mode);
+                        }
+                    });
+                });
+                return;
+            }
+            if (!initModeFromUrl()) {
+                await updateModeUI('text');
+            }
+        })();
+    })();
+</script>
+</body>
+</html>

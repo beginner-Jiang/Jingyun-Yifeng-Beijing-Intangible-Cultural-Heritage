@@ -1,0 +1,63 @@
+DEL forum:messages
+LPUSH forum:messages '{"userName":"钟连盛","userId":10,"content":"欢迎大家来景泰蓝博物馆参观，我们提供讲解服务。","createdAt":"2026-04-08T10:00:00"}'
+LPUSH forum:messages '{"userName":"李金斗","userId":11,"content":"相声艺术需要传承，我们会继续努力培养新人。","createdAt":"2026-04-07T15:30:00"}'
+LPUSH forum:messages '{"userName":"殷秀云","userId":12,"content":"雕漆技艺是非遗瑰宝，希望有更多人关注。","createdAt":"2026-04-06T09:20:00"}'
+LPUSH forum:messages '{"userName":"张三","userId":1,"content":"景泰蓝太美了，希望能有更多体验活动！尤其是点蓝环节非常有趣。","createdAt":"2026-04-05T14:10:00"}'
+LPUSH forum:messages '{"userName":"李四","userId":2,"content":"上周去老舍茶馆听了相声，李金斗老师的《武松打虎》太精彩了！推荐大家去。","createdAt":"2026-04-04T20:00:00"}'
+LPUSH forum:messages '{"userName":"郎志丽","userId":13,"content":"面人郎的作品不仅在中国有名，还去过国外展览，传播中华文化。","createdAt":"2026-04-03T11:15:00"}'
+LPUSH forum:messages '{"userName":"杨玉栋","userId":14,"content":"京剧脸谱的颜色都有寓意，红脸代表忠勇，白脸代表奸诈，很有意思。","createdAt":"2026-04-02T16:45:00"}'
+LPUSH forum:messages '{"userName":"王五","userId":3,"content":"雕漆工艺令人惊叹，殷秀云老师的作品《洛神赋》细节太美了，希望有机会学习。","createdAt":"2026-04-01T13:30:00"}'
+LPUSH forum:messages '{"userName":"赵六","userId":4,"content":"面人郎的作品好可爱，兔儿爷和红楼梦人物都栩栩如生，想学！","createdAt":"2026-03-31T10:00:00"}'
+LPUSH forum:messages '{"userName":"孙七","userId":5,"content":"非遗地图很好用，我找到了附近的北京二锅头酒展示中心，了解了酿造工艺。","createdAt":"2026-03-30T18:20:00"}'
+LPUSH forum:messages '{"userName":"张三","userId":1,"content":"京剧脸谱绘制活动什么时候再办？上次没抢到名额，好遗憾。","createdAt":"2026-03-29T09:45:00"}'
+LPUSH forum:messages '{"userName":"张三","userId":1,"content":"同仁堂的中医药文化博大精深，看了展示后对中药炮制有了更深认识。","createdAt":"2026-03-28T12:10:00"}'
+LPUSH forum:messages '{"userName":"王五","userId":3,"content":"京西太平鼓的表演很震撼，鼓点节奏感强，希望这种传统舞蹈能传承下去。","createdAt":"2026-03-27T15:30:00"}'
+LPUSH forum:messages '{"userName":"赵六","userId":4,"content":"天桥中幡太惊险了，演员用头顶几丈高的幡杆，佩服！","createdAt":"2026-03-26T11:00:00"}'
+LPUSH forum:messages '{"userName":"孙七","userId":5,"content":"厂甸庙会每年必去，糖葫芦、空竹、剪纸，年味十足。","createdAt":"2026-03-25T14:15:00"}'
+LPUSH forum:messages '{"userName":"钟连盛","userId":10,"content":"景泰蓝制作中的掐丝工艺需要极大耐心，欢迎来博物馆体验。","createdAt":"2026-03-24T09:30:00"}'
+LPUSH forum:messages '{"userName":"李金斗","userId":11,"content":"相声是北京的文化符号，希望更多年轻人喜欢。","createdAt":"2026-03-23T20:00:00"}'
+LPUSH forum:messages '{"userName":"殷秀云","userId":12,"content":"雕漆的髹漆工序要反复涂刷几十层，才能进行雕刻，非常考验功力。","createdAt":"2026-03-22T16:00:00"}'
+LPUSH forum:messages '{"userName":"张三","userId":1,"content":"北京宫毯织造技艺的图案设计非常精美，融合了皇家元素。","createdAt":"2026-03-21T10:30:00"}'
+LPUSH forum:messages '{"userName":"李四","userId":2,"content":"皮影戏表演很精彩，幕后的操纵者需要多年练习。","createdAt":"2026-03-20T19:45:00"}'
+LPUSH forum:messages '{"userName":"王五","userId":3,"content":"花丝镶嵌工艺精细，用金银丝编织出各种图案，令人叹为观止。","createdAt":"2026-03-19T13:20:00"}'
+LPUSH forum:messages '{"userName":"赵六","userId":4,"content":"北京玉雕厂的玉雕作品温润细腻，螭龙璧的纹样很有古韵。","createdAt":"2026-03-18T11:10:00"}'
+LPUSH forum:messages '{"userName":"孙七","userId":5,"content":"北京风筝工坊的沙燕风筝很漂亮，放飞时寓意吉祥。","createdAt":"2026-03-17T15:40:00"}'
+LPUSH forum:messages '{"userName":"张三","userId":1,"content":"鬃人艺术是北京独有的，用鬃毛做底座，敲击铜盘时鬃人会转动，像演戏一样。","createdAt":"2026-03-16T09:00:00"}'
+LPUSH forum:messages '{"userName":"李四","userId":2,"content":"毛猴是用蝉蜕和辛夷做的，太有创意了，生动再现了老北京的生活场景。","createdAt":"2026-03-15T14:25:00"}'
+LPUSH forum:messages '{"userName":"王五","userId":3,"content":"北京传统音乐厅的古琴演奏会让人心静，希望多举办这样的演出。","createdAt":"2026-03-14T20:10:00"}'
+LPUSH forum:messages '{"userName":"赵六","userId":4,"content":"北京曲艺团的鼓曲表演韵味十足，京韵大鼓很好听。","createdAt":"2026-03-13T18:30:00"}'
+LPUSH forum:messages '{"userName":"孙七","userId":5,"content":"中医药博物馆的标本很全，学到了很多养生知识。","createdAt":"2026-03-12T10:50:00"}'
+LTRIM forum:messages 0 29
+DEL ai:chat:1:text
+LPUSH ai:chat:1:text '{"role":"user","type":"text","content":"北京有哪些著名的非遗项目？","timestamp":"2026-04-08T09:00:00"}'
+LPUSH ai:chat:1:text '{"role":"assistant","type":"text","content":"北京的非遗项目非常丰富，包括京剧、景泰蓝制作技艺、相声、雕漆技艺、北京面人郎等。","timestamp":"2026-04-08T09:00:05"}'
+LPUSH ai:chat:1:text '{"role":"user","type":"text","content":"景泰蓝是怎么制作的？","timestamp":"2026-04-08T09:01:00"}'
+LPUSH ai:chat:1:text '{"role":"assistant","type":"text","content":"景泰蓝制作工序包括制胎、掐丝、点蓝、烧蓝、磨光、镀金等，其中掐丝和点蓝最为关键。","timestamp":"2026-04-08T09:01:10"}'
+DEL ai:chat:2:image
+LPUSH ai:chat:2:image '{"role":"user","type":"text","content":"生成一张京剧脸谱图片","timestamp":"2026-04-07T14:00:00"}'
+LPUSH ai:chat:2:image '{"role":"assistant","type":"image","content":"https://example.com/生成的京剧脸谱.jpg","timestamp":"2026-04-07T14:00:15"}'
+DEL ai:chat:3:video
+LPUSH ai:chat:3:video '{"role":"user","type":"text","content":"生成一段雕漆技艺介绍视频","timestamp":"2026-04-06T11:30:00"}'
+LPUSH ai:chat:3:video '{"role":"assistant","type":"video","content":"https://example.com/雕漆技艺视频.mp4","timestamp":"2026-04-06T11:31:00"}'
+DEL ai:chat:10:text
+LPUSH ai:chat:10:text '{"role":"user","type":"text","content":"景泰蓝的历史有多久？","timestamp":"2026-04-05T16:20:00"}'
+LPUSH ai:chat:10:text '{"role":"assistant","type":"text","content":"景泰蓝起源于元代，盛行于明代景泰年间，已有近800年历史。","timestamp":"2026-04-05T16:20:10"}'
+DEL ai:chat:11:text
+LPUSH ai:chat:11:text '{"role":"user","type":"text","content":"相声的四大基本功是什么？","timestamp":"2026-04-04T19:00:00"}'
+LPUSH ai:chat:11:text '{"role":"assistant","type":"text","content":"相声的四大基本功是说、学、逗、唱。","timestamp":"2026-04-04T19:00:08"}'
+DEL footprint:1
+LPUSH footprint:1 'item:1:view:1744089600000'
+LPUSH footprint:1 'item:2:view:1744003200000'
+LPUSH footprint:1 'site:2:view:1743916800000'
+LPUSH footprint:1 'activity:2:signup:1743830400000'
+DEL footprint:2
+LPUSH footprint:2 'item:3:view:1743744000000'
+LPUSH footprint:2 'activity:2:signup:1743657600000'
+EXPIRE forum:messages 2592000
+EXPIRE ai:chat:1:text 2592000
+EXPIRE ai:chat:2:image 2592000
+EXPIRE ai:chat:3:video 2592000
+EXPIRE ai:chat:10:text 2592000
+EXPIRE ai:chat:11:text 2592000
+EXPIRE footprint:1 2592000
+EXPIRE footprint:2 2592000

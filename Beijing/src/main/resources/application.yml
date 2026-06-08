@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  max-http-request-header-size: 32KB
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/beijing?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 5000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+jwt:
+  secret: jingyun-secret-key-2026-which-is-long-enough-for-256-bits
+  expiration: 86400000
+
+aliyun:
+  dashscope:
+    api-key: sk-0eb097ea07974d1190bb8a8d11d61bb4
+
+upload:
+  path: ./uploads/avatars/
+  image-path: ./uploads/images/
+  video-path: ./uploads/videos/

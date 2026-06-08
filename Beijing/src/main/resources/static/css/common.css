@@ -1,0 +1,389 @@
+/* 公共样式 - 适用于京韵遗风所有页面 */
+
+/* 基础过渡 */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 主容器 */
+.container-jingyun {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* 导航栏 */
+.navbar-jingyun {
+    background: rgba(235, 220, 200, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 60px;
+    padding: 0.6rem 1.8rem;
+    margin-bottom: 2rem;
+    border: 1px solid #c9af8b;
+    box-shadow: 0 6px 14px rgba(60, 40, 20, 0.25);
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #4a2e1e;
+    font-family: 'STKaiti', serif;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.navbar-brand i {
+    color: #a6552b;
+    margin-right: 8px;
+}
+
+.nav-link-jingyun {
+    color: #4f3a26;
+    font-weight: 500;
+    border-radius: 40px;
+    padding: 0.5rem 1.2rem;
+    margin: 0 0.2rem;
+    transition: 0.2s, color 0.3s, background 0.3s;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-link-jingyun i {
+    font-weight: 900;
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Free", sans-serif;
+    margin-right: 6px;
+}
+
+.nav-link-jingyun:hover,
+.nav-link-jingyun.active {
+    background: #b6844e;
+    color: #fff5e6;
+}
+
+/* 页面标题 */
+.page-header {
+    text-align: center;
+    margin: 1rem 0 2rem;
+}
+
+.page-header h1 {
+    font-size: 3.2rem;
+    font-weight: 600;
+    color: #f7efd6;
+    text-shadow: 4px 4px 0 #4a2e1e, 6px 6px 0 rgba(0,0,0,0.2);
+    font-family: 'STKaiti', serif;
+    letter-spacing: 8px;
+}
+
+.page-header p {
+    font-size: 1.3rem;
+    color: #ecdbba;
+    background: rgba(70, 50, 30, 0.5);
+    display: inline-block;
+    padding: 0.3rem 2rem;
+    border-radius: 40px;
+    backdrop-filter: blur(4px);
+    border: 1px solid #cfa668;
+}
+
+/* 按钮 */
+.btn-jingyun {
+    background: #b6844e;
+    border: none;
+    border-radius: 40px;
+    padding: 0.4rem 1rem;
+    color: #fff5e6;
+    font-weight: 600;
+    transition: 0.2s, background 0.3s, border-bottom-color 0.3s;
+    border-bottom: 3px solid #7b5937;
+    white-space: nowrap;
+}
+
+.btn-jingyun:hover {
+    background: #c79b65;
+    border-bottom-width: 2px;
+    transform: translateY(2px);
+}
+
+.btn-jingyun-outline {
+    background: transparent;
+    border: 2px solid #b6844e;
+    color: #4f351f;
+    white-space: nowrap;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn-jingyun-outline:hover {
+    background: #b6844e;
+    color: #fff5e6;
+}
+
+/* 页脚 */
+.footer-note {
+    text-align: center;
+    color: #dacbb6;
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 1px dashed #bba27b;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+/* 主题切换器 */
+.theme-switcher {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    border-radius: 40px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.theme-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.theme-btn.light {
+    background: #f7f3e8;
+    border-color: #b6844e;
+}
+
+.theme-btn.dark {
+    background: #2d2d2d;
+    border-color: #888;
+}
+
+.theme-btn.soft {
+    background: #fef9e7;
+    border-color: #b6844e;
+}
+
+.theme-btn.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 2px #b6844e;
+}
+
+/* 主题样式 */
+body.theme-light {
+    background: url('https://www.transparenttextures.com/contents/chinese-paper/chinese-paper-1.png'), linear-gradient(145deg, #3e2c1a 0%, #6b4f32 100%);
+    background-blend-mode: overlay;
+    color: #2e1e12;
+}
+body.theme-light::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(245, 235, 220, 0.15);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.theme-dark {
+    background: #1e1e1e;
+    background-blend-mode: normal;
+    color: #e0e0e0;
+}
+body.theme-dark::before {
+    display: none;
+}
+body.theme-dark .navbar-jingyun,
+body.theme-dark .btn-jingyun-outline,
+body.theme-dark .footer-note {
+    background: #2d2d2d !important;
+    border-color: #5a4a3a !important;
+    color: #e0e0e0 !important;
+}
+body.theme-dark .navbar-brand,
+body.theme-dark .nav-link-jingyun,
+body.theme-dark .footer-note {
+    color: #e0e0e0 !important;
+}
+body.theme-dark .btn-jingyun {
+    background: #5a4a3a !important;
+    border-bottom-color: #3a2e1e !important;
+}
+body.theme-dark .btn-jingyun:hover {
+    background: #7a5a3a !important;
+}
+body.theme-dark .btn-jingyun-outline {
+    color: #e0e0e0 !important;
+}
+body.theme-dark .btn-jingyun-outline:hover {
+    background: #5a4a3a !important;
+}
+body.theme-dark .footer-note {
+    border-top-color: #5a4a3a !important;
+}
+
+body.theme-soft {
+    background: #fef9e7;
+    background-blend-mode: normal;
+    color: #5f4b3a;
+}
+body.theme-soft::before {
+    display: none;
+}
+body.theme-soft .navbar-jingyun,
+body.theme-soft .btn-jingyun-outline,
+body.theme-soft .footer-note {
+    background: #fff8e7 !important;
+    border-color: #d6bc9a !important;
+    color: #5f4b3a !important;
+}
+body.theme-soft .navbar-brand,
+body.theme-soft .nav-link-jingyun,
+body.theme-soft .footer-note {
+    color: #5f4b3a !important;
+}
+body.theme-soft .btn-jingyun {
+    background: #c2a27e !important;
+    border-bottom-color: #a27a5a !important;
+}
+body.theme-soft .btn-jingyun:hover {
+    background: #d2b28e !important;
+}
+body.theme-soft .btn-jingyun-outline {
+    color: #5f4b3a !important;
+}
+body.theme-soft .btn-jingyun-outline:hover {
+    background: #c2a27e !important;
+    color: #fff5e6 !important;
+}
+body.theme-soft .footer-note {
+    border-top-color: #d6bc9a !important;
+}
+
+/* ========== 系统介绍模态框样式 ========== */
+.system-intro-modal .modal-content {
+    background: #fff6e8;
+    border: 3px solid #ad8865;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+.system-intro-modal .modal-header {
+    border-bottom: 2px solid #c7a97e;
+    background: #fff6e8;
+    padding: 1.2rem 2rem;
+}
+.system-intro-modal .modal-title {
+    font-size: 2rem;
+    font-family: 'STKaiti', serif;
+    color: #3c291b;
+}
+.system-intro-modal .modal-body {
+    padding: 2rem;
+    color: #2e1e12;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+.system-intro-modal .modal-footer {
+    border-top: 1px solid #d6bc9a;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* 网页图标（Logo）图片 */
+.intro-logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.intro-logo img {
+    max-width: 260px !important;
+    width: 80% !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.intro-text {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* AI 助手分区 */
+/* 分区标题样式 */
+.system-intro-modal .modal-body h5 {
+    font-size: 1.8rem !important;
+    margin: 1.5rem 0 1rem 0 !important;
+    text-align: center !important;
+    font-family: 'STKaiti', serif !important;
+    color: #3c291b !important;
+}
+
+/* AI 形象展示区 */
+.intro-ai-showcase {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    margin: 2rem auto !important;
+    padding: 1.5rem !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    background: rgba(250, 239, 224, 0.5) !important;
+    border-radius: 2rem !important;
+}
+
+/* AI 卡片 */
+.intro-ai-card {
+    flex: 1 !important;
+    min-width: 200px !important;
+    max-width: 260px !important;
+    background: #faefe0 !important;
+    border-radius: 1.5rem !important;
+    padding: 1.5rem 1rem !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+    border: 1px solid #d6bc9a !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05) !important;
+}
+.intro-ai-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 24px rgba(100,60,20,0.2) !important;
+    border-color: #b6844e !important;
+}
+.intro-ai-card img {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 3px solid #b6844e !important;
+    margin-bottom: 0.8rem !important;
+}
+.intro-ai-card .intro-ai-name {
+    font-weight: 700 !important;
+    color: #4a2e1e !important;
+    margin-bottom: 0.3rem !important;
+    font-size: 1.2rem !important;
+}
+.intro-ai-card .intro-ai-desc {
+    font-size: 0.85rem !important;
+    color: #6b4f33 !important;
+}
+
+/* 设计理念区域 */
+.intro-feature {
+    background: #f7ede1;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    border-left: 5px solid #b6844e;
+    text-align: left;
+}
