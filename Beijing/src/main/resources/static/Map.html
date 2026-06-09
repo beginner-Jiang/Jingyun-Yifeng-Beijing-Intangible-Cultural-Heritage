@@ -51,7 +51,6 @@
             margin-bottom: 1.5rem;
             align-items: center;
         }
-
         .search-box input {
             flex: 1;
             border: 1px solid #c6a77c;
@@ -60,7 +59,6 @@
             background: #fffcf2;
             transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
-
         .search-box button {
             background: transparent;
             border: none;
@@ -69,18 +67,9 @@
             width: auto;
             height: auto;
             padding: 0.5rem 0.3rem;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s;
             cursor: pointer;
         }
-
-        .search-box button:hover {
-            background: transparent;
-            color: #9b6739;
-        }
+        .search-box button:hover { color: #9b6739; }
 
         .filter-tags {
             display: flex;
@@ -88,7 +77,6 @@
             gap: 0.4rem;
             margin-bottom: 1.5rem;
         }
-
         .filter-tag {
             background: #e9dac8;
             border: 1px solid #b2916d;
@@ -97,9 +85,8 @@
             font-size: 0.9rem;
             color: #4f351f;
             cursor: pointer;
-            transition: 0.2s, background 0.3s, border-color 0.3s, color 0.3s;
+            transition: 0.2s;
         }
-
         .filter-tag.active {
             background: #a97c53;
             color: #fff6e5;
@@ -111,7 +98,6 @@
             padding: 0;
             margin: 0;
         }
-
         .point-item {
             background: #faefe0;
             border: 1px solid #dabd9b;
@@ -119,18 +105,16 @@
             padding: 0.8rem 1rem;
             margin-bottom: 0.8rem;
             cursor: pointer;
-            transition: 0.2s, background 0.3s, border-color 0.3s;
+            transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 0.8rem;
         }
-
         .point-item:hover {
             background: #ecd7b8;
             border-color: #b6844e;
             transform: translateX(4px);
         }
-
         .point-icon {
             width: 36px;
             height: 36px;
@@ -142,19 +126,8 @@
             color: #fff2d7;
             flex-shrink: 0;
         }
-        .point-icon i {
-            width: 1.2rem;
-            height: 1.2rem;
-            line-height: 1.2rem;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .point-info {
-            flex: 1;
-            min-width: 0;
-        }
-
+        .point-icon i { font-size: 1.2rem; }
+        .point-info { flex: 1; min-width: 0; }
         .point-info h4 {
             font-size: 1.1rem;
             margin: 0 0 0.2rem;
@@ -163,7 +136,6 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
         .point-info p {
             margin: 0;
             font-size: 0.85rem;
@@ -183,24 +155,21 @@
             height: 70vh;
             position: relative;
         }
-
         #map {
             width: 100%;
             height: 100%;
         }
+        .anchorBL { display: none !important; }
 
-        .anchorBL {
-            display: none !important;
-        }
-
+        /* 自定义信息窗样式 */
         .custom-info-window {
             position: absolute;
             background: #fff6e8;
             border: none !important;
             border-radius: 1.2rem;
             padding: 0.8rem 1.2rem;
-            width: 280px;
-            max-height: 280px;
+            width: 300px;
+            max-height: 380px;
             overflow-y: auto;
             box-shadow: 0 8px 16px rgba(60, 40, 20, 0.4);
             color: #3e2c1c;
@@ -208,35 +177,24 @@
             cursor: move;
             user-select: none;
         }
-        .custom-info-window::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-info-window::-webkit-scrollbar-track {
-            background: #e9dac8;
-            border-radius: 4px;
-        }
-        .custom-info-window::-webkit-scrollbar-thumb {
-            background: #b6844e;
-            border-radius: 4px;
-        }
+        .custom-info-window::-webkit-scrollbar { width: 4px; }
+        .custom-info-window::-webkit-scrollbar-track { background: #e9dac8; border-radius: 4px; }
+        .custom-info-window::-webkit-scrollbar-thumb { background: #b6844e; border-radius: 4px; }
         .custom-info-window h5 {
             color: #4a2e1e;
             margin-bottom: 0.4rem;
             border-bottom: 1px dashed #b99e7c;
             padding-bottom: 0.2rem;
         }
-        .custom-info-window p {
-            margin: 0.3rem 0;
-            font-size: 0.9rem;
-        }
-        .custom-info-window .route-buttons {
+        .custom-info-window p { margin: 0.3rem 0; font-size: 0.9rem; }
+        .route-buttons {
             display: flex;
             gap: 0.5rem;
             margin-top: 0.5rem;
             flex-wrap: wrap;
             justify-content: space-between;
         }
-        .custom-info-window .route-buttons button {
+        .route-buttons button {
             background: #b6844e;
             border: none;
             border-radius: 40px;
@@ -247,10 +205,8 @@
             flex: 1;
             white-space: nowrap;
         }
-        .custom-info-window .route-buttons button:hover {
-            background: #c79b65;
-        }
-        .custom-info-window .close-custom-info {
+        .route-buttons button:hover { background: #c79b65; }
+        .close-custom-info {
             position: absolute;
             top: 5px;
             right: 10px;
@@ -258,9 +214,7 @@
             font-size: 1.2rem;
             color: #8d765b;
         }
-        .custom-info-window .close-custom-info:hover {
-            color: #a6552b;
-        }
+        .close-custom-info:hover { color: #a6552b; }
 
         .map-control-btn {
             position: absolute;
@@ -278,29 +232,22 @@
             align-items: center;
             gap: 0.3rem;
         }
-        .map-control-btn:hover {
-            background: #c79b65;
-        }
-        #locateBtn {
-            top: 10px;
-        }
+        .map-control-btn:hover { background: #c79b65; }
+        #locateBtn { top: 10px; }
+        #clearRouteBtn { bottom: 10px; }
 
         body.theme-dark .custom-info-window {
             background: #2d2d2d !important;
             color: #e0e0e0 !important;
         }
         body.theme-dark .custom-info-window h5,
-        body.theme-dark .custom-info-window p {
-            color: #e0e0e0 !important;
-        }
+        body.theme-dark .custom-info-window p { color: #e0e0e0 !important; }
         body.theme-soft .custom-info-window {
             background: #fff8e7 !important;
             color: #5f4b3a !important;
         }
         body.theme-soft .custom-info-window h5,
-        body.theme-soft .custom-info-window p {
-            color: #5f4b3a !important;
-        }
+        body.theme-soft .custom-info-window p { color: #5f4b3a !important; }
 
         .custom-modal-overlay {
             position: fixed;
@@ -317,12 +264,7 @@
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-
-        .custom-modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
+        .custom-modal-overlay.show { opacity: 1; visibility: visible; }
         .custom-modal {
             background: #fff6e8;
             border: 3px solid #ad8865;
@@ -333,9 +275,7 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            transition: background 0.3s, border-color 0.3s;
         }
-
         .custom-modal-header {
             padding: 1.5rem 2rem;
             border-bottom: 2px solid #c7a97e;
@@ -343,14 +283,11 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .custom-modal-title {
             font-size: 2rem;
             font-family: 'STKaiti', serif;
             color: #3c291b;
-            transition: color 0.3s;
         }
-
         .custom-modal-close {
             background: none;
             border: none;
@@ -358,20 +295,9 @@
             line-height: 1;
             cursor: pointer;
             color: #8d765b;
-            transition: color 0.2s;
         }
-
-        .custom-modal-close:hover {
-            color: #a6552b;
-        }
-
-        .custom-modal-body {
-            padding: 1.5rem;
-            overflow-y: auto;
-            color: #2e1e12;
-            transition: color 0.3s;
-        }
-
+        .custom-modal-close:hover { color: #a6552b; }
+        .custom-modal-body { padding: 1.5rem; overflow-y: auto; color: #2e1e12; }
         .custom-modal-footer {
             padding: 1rem 2rem;
             border-top: 1px solid #d6bc9a;
@@ -380,7 +306,6 @@
             justify-content: flex-end;
             gap: 0.5rem;
         }
-
         .btn-custom-close {
             background: #b6844e;
             border: none;
@@ -389,12 +314,8 @@
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
         }
-
-        .btn-custom-close:hover {
-            background: #c79b65;
-        }
+        .btn-custom-close:hover { background: #c79b65; }
 
         .weather-grid {
             display: grid;
@@ -402,7 +323,6 @@
             gap: 1.2rem;
             margin-top: 1rem;
         }
-
         .weather-card {
             background: #faefe0;
             border: 1px solid #d6bc9a;
@@ -410,65 +330,24 @@
             padding: 1rem;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s, background 0.3s, border-color 0.3s;
+            transition: transform 0.2s;
         }
+        .weather-card:hover { transform: translateY(-4px); border-color: #b6844e; }
+        .weather-card .date { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .weather-card .icon { font-size: 2.5rem; color: #b6844e; margin: 0.5rem 0; }
+        .weather-card .temp { font-size: 1rem; }
+        .weather-card .desc { font-size: 0.9rem; color: #6b4f33; margin-top: 0.3rem; }
 
-        .weather-card:hover {
-            transform: translateY(-4px);
-            border-color: #b6844e;
-        }
-
-        .weather-card .date {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: inherit;
-            margin-bottom: 0.5rem;
-        }
-        
-        .weather-card .icon {
-            font-size: 2.5rem;
-            color: #b6844e;
-            margin: 0.5rem 0;
-        }
-        
-        .weather-card .temp {
-            font-size: 1rem;
-            color: inherit;
-        }
-        
-        .weather-card .desc {
-            font-size: 0.9rem;
-            color: #6b4f33;
-            margin-top: 0.3rem;
-        }
-
-        .weather-detail-modal .custom-modal {
-            max-width: 1000px;
-        }
-        
-        .weather-main-info {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .weather-temp {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #b6844e;
-        }
-        
-        .weather-desc {
-            font-size: 1.2rem;
-            color: #4a2e1e;
-        }
-        
+        .weather-detail-modal .custom-modal { max-width: 1000px; }
+        .weather-main-info { text-align: center; margin-bottom: 1.5rem; }
+        .weather-temp { font-size: 3rem; font-weight: bold; color: #b6844e; }
+        .weather-desc { font-size: 1.2rem; color: #4a2e1e; }
         .weather-metrics {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-        
         .metric-card {
             background: #faefe0;
             border-radius: 1rem;
@@ -476,23 +355,9 @@
             text-align: center;
             border: 1px solid #d6bc9a;
         }
-        
-        .metric-icon {
-            font-size: 1.5rem;
-            color: #b6844e;
-            margin-bottom: 0.3rem;
-        }
-        
-        .metric-label {
-            font-size: 0.8rem;
-            color: #8d765b;
-        }
-        
-        .metric-value {
-            font-weight: bold;
-            color: #2e1e12;
-        }
-        
+        .metric-icon { font-size: 1.5rem; color: #b6844e; margin-bottom: 0.3rem; }
+        .metric-label { font-size: 0.8rem; color: #8d765b; }
+        .metric-value { font-weight: bold; color: #2e1e12; }
         .sun-times {
             display: flex;
             justify-content: space-around;
@@ -501,14 +366,12 @@
             padding: 0.8rem;
             margin-bottom: 1.5rem;
         }
-        
         .life-index {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0.8rem;
             margin-top: 1rem;
         }
-        
         .life-item {
             background: #fff2e2;
             border-radius: 1rem;
@@ -516,12 +379,7 @@
             text-align: center;
             font-size: 0.8rem;
         }
-        
-        .life-label {
-            font-weight: bold;
-            color: #b6844e;
-        }
-        
+        .life-label { font-weight: bold; color: #b6844e; }
         .air-quality {
             display: flex;
             justify-content: space-between;
@@ -531,27 +389,9 @@
             padding: 0.8rem;
             margin-top: 1rem;
         }
-        
-        .aqi-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .pollutants {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.8rem;
-        }
-        
-        .hourly-chart {
-            width: 100%;
-            height: 280px;
-            margin-top: 1rem;
-            background: #faefe0;
-            border-radius: 1rem;
-            padding: 0.5rem;
-            border: 1px solid #d6bc9a;
-        }
+        .aqi-value { font-size: 1.5rem; font-weight: bold; }
+        .pollutants { display: flex; gap: 1rem; font-size: 0.8rem; }
+        .hourly-chart { width: 100%; height: 280px; margin-top: 1rem; background: #faefe0; border-radius: 1rem; padding: 0.5rem; border: 1px solid #d6bc9a; }
 
         .route-options {
             display: flex;
@@ -560,21 +400,14 @@
             flex-wrap: wrap;
             align-items: center;
         }
-        
         .route-option-btn {
             background: #e9dac8;
             border: 1px solid #b6844e;
             border-radius: 40px;
             padding: 0.3rem 1rem;
             cursor: pointer;
-            transition: 0.2s;
         }
-        
-        .route-option-btn.active {
-            background: #b6844e;
-            color: white;
-        }
-        
+        .route-option-btn.active { background: #b6844e; color: white; }
         .route-switch-btn {
             background: #2ecc71;
             border: none;
@@ -583,7 +416,6 @@
             color: white;
             cursor: pointer;
         }
-        
         .route-export-btn {
             background: #3498db;
             border: none;
@@ -592,7 +424,6 @@
             color: white;
             cursor: pointer;
         }
-        
         .route-text {
             background: #faefe0;
             border-radius: 1rem;
@@ -631,16 +462,10 @@
         body.theme-dark .weather-desc {
             color: #e0e0e0 !important;
         }
-        
-        body.theme-dark .filter-tag.active {
-            background: #5a4a3a !important;
-        }
-        
+        body.theme-dark .filter-tag.active { background: #5a4a3a !important; }
         body.theme-dark .weather-card .icon,
-        body.theme-dark .metric-icon {
-            color: #c79b65;
-        }
-        
+        body.theme-dark .metric-icon { color: #c79b65; }
+
         body.theme-soft .map-sidebar,
         body.theme-soft .point-item,
         body.theme-soft .filter-tag,
@@ -657,7 +482,6 @@
             border-color: #d6bc9a !important;
             color: #5f4b3a !important;
         }
-        
         body.theme-soft .sidebar-title,
         body.theme-soft .point-info h4,
         body.theme-soft .point-info p,
@@ -669,15 +493,9 @@
         body.theme-soft .weather-desc {
             color: #5f4b3a !important;
         }
-        
-        body.theme-soft .filter-tag.active {
-            background: #d6bc9a !important;
-        }
-        
+        body.theme-soft .filter-tag.active { background: #d6bc9a !important; }
         body.theme-soft .weather-card .icon,
-        body.theme-soft .metric-icon {
-            color: #c2a27e;
-        }
+        body.theme-soft .metric-icon { color: #c2a27e; }
     </style>
 </head>
 <body>
@@ -721,6 +539,7 @@
         <div class="map-container">
             <div id="map"></div>
             <button class="map-control-btn" id="locateBtn"><i class="fas fa-location-arrow"></i> 定位到我</button>
+            <button class="map-control-btn" id="clearRouteBtn"><i class="fas fa-trash-alt"></i> 清除路线</button>
         </div>
     </div>
 
@@ -729,7 +548,7 @@
     </div>
 </div>
 
-<!-- 天气模态框（7天预报） -->
+<!-- 天气模态框 -->
 <div class="custom-modal-overlay" id="weatherModalOverlay">
     <div class="custom-modal">
         <div class="custom-modal-header">
@@ -757,7 +576,7 @@
     </div>
 </div>
 
-<!-- 路线图模态框 -->
+<!-- 路线模态框 -->
 <div class="custom-modal-overlay" id="routeMapModalOverlay">
     <div class="custom-modal">
         <div class="custom-modal-header">
@@ -791,7 +610,7 @@
         let currentLocation = null;
         let currentWeatherData = null;
         let hourlyChart = null;
-        let currentRouteLayer = null;      // 当前显示的路线图层对象
+        let currentRouteLayer = null;
         let currentCustomInfoWindow = null;
 
         // 自定义地图样式
@@ -827,7 +646,6 @@
             if (code >= 95 && code <= 99) return 'fa-bolt';
             return 'fa-cloud';
         }
-
         function getUvLevel(uv) { if (uv <= 2) return '弱'; if (uv <= 5) return '中等'; if (uv <= 7) return '强'; if (uv <= 10) return '很强'; return '极强'; }
         function getWindLevel(speed) { if (speed < 1) return '无风'; if (speed < 5) return '软风'; if (speed < 11) return '轻风'; if (speed < 19) return '微风'; if (speed < 28) return '和风'; if (speed < 38) return '清风'; if (speed < 49) return '强风'; return '大风'; }
         function getWindDirection(deg) { const dirs = ['北', '东北', '东', '东南', '南', '西南', '西', '西北']; return dirs[Math.round(deg / 45) % 8]; }
@@ -844,7 +662,6 @@
             let cold = (temp < 10) ? '较易' : '不易';
             return { dress, sunscreen, travel, sport, fishing, carWash, allergy, cold };
         }
-
         function processHourlyData(hourlyData) {
             if (!hourlyData.length) return [];
             const newData = [...hourlyData];
@@ -861,7 +678,6 @@
             });
             return newData;
         }
-
         function renderHourlyChart(hourlyData) {
             const chartDom = document.getElementById('hourlyChartContainer');
             if (!chartDom) return;
@@ -888,7 +704,6 @@
             });
             window.addEventListener('resize', () => hourlyChart && hourlyChart.resize());
         }
-
         function showWeatherDetail(dayData) {
             const title = document.getElementById('weatherDetailTitle');
             title.innerText = `${dayData.date} 天气详情`;
@@ -938,7 +753,6 @@
             document.getElementById('weatherDetailModalOverlay').classList.add('show');
             if (hourly.length) setTimeout(() => renderHourlyChart(hourly), 100);
         }
-
         function closeWeatherDetailModal() { document.getElementById('weatherDetailModalOverlay').classList.remove('show'); if (hourlyChart) hourlyChart.dispose(); }
         function closeWeatherModal() { document.getElementById('weatherModalOverlay').classList.remove('show'); }
         function closeRouteMapModal() { document.getElementById('routeMapModalOverlay').classList.remove('show'); }
@@ -973,7 +787,7 @@
                 .catch(err => { console.error(err); body.innerHTML = '<p class="text-center text-danger">天气加载失败</p>'; });
         }
 
-        // 清除路线函数
+        // 清除路线
         function clearCurrentRoute() {
             if (currentRouteLayer) {
                 try {
@@ -987,45 +801,64 @@
             }
         }
 
-        // 自定义信息窗
-        function showCustomInfoWindow(pointData, marker) {
+        // ========== 收藏相关 ==========
+        async function checkCollected(siteId) {
+            try {
+                const data = await fetchWithAuth(`${API_BASE_URL}/collection/check?targetType=site&targetId=${siteId}`);
+                return data.collected === true;
+            } catch (err) {
+                console.error('检查收藏状态失败', err);
+                return false;
+            }
+        }
+        async function addCollection(siteId) {
+            try {
+                await fetchWithAuth(`${API_BASE_URL}/collection/add`, {
+                    method: 'POST',
+                    body: JSON.stringify({ targetType: 'site', targetId: siteId })
+                });
+                return true;
+            } catch (err) {
+                alert('收藏失败：' + err.message);
+                return false;
+            }
+        }
+        async function removeCollection(siteId) {
+            try {
+                await fetchWithAuth(`${API_BASE_URL}/collection/remove?targetType=site&targetId=${siteId}`, { method: 'DELETE' });
+                return true;
+            } catch (err) {
+                alert('取消收藏失败：' + err.message);
+                return false;
+            }
+        }
+
+        // 自定义信息窗（带收藏按钮）
+        async function showCustomInfoWindow(pointData, marker) {
             if (currentCustomInfoWindow) {
                 currentCustomInfoWindow.remove();
                 currentCustomInfoWindow = null;
             }
             const point = marker.getPosition();
             const pixel = map.pointToPixel(point);
-            let left = pixel.x - 140;
-            let top = pixel.y - 100;
+            let left = pixel.x - 150;
+            let top = pixel.y - 110;
             const mapRect = document.getElementById('map').getBoundingClientRect();
-            left = Math.min(Math.max(left, 10), mapRect.width - 290);
-            top = Math.min(Math.max(top, 10), mapRect.height - 270);
+            left = Math.min(Math.max(left, 10), mapRect.width - 310);
+            top = Math.min(Math.max(top, 10), mapRect.height - 300);
             const div = document.createElement('div');
             div.className = 'custom-info-window';
             div.style.left = left + 'px';
             div.style.top = top + 'px';
 
-            // 判断是否为“我的位置”
-            const isCurrentLocation = (pointData.id === 'current');
-            let routeButtonsHtml = '';
-            if (!isCurrentLocation) {
-                // 非遗点位：显示驾车/公交/地铁/天气
-                routeButtonsHtml = `
-                    <div class="route-buttons">
-                        <button class="route-btn" data-mode="driving" data-id="${pointData.id}"><i class="fas fa-car"></i> 驾车</button>
-                        <button class="route-btn" data-mode="bus" data-id="${pointData.id}"><i class="fas fa-bus"></i> 公交</button>
-                        <button class="route-btn" data-mode="subway" data-id="${pointData.id}"><i class="fas fa-subway"></i> 地铁</button>
-                        <button class="weather-btn" data-id="${pointData.id}"><i class="fas fa-cloud-sun"></i> 天气</button>
-                    </div>
-                `;
-            } else {
-                // 我的位置：只显示天气按钮
-                routeButtonsHtml = `
-                    <div class="route-buttons">
-                        <button class="weather-btn" data-id="${pointData.id}"><i class="fas fa-cloud-sun"></i> 天气</button>
-                    </div>
-                `;
-            }
+            // 获取收藏状态
+            let isCollected = false;
+            try {
+                isCollected = await checkCollected(pointData.id);
+            } catch(e) { console.warn(e); }
+            const collectBtnHtml = isCollected 
+                ? `<button class="collect-btn collected" data-id="${pointData.id}" data-collected="true" style="background:#8a6d4e;"><i class="fas fa-heart"></i> 已收藏</button>`
+                : `<button class="collect-btn" data-id="${pointData.id}" data-collected="false"><i class="fas fa-heart"></i> 收藏</button>`;
 
             div.innerHTML = `
                 <span class="close-custom-info">&times;</span>
@@ -1035,12 +868,18 @@
                 ${pointData.contact ? `<p><i class="fas fa-phone"></i> ${pointData.contact}</p>` : ''}
                 ${pointData.openHours ? `<p><i class="fas fa-clock"></i> ${pointData.openHours}</p>` : ''}
                 ${pointData.description ? `<p>${pointData.description}</p>` : ''}
-                ${routeButtonsHtml}
+                <div class="route-buttons">
+                    <button class="route-btn" data-mode="driving" data-id="${pointData.id}"><i class="fas fa-car"></i> 驾车</button>
+                    <button class="route-btn" data-mode="bus" data-id="${pointData.id}"><i class="fas fa-bus"></i> 公交</button>
+                    <button class="route-btn" data-mode="subway" data-id="${pointData.id}"><i class="fas fa-subway"></i> 地铁</button>
+                    <button class="weather-btn" data-id="${pointData.id}"><i class="fas fa-cloud-sun"></i> 天气</button>
+                    ${collectBtnHtml}
+                </div>
             `;
             document.getElementById('map').appendChild(div);
             currentCustomInfoWindow = div;
 
-            // 拖动逻辑
+            // 拖动
             let isDrag = false;
             let startX, startY, startLeft, startTop;
             div.addEventListener('mousedown', (e) => {
@@ -1058,8 +897,8 @@
                 let dy = e.clientY - startY;
                 let newLeft = startLeft + dx;
                 let newTop = startTop + dy;
-                const maxLeft = mapRect.width - 290;
-                const maxTop = mapRect.height - 270;
+                const maxLeft = mapRect.width - 310;
+                const maxTop = mapRect.height - 300;
                 newLeft = Math.min(Math.max(newLeft, 10), maxLeft);
                 newTop = Math.min(Math.max(newTop, 10), maxTop);
                 div.style.left = newLeft + 'px';
@@ -1070,42 +909,56 @@
                 div.remove();
                 currentCustomInfoWindow = null;
             });
-            // 绑定路线按钮（非遗点位）
-            if (!isCurrentLocation) {
-                div.querySelectorAll('.route-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const mode = btn.dataset.mode;
-                        const id = btn.dataset.id;
-                        const point = allPoints.find(p => p.id == id);
-                        if (point) planRoute(point, mode);
-                        div.remove();
-                        currentCustomInfoWindow = null;
-                    });
-                });
-            }
-            // 绑定天气按钮（所有点位都可能有）
-            div.querySelectorAll('.weather-btn').forEach(btn => {
+            // 路线按钮
+            div.querySelectorAll('.route-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
+                    const mode = btn.dataset.mode;
                     const id = btn.dataset.id;
-                    if (id === 'current') {
-                        // 当前位置
-                        if (currentLocation) {
-                            showWeatherModal(currentLocation.lat, currentLocation.lng, '我的位置');
-                        }
-                    } else {
-                        const point = allPoints.find(p => p.id == id);
-                        if (point) showWeatherModal(point.latitude, point.longitude, point.name);
-                    }
+                    const point = allPoints.find(p => p.id == id);
+                    if (point) planRoute(point, mode);
                     div.remove();
                     currentCustomInfoWindow = null;
                 });
             });
+            // 天气按钮
+            div.querySelectorAll('.weather-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = btn.dataset.id;
+                    const point = allPoints.find(p => p.id == id);
+                    if (point) showWeatherModal(point.latitude, point.longitude, point.name);
+                    div.remove();
+                    currentCustomInfoWindow = null;
+                });
+            });
+            // 收藏按钮
+            const collectButton = div.querySelector('.collect-btn');
+            if (collectButton) {
+                collectButton.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const siteId = collectButton.dataset.id;
+                    const isCurrentlyCollected = collectButton.dataset.collected === 'true';
+                    let success = false;
+                    if (isCurrentlyCollected) {
+                        success = await removeCollection(siteId);
+                        if (success) {
+                            collectButton.innerHTML = '<i class="fas fa-heart"></i> 收藏';
+                            collectButton.dataset.collected = 'false';
+                            collectButton.style.background = '';
+                        }
+                    } else {
+                        success = await addCollection(siteId);
+                        if (success) {
+                            collectButton.innerHTML = '<i class="fas fa-heart"></i> 已收藏';
+                            collectButton.dataset.collected = 'true';
+                            collectButton.style.background = '#8a6d4e';
+                        }
+                    }
+                });
+            }
         }
 
-        // 存储当前规划数据（方案、起点、终点等）
+        // 路线规划（只计算方案，不自动显示）
         let currentPlanData = null;
-
-        // 规划路线：只计算方案，不显示在地图上
         function planRouteWithOptions(pointData, mode) {
             if (!currentLocation) { alert('未获取到您的当前位置，请先点击“定位到我”按钮'); return; }
             const startPoint = new BMapGL.Point(currentLocation.lng, currentLocation.lat);
@@ -1113,10 +966,9 @@
             const startName = '我的位置';
             const endName = pointData.name;
 
-            // 创建路线对象，但不显示在地图上（renderOptions.map = null）
             if (mode === 'driving') {
                 const routeMethod = new BMapGL.DrivingRoute(map, {
-                    renderOptions: { map: null }, // 关键：不显示
+                    renderOptions: { map: null },
                     onSearchComplete: (results) => {
                         if (routeMethod.getStatus() === 0) {
                             const allPlans = results.getNumPlans();
@@ -1156,8 +1008,7 @@
                             for (let i = 0; i < plans.length && finalPlans.length < 3; i++) {
                                 if (!addedIdx.has(i)) finalPlans.push({ ...plans[i], label: `方案${finalPlans.length+1}` });
                             }
-                            // 保存方案数据，不保存路线对象（因为未显示）
-                            currentPlanData = { plans: finalPlans, bestIdx: 0, mode, startPoint, endPoint, startName, endName, rawRouteMethod: null };
+                            currentPlanData = { plans: finalPlans, bestIdx: 0, mode, startPoint, endPoint, startName, endName };
                             showRouteMapModal(startName, endName, mode, finalPlans, 0);
                         } else {
                             alert('驾车路线规划失败，请重试');
@@ -1169,7 +1020,7 @@
                 let policy = 0;
                 if (mode === 'subway') policy = 2;
                 const routeMethod = new BMapGL.TransitRoute(map, {
-                    renderOptions: { map: null }, // 关键：不显示
+                    renderOptions: { map: null },
                     policy: policy,
                     onSearchComplete: (results) => {
                         if (routeMethod.getStatus() === 0) {
@@ -1198,7 +1049,7 @@
                             for (let i = 0; i < plans.length && finalPlans.length < 3; i++) {
                                 finalPlans.push({ ...plans[i], label: i === bestTimeIdx ? '推荐' : `方案${finalPlans.length+1}` });
                             }
-                            currentPlanData = { plans: finalPlans, bestIdx: 0, mode, startPoint, endPoint, startName, endName, rawRouteMethod: null };
+                            currentPlanData = { plans: finalPlans, bestIdx: 0, mode, startPoint, endPoint, startName, endName };
                             showRouteMapModal(startName, endName, mode, finalPlans, 0);
                         } else {
                             alert('公交/地铁路线规划失败，请重试');
@@ -1209,7 +1060,6 @@
             }
         }
 
-        // 显示路线方案模态框
         function showRouteMapModal(startName, endName, mode, plans, defaultIdx) {
             const modeText = mode === 'driving' ? '驾车' : (mode === 'subway' ? '地铁' : '公交');
             const modalTitle = document.getElementById('routeMapTitle');
@@ -1230,7 +1080,6 @@
             document.getElementById('routeMapBody').innerHTML = plansHtml;
             document.getElementById('routeMapModalOverlay').classList.add('show');
 
-            // 绑定方案切换按钮
             document.querySelectorAll('.route-option-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const idx = parseInt(btn.dataset.idx);
@@ -1249,7 +1098,6 @@
                 });
             });
 
-            // 绑定“显示路线”按钮（原“切换路线”）
             const switchBtn = document.getElementById('switchRouteBtn');
             if (switchBtn) {
                 switchBtn.onclick = () => {
@@ -1258,9 +1106,7 @@
                     const idx = parseInt(activeBtn.dataset.idx);
                     const selectedPlan = plans[idx];
                     if (selectedPlan && currentPlanData) {
-                        // 清除当前所有路线
                         clearCurrentRoute();
-                        // 根据当前选中的方案重新创建路线对象并显示
                         const start = new BMapGL.Point(currentPlanData.startPoint.lng, currentPlanData.startPoint.lat);
                         const end = new BMapGL.Point(currentPlanData.endPoint.lng, currentPlanData.endPoint.lat);
                         if (currentPlanData.mode === 'driving') {
@@ -1287,7 +1133,6 @@
                 };
             }
 
-            // 导出按钮
             const exportBtn = document.getElementById('exportRouteBtn');
             if (exportBtn) {
                 exportBtn.onclick = () => {
@@ -1298,7 +1143,6 @@
             }
         }
 
-        // 导出路书（Word格式）
         async function exportRoadbook(plans, selectedIdx, startName, endName, mode) {
             const selectedPlan = plans[selectedIdx];
             let text = `【京韵遗风·非遗路书】\n\n`;
@@ -1317,10 +1161,7 @@
             const mapContainer = document.getElementById('map');
             const controls = document.querySelectorAll('.BMap_stdMpCtrl, .BMap_zlCtrl, .anchorBL, .BMap_nav_ctrl, .map-control-btn');
             const originalStyles = [];
-            controls.forEach(ctrl => {
-                originalStyles.push(ctrl.style.display);
-                ctrl.style.display = 'none';
-            });
+            controls.forEach(ctrl => { originalStyles.push(ctrl.style.display); ctrl.style.display = 'none'; });
             await new Promise(resolve => setTimeout(resolve, 500));
             let imgData = '';
             try {
@@ -1331,9 +1172,7 @@
                 console.error('截图失败', err);
                 imgData = '';
             } finally {
-                controls.forEach((ctrl, idx) => {
-                    ctrl.style.display = originalStyles[idx];
-                });
+                controls.forEach((ctrl, idx) => { ctrl.style.display = originalStyles[idx]; });
             }
             const htmlContent = `
                 <html>
@@ -1363,7 +1202,6 @@
             const point = new BMapGL.Point(116.403, 39.915);
             map.centerAndZoom(point, 13);
             map.enableScrollWheelZoom();
-            // 添加缩放控件，置于左上角
             map.addControl(new BMapGL.NavigationControl({ anchor: BMAP_ANCHOR_TOP_LEFT }));
             map.addControl(new BMapGL.ScaleControl());
             try { map.setMapStyle({ styleJson: customMapStyle }); } catch(e) {}
@@ -1418,7 +1256,6 @@
             if (searchTerm) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
             addMarkers(filtered); renderPointList(filtered);
         }
-
         async function filterPoints() {
             const searchTerm = document.getElementById('searchInput').value.trim();
             const activeFilter = document.querySelector('.filter-tag.active')?.dataset.filter || 'all';
@@ -1427,7 +1264,6 @@
             if (searchTerm) params.keyword = searchTerm;
             try { await loadSites(params); } catch (err) { filterPointsFrontend(); }
         }
-
         async function nearbySearch() {
             const center = map.getCenter();
             try {
@@ -1457,18 +1293,26 @@
                     if (locationMarker) map.removeOverlay(locationMarker);
                     const icon = createLocationIcon();
                     locationMarker = new BMapGL.Marker(currentPoint, { icon });
-                    // 绑定点击事件，点击当前位置标记时显示信息窗
                     locationMarker.addEventListener('click', () => {
                         const currentInfo = { name: '我的位置', address: '您当前所在位置', id: 'current', type: '当前位置' };
                         showCustomInfoWindow(currentInfo, locationMarker);
                     });
                     map.addOverlay(locationMarker);
-                    // 自动显示当前位置的信息窗
                     const currentInfo = { name: '我的位置', address: '您当前所在位置', id: 'current', type: '当前位置' };
                     showCustomInfoWindow(currentInfo, locationMarker);
                 }, error => alert('定位失败'));
             } else alert('浏览器不支持定位');
         }
+
+        // 清除路线按钮
+        document.getElementById('clearRouteBtn').addEventListener('click', () => {
+            clearCurrentRoute();
+            if (currentCustomInfoWindow) {
+                currentCustomInfoWindow.remove();
+                currentCustomInfoWindow = null;
+            }
+            alert('已清除所有路线');
+        });
 
         // 事件绑定
         document.getElementById('weatherModalCloseBtn').addEventListener('click', closeWeatherModal);

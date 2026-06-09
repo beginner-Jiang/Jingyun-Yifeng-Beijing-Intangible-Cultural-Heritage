@@ -47,7 +47,6 @@
     }
 
     .info-row { margin-bottom: 1rem; }
-
     .info-label {
       font-weight: 600;
       color: #815f3f;
@@ -55,11 +54,7 @@
       display: inline-block;
       transition: color 0.3s;
     }
-
-    .info-value {
-      color: #2e1e12;
-      transition: color 0.3s;
-    }
+    .info-value { color: #2e1e12; transition: color 0.3s; }
 
     .category-tag {
       background: #e9dac8;
@@ -71,7 +66,6 @@
       font-size: 0.9rem;
       transition: background 0.3s, border-color 0.3s, color 0.3s;
     }
-
     .category-tag.selected {
       background: #a97c53;
       color: #fff6e5;
@@ -95,7 +89,6 @@
       margin-bottom: 1.5rem;
       transition: border-color 0.3s;
     }
-
     .nav-tabs-jingyun .nav-link {
       background: transparent;
       border: none;
@@ -106,9 +99,7 @@
       border-radius: 40px 40px 0 0;
       transition: 0.2s, color 0.3s;
     }
-
     .nav-tabs-jingyun .nav-link i { margin-right: 8px; }
-
     .nav-tabs-jingyun .nav-link.active {
       background: #ecdac0;
       color: #321f12;
@@ -129,22 +120,16 @@
       border-radius: 1.2rem;
       overflow: hidden;
       transition: 0.2s, background 0.3s, border-color 0.3s;
+      position: relative;
     }
-
-    .collect-card:hover {
-      border-color: #b6844e;
-      transform: translateY(-3px);
-    }
-
+    .collect-card:hover { border-color: #b6844e; transform: translateY(-3px); }
     .collect-img {
       width: 100%;
       height: 120px;
       object-fit: cover;
       background: #bc9f7e;
     }
-
     .collect-body { padding: 0.8rem; }
-
     .collect-title {
       font-weight: 600;
       color: #2e1e12;
@@ -152,46 +137,41 @@
       font-size: 1rem;
       transition: color 0.3s;
     }
-
     .collect-sub {
       font-size: 0.8rem;
       color: #7b5b3c;
       transition: color 0.3s;
     }
-
-    .timeline {
-      list-style: none;
-      padding: 0;
+    .delete-collect {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      opacity: 0;
     }
+    .collect-card:hover .delete-collect { opacity: 1; }
+    .delete-collect:hover { background: #dc3545; transform: scale(1.1); }
 
+    .timeline { list-style: none; padding: 0; }
     .timeline-item {
       display: flex;
       gap: 1rem;
       padding: 0.8rem 0;
       border-bottom: 1px dashed #d6bc9a;
-      transition: border-color 0.3s;
     }
-
-    .timeline-time {
-      min-width: 80px;
-      color: #8d765b;
-      font-size: 0.9rem;
-      transition: color 0.3s;
-    }
-
+    .timeline-time { min-width: 80px; color: #8d765b; font-size: 0.9rem; }
     .timeline-content { flex: 1; }
-
-    .timeline-title {
-      font-weight: 600;
-      color: #2e1e12;
-      transition: color 0.3s;
-    }
-
-    .timeline-desc {
-      font-size: 0.9rem;
-      color: #5f4b33;
-      transition: color 0.3s;
-    }
+    .timeline-title { font-weight: 600; color: #2e1e12; }
+    .timeline-desc { font-size: 0.9rem; color: #5f4b33; }
 
     .avatar-preview {
       width: 100px;
@@ -201,7 +181,6 @@
       border: 3px solid #b6844e;
       margin-bottom: 1rem;
     }
-
     .category-item {
       background: #f7ede1;
       border: 1px solid #c6a77c;
@@ -210,25 +189,17 @@
       font-size: 0.9rem;
       color: #4a3522;
       cursor: pointer;
-      transition: 0.2s, background 0.3s, border-color 0.3s, color 0.3s;
-      user-select: none;
+      transition: 0.2s;
       display: inline-block;
       margin: 0.2rem;
     }
-
-    .category-item i {
-      margin-right: 5px;
-      color: #aa6f39;
-      font-size: 0.8rem;
-    }
-
+    .category-item i { margin-right: 5px; color: #aa6f39; font-size: 0.8rem; }
     .category-item.selected {
       background: #a97c53;
       border-color: #6d4b2a;
       color: #fffbee;
       box-shadow: 0 2px 8px rgba(170, 120, 60, 0.5);
     }
-
     .category-item.selected i { color: #ffd89c; }
 
     .btn-group-row {
@@ -237,7 +208,6 @@
       gap: 0.5rem;
       justify-content: center;
     }
-
     .btn-group-row .btn-jingyun {
       flex: 0 1 auto;
       min-width: 0;
@@ -245,14 +215,6 @@
       font-size: 0.9rem;
     }
 
-    @media (max-width: 480px) {
-      .btn-group-row .btn-jingyun {
-        padding: 0.3rem 0.5rem;
-        font-size: 0.8rem;
-      }
-    }
-
-    /* 无数据提示红色居中 */
     .no-data {
       color: #dc3545 !important;
       text-align: center;
@@ -270,28 +232,20 @@
       border-color: #5a4a3a !important;
       color: #e0e0e0 !important;
     }
-    body.theme-dark .info-label,
-    body.theme-dark .info-value,
-    body.theme-dark .collect-title,
-    body.theme-dark .collect-sub,
-    body.theme-dark .timeline-title,
-    body.theme-dark .timeline-desc {
+    body.theme-dark .info-label, body.theme-dark .info-value,
+    body.theme-dark .collect-title, body.theme-dark .collect-sub,
+    body.theme-dark .timeline-title, body.theme-dark .timeline-desc {
       color: #e0e0e0 !important;
     }
-    body.theme-dark .category-tag.selected,
-    body.theme-dark .category-item.selected {
+    body.theme-dark .category-tag.selected, body.theme-dark .category-item.selected {
       background: #5a4a3a !important;
     }
-    body.theme-dark .nav-tabs-jingyun .nav-link {
-      color: #e0e0e0 !important;
-    }
+    body.theme-dark .nav-tabs-jingyun .nav-link { color: #e0e0e0 !important; }
     body.theme-dark .nav-tabs-jingyun .nav-link.active {
       background: #5a4a3a !important;
       border-bottom-color: #b6844e !important;
     }
-    body.theme-dark .timeline-item {
-      border-bottom-color: #5a4a3a !important;
-    }
+    body.theme-dark .timeline-item { border-bottom-color: #5a4a3a !important; }
 
     body.theme-soft .passport-card,
     body.theme-soft .category-tag,
@@ -302,36 +256,26 @@
       border-color: #d6bc9a !important;
       color: #5f4b3a !important;
     }
-    body.theme-soft .info-label,
-    body.theme-soft .info-value,
-    body.theme-soft .collect-title,
-    body.theme-soft .collect-sub,
-    body.theme-soft .timeline-title,
-    body.theme-soft .timeline-desc {
+    body.theme-soft .info-label, body.theme-soft .info-value,
+    body.theme-soft .collect-title, body.theme-soft .collect-sub,
+    body.theme-soft .timeline-title, body.theme-soft .timeline-desc {
       color: #5f4b3a !important;
     }
-    body.theme-soft .category-tag.selected,
-    body.theme-soft .category-item.selected {
+    body.theme-soft .category-tag.selected, body.theme-soft .category-item.selected {
       background: #d6bc9a !important;
     }
-    body.theme-soft .nav-tabs-jingyun .nav-link {
-      color: #5f4b3a !important;
-    }
+    body.theme-soft .nav-tabs-jingyun .nav-link { color: #5f4b3a !important; }
     body.theme-soft .nav-tabs-jingyun .nav-link.active {
       background: #d6bc9a !important;
       border-bottom-color: #b6844e !important;
     }
-    body.theme-soft .timeline-item {
-      border-bottom-color: #d6bc9a !important;
-    }
+    body.theme-soft .timeline-item { border-bottom-color: #d6bc9a !important; }
   </style>
 </head>
 <body>
 <div class="container-jingyun">
   <nav class="navbar-jingyun d-flex justify-content-between align-items-center">
-    <div class="navbar-brand">
-      <i class="fas fa-landmark"></i> 京韵遗风·互动平台
-    </div>
+    <div class="navbar-brand"><i class="fas fa-landmark"></i> 京韵遗风·互动平台</div>
     <div class="d-flex">
       <a href="Index.html" class="nav-link-jingyun"><i class="fas fa-home"></i> 首页</a>
       <a href="Digital.html" class="nav-link-jingyun"><i class="fas fa-building"></i> 数字展厅</a>
@@ -395,41 +339,31 @@
     <div class="col-lg-8">
       <div class="passport-card">
         <ul class="nav nav-tabs-jingyun nav-tabs" id="passportTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="col-projects-tab" data-bs-toggle="tab" data-bs-target="#col-projects" type="button" role="tab"><i class="fas fa-building"></i> 收藏项目</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="col-sites-tab" data-bs-toggle="tab" data-bs-target="#col-sites" type="button" role="tab"><i class="fas fa-map-location-dot"></i> 收藏点位</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="col-activities-tab" data-bs-toggle="tab" data-bs-target="#col-activities" type="button" role="tab"><i class="fas fa-calendar-alt"></i> 收藏活动</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="activity-info-tab" data-bs-toggle="tab" data-bs-target="#activity-info" type="button" role="tab"><i class="fas fa-calendar-check"></i> 活动信息</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="recruit-info-tab" data-bs-toggle="tab" data-bs-target="#recruit-info" type="button" role="tab"><i class="fas fa-handshake"></i> 招募信息</button>
-          </li>
+          <li class="nav-item"><button class="nav-link active" id="col-projects-tab" data-bs-toggle="tab" data-bs-target="#col-projects"><i class="fas fa-building"></i> 收藏项目</button></li>
+          <li class="nav-item"><button class="nav-link" id="col-sites-tab" data-bs-toggle="tab" data-bs-target="#col-sites"><i class="fas fa-map-location-dot"></i> 收藏点位</button></li>
+          <li class="nav-item"><button class="nav-link" id="col-activities-tab" data-bs-toggle="tab" data-bs-target="#col-activities"><i class="fas fa-calendar-alt"></i> 收藏活动</button></li>
+          <li class="nav-item"><button class="nav-link" id="activity-info-tab" data-bs-toggle="tab" data-bs-target="#activity-info"><i class="fas fa-calendar-check"></i> 活动信息</button></li>
+          <li class="nav-item"><button class="nav-link" id="recruit-info-tab" data-bs-toggle="tab" data-bs-target="#recruit-info"><i class="fas fa-handshake"></i> 招募信息</button></li>
         </ul>
 
         <div class="tab-content" id="passportTabContent">
-          <div class="tab-pane fade show active" id="col-projects" role="tabpanel">
+          <div class="tab-pane fade show active" id="col-projects">
             <div class="collection-grid" id="projectsGrid"></div>
             <div id="projectsEmpty" class="no-data" style="display: none;">暂无收藏项目</div>
           </div>
-          <div class="tab-pane fade" id="col-sites" role="tabpanel">
+          <div class="tab-pane fade" id="col-sites">
             <div class="collection-grid" id="sitesGrid"></div>
             <div id="sitesEmpty" class="no-data" style="display: none;">暂无收藏点位</div>
           </div>
-          <div class="tab-pane fade" id="col-activities" role="tabpanel">
+          <div class="tab-pane fade" id="col-activities">
             <div class="collection-grid" id="activitiesGrid"></div>
             <div id="activitiesEmpty" class="no-data" style="display: none;">暂无收藏活动</div>
           </div>
-          <div class="tab-pane fade" id="activity-info" role="tabpanel">
+          <div class="tab-pane fade" id="activity-info">
             <ul class="timeline" id="activityInfoList"></ul>
             <div id="activityInfoEmpty" class="no-data" style="display: none;">暂无活动信息</div>
           </div>
-          <div class="tab-pane fade" id="recruit-info" role="tabpanel">
+          <div class="tab-pane fade" id="recruit-info">
             <div id="recruitInfoApplications"></div>
             <div id="recruitInfoPosts"></div>
             <div id="recruitInfoEmpty" class="no-data" style="display: none;">暂无招募信息</div>
@@ -444,149 +378,93 @@
   </div>
 </div>
 
-<!-- 模态框：编辑个人资料 -->
+<!-- 编辑个人资料模态框 -->
 <div class="modal fade modal-jingyun" id="editProfileModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">编辑个人资料</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+      <div class="modal-header"><h5 class="modal-title">编辑个人资料</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <form id="editProfileForm">
           <div class="text-center mb-3">
             <img src="" id="avatarPreview" class="avatar-preview" alt="头像预览">
-            <div>
-              <label for="avatarUpload" class="btn btn-jingyun-outline btn-sm"><i class="fas fa-upload"></i> 上传头像</label>
-              <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-            </div>
+            <div><label for="avatarUpload" class="btn btn-jingyun-outline btn-sm"><i class="fas fa-upload"></i> 上传头像</label><input type="file" id="avatarUpload" accept="image/*" style="display: none;"></div>
             <small class="text-muted">支持JPG、PNG格式，大小不超过2MB</small>
           </div>
-          <div class="mb-3">
-            <label class="form-label">用户名</label>
-            <input type="text" class="form-control" id="editUsername" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">年龄</label>
-            <input type="number" class="form-control" id="editAge" min="1" max="120" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">个人简介</label>
-            <textarea class="form-control" rows="3" id="editBio"></textarea>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">感兴趣的非遗类别</label>
-            <div class="category-group" id="editInterestTags"></div>
-            <input type="hidden" id="editSelectedCategories" value="">
-            <small class="text-muted">点击可多选</small>
-          </div>
+          <div class="mb-3"><label class="form-label">用户名</label><input type="text" class="form-control" id="editUsername" required></div>
+          <div class="mb-3"><label class="form-label">年龄</label><input type="number" class="form-control" id="editAge" min="1" max="120" required></div>
+          <div class="mb-3"><label class="form-label">个人简介</label><textarea class="form-control" rows="3" id="editBio"></textarea></div>
+          <div class="mb-3"><label class="form-label">感兴趣的非遗类别</label><div class="category-group" id="editInterestTags"></div><input type="hidden" id="editSelectedCategories"></div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-jingyun" id="saveProfileBtn">保存修改</button>
-      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button><button type="button" class="btn btn-jingyun" id="saveProfileBtn">保存修改</button></div>
     </div>
   </div>
 </div>
 
-<!-- 模态框：修改密码（手机号验证） -->
+<!-- 修改密码模态框 -->
 <div class="modal fade modal-jingyun" id="changePwdModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">修改密码</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+      <div class="modal-header"><h5 class="modal-title">修改密码</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <form id="changePwdForm">
-          <div class="mb-3">
-            <label class="form-label">手机号（用于验证）</label>
-            <input type="text" class="form-control" id="verifyPhone" placeholder="请输入注册手机号" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">新密码</label>
-            <input type="password" class="form-control" id="newPassword" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">确认新密码</label>
-            <input type="password" class="form-control" id="confirmNewPassword" required>
-          </div>
+          <div class="mb-3"><label class="form-label">手机号（用于验证）</label><input type="text" class="form-control" id="verifyPhone" required></div>
+          <div class="mb-3"><label class="form-label">新密码</label><input type="password" class="form-control" id="newPassword" required></div>
+          <div class="mb-3"><label class="form-label">确认新密码</label><input type="password" class="form-control" id="confirmNewPassword" required></div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-jingyun" id="changePwdBtn">确认修改</button>
-      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button><button type="button" class="btn btn-jingyun" id="changePwdBtn">确认修改</button></div>
     </div>
   </div>
 </div>
 
-<!-- 模态框：升级传承人（移除提示文字） -->
+<!-- 升级传承人模态框 -->
 <div class="modal fade modal-jingyun" id="upgradeModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">申请传承人认证</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <p>请输入您获得的邀请码：</p>
-        <input type="text" class="form-control" id="inviteCodeInput" placeholder="例如：JINGYUN-2026">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-jingyun" id="applyInheritorBtn">提交认证</button>
-      </div>
+      <div class="modal-header"><h5 class="modal-title">申请传承人认证</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><p>请输入您获得的邀请码：</p><input type="text" class="form-control" id="inviteCodeInput" placeholder="例如：JINGYUN-2026"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button><button type="button" class="btn btn-jingyun" id="applyInheritorBtn">提交认证</button></div>
     </div>
   </div>
 </div>
 
 <div class="theme-switcher">
-  <div class="theme-btn light active" data-theme="light" title="日间模式"></div>
-  <div class="theme-btn dark" data-theme="dark" title="夜间模式"></div>
-  <div class="theme-btn soft" data-theme="soft" title="护眼模式"></div>
+  <div class="theme-btn light active" data-theme="light"></div>
+  <div class="theme-btn dark" data-theme="dark"></div>
+  <div class="theme-btn soft" data-theme="soft"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/common.js"></script>
 <script>
-  (function checkAccess() {
-    if (window.location.port !== '8080' && !window.location.hostname.includes('localhost')) {
-      alert('请通过后端地址访问页面，例如 http://localhost:8080/Person.html，否则头像无法正常加载。');
-    }
-  })();
-
-  window.logout = async function() {
-    if (confirm('确定要永久注销账户吗？此操作不可恢复！')) {
-      const token = getToken();
-      if (!token) { alert('未登录'); window.location.replace('Index.html'); return; }
-      try {
-        const response = await fetch('http://localhost:8080/api/user/delete', {
-          method: 'DELETE',
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const result = await response.json();
-        if (result.code === 200) {
-          alert('账户已注销');
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          sessionStorage.clear();
-          window.location.replace('Index.html');
-        } else { alert(result.msg || '注销失败'); }
-      } catch (err) { console.error('注销请求失败', err); alert('网络错误，请稍后重试'); }
-    }
-  };
-
   (function() {
     const API_BASE_URL = 'http://localhost:8080/api';
-
     let currentUser = null;
 
     const categoryIconMap = {
       '传统技艺': 'fa-hands', '曲艺': 'fa-microphone-lines', '传统戏剧': 'fa-mask',
       '民间文学': 'fa-book', '传统美术': 'fa-paint-brush', '传统医药': 'fa-leaf',
       '民俗': 'fa-dragon', '传统音乐': 'fa-music', '传统舞蹈': 'fa-shoe-prints', '传统体育': 'fa-futbol'
+    };
+
+    window.logout = async function() {
+      if (confirm('确定要永久注销账户吗？此操作不可恢复！')) {
+        const token = getToken();
+        if (!token) { alert('未登录'); window.location.replace('Index.html'); return; }
+        try {
+          const response = await fetch('http://localhost:8080/api/user/delete', {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          const result = await response.json();
+          if (result.code === 200) {
+            alert('账户已注销');
+            localStorage.removeItem('token');
+            window.location.replace('Index.html');
+          } else { alert(result.msg || '注销失败'); }
+        } catch (err) { console.error(err); alert('网络错误'); }
+      }
     };
 
     async function loadUserInfo() {
@@ -637,20 +515,9 @@
 
       const upgradeContainer = document.getElementById('upgradeContainer');
       if (currentUser.role === 'inheritor') {
-        upgradeContainer.innerHTML = `
-          <div class="mt-4 p-3" style="background: #f7ede1; border-radius: 1.5rem; border: 1px dashed #b99e7c;">
-            <h5><i class="fas fa-crown" style="color: #b6844e;"></i> 您已经成为传承人</h5>
-            <p class="small">无需再激活认证，您现在可以发布活动/作品/招募。</p>
-          </div>
-        `;
+        upgradeContainer.innerHTML = `<div class="mt-4 p-3" style="background: #f7ede1; border-radius: 1.5rem;"><h5><i class="fas fa-crown" style="color: #b6844e;"></i> 您已经成为传承人</h5><p class="small">无需再激活认证，您现在可以发布活动/作品/招募。</p></div>`;
       } else {
-        upgradeContainer.innerHTML = `
-          <div class="mt-4 p-3" style="background: #f7ede1; border-radius: 1.5rem; border: 1px dashed #b99e7c;">
-            <h5><i class="fas fa-crown" style="color: #b6844e;"></i> 升级为传承人</h5>
-            <p class="small">获得邀请码后可申请认证，解锁发布活动/作品权限。</p>
-            <button class="btn-jingyun btn-sm w-100" data-bs-toggle="modal" data-bs-target="#upgradeModal"><i class="fas fa-ticket-alt"></i> 申请传承人认证</button>
-          </div>
-        `;
+        upgradeContainer.innerHTML = `<div class="mt-4 p-3" style="background: #f7ede1; border-radius: 1.5rem;"><h5><i class="fas fa-crown" style="color: #b6844e;"></i> 升级为传承人</h5><p class="small">获得邀请码后可申请认证，解锁发布活动/作品权限。</p><button class="btn-jingyun btn-sm w-100" data-bs-toggle="modal" data-bs-target="#upgradeModal"><i class="fas fa-ticket-alt"></i> 申请传承人认证</button></div>`;
       }
     }
 
@@ -662,11 +529,7 @@
 
     document.getElementById('avatarUpload').addEventListener('change', function(e) {
       const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = ev => document.getElementById('avatarPreview').src = ev.target.result;
-        reader.readAsDataURL(file);
-      }
+      if (file) { const reader = new FileReader(); reader.onload = ev => document.getElementById('avatarPreview').src = ev.target.result; reader.readAsDataURL(file); }
     });
 
     document.getElementById('saveProfileBtn').addEventListener('click', async function() {
@@ -699,20 +562,9 @@
       const verifyPhone = document.getElementById('verifyPhone').value.trim();
       const newPwd = document.getElementById('newPassword').value.trim();
       const confirmPwd = document.getElementById('confirmNewPassword').value.trim();
-
-      if (!verifyPhone || !newPwd || !confirmPwd) {
-        alert('请填写手机号和新密码');
-        return;
-      }
-      if (newPwd !== confirmPwd) {
-        alert('新密码与确认密码不一致');
-        return;
-      }
-      if (newPwd.length < 6) {
-        alert('新密码至少6位');
-        return;
-      }
-
+      if (!verifyPhone || !newPwd || !confirmPwd) { alert('请填写手机号和新密码'); return; }
+      if (newPwd !== confirmPwd) { alert('新密码与确认密码不一致'); return; }
+      if (newPwd.length < 6) { alert('新密码至少6位'); return; }
       try {
         await fetchWithAuth(`${API_BASE_URL}/user/reset-password-by-phone`, {
           method: 'POST',
@@ -721,9 +573,7 @@
         alert('密码修改成功');
         bootstrap.Modal.getInstance(document.getElementById('changePwdModal')).hide();
         document.getElementById('changePwdForm').reset();
-      } catch (err) {
-        alert('修改失败：' + err.message);
-      }
+      } catch (err) { alert('修改失败：' + err.message); }
     });
 
     document.getElementById('applyInheritorBtn').addEventListener('click', async function() {
@@ -740,196 +590,186 @@
     async function loadRadarData() {
       const radarChart = echarts.init(document.getElementById('radarChart'));
       const container = document.getElementById('radarChart');
-      const existingMsg = document.getElementById('radarMsg');
-      if (existingMsg) existingMsg.remove();
-
+      const existingMsg = document.getElementById('radarMsg'); if (existingMsg) existingMsg.remove();
       try {
         const radarData = await fetchWithAuth(`${API_BASE_URL}/user/radar`);
         const dataArray = radarData.data;
-
         if (dataArray && dataArray.some(v => v > 0)) {
           radarChart.setOption({
-            radar: {
-              indicator: [
-                { name: '传统手工艺', max: 100 },
-                { name: '曲艺', max: 100 },
-                { name: '传统戏剧', max: 100 },
-                { name: '民俗', max: 100 },
-                { name: '传统医药', max: 100 },
-                { name: '民间文学', max: 100 }
-              ],
-              center: ['50%', '50%'],
-              radius: '65%',
-              name: { textStyle: { color: '#5f432b', fontSize: 11 } }
-            },
-            series: [{
-              type: 'radar',
-              data: [{ value: dataArray, name: '我的画像' }],
-              areaStyle: { color: 'rgba(180, 95, 46, 0.4)' },
-              lineStyle: { color: '#b45f2e', width: 2 },
-              itemStyle: { color: '#b6844e' }
-            }]
+            radar: { indicator: [{ name: '传统手工艺', max: 100 }, { name: '曲艺', max: 100 }, { name: '传统戏剧', max: 100 }, { name: '民俗', max: 100 }, { name: '传统医药', max: 100 }, { name: '民间文学', max: 100 }], center: ['50%', '50%'], radius: '65%', name: { textStyle: { color: '#5f432b', fontSize: 11 } } },
+            series: [{ type: 'radar', data: [{ value: dataArray, name: '我的画像' }], areaStyle: { color: 'rgba(180, 95, 46, 0.4)' }, lineStyle: { color: '#b45f2e', width: 2 }, itemStyle: { color: '#b6844e' } }]
           });
-        } else {
-          radarChart.clear();
-          const msg = document.createElement('div');
-          msg.id = 'radarMsg';
-          msg.className = 'no-data';
-          msg.innerText = '暂无雷达数据';
-          msg.style.marginTop = '100px';
-          container.appendChild(msg);
-        }
-      } catch (err) {
-        console.error('雷达数据加载失败', err);
-        radarChart.clear();
-        const msg = document.createElement('div');
-        msg.id = 'radarMsg';
-        msg.className = 'no-data';
-        msg.innerText = '雷达图加载失败';
-        msg.style.marginTop = '100px';
-        container.appendChild(msg);
-      }
+        } else { radarChart.clear(); const msg = document.createElement('div'); msg.id = 'radarMsg'; msg.className = 'no-data'; msg.innerText = '暂无雷达数据'; msg.style.marginTop = '100px'; container.appendChild(msg); }
+      } catch (err) { console.error('雷达数据加载失败', err); radarChart.clear(); const msg = document.createElement('div'); msg.id = 'radarMsg'; msg.className = 'no-data'; msg.innerText = '雷达图加载失败'; msg.style.marginTop = '100px'; container.appendChild(msg); }
     }
 
-    async function loadCollections(targetType, gridId, emptyId) {
+    // 通用删除收藏函数
+    async function deleteCollection(targetType, targetId, gridId, emptyId, loadFunc) {
+      if (!confirm('确定要取消收藏吗？')) return;
       try {
-        const data = await fetchWithAuth(`${API_BASE_URL}/collection/list?targetType=${targetType}&limit=16`);
-        const grid = document.getElementById(gridId);
-        const empty = document.getElementById(emptyId);
+        await fetchWithAuth(`${API_BASE_URL}/collection/remove?targetType=${targetType}&targetId=${targetId}`, { method: 'DELETE' });
+        alert('已取消收藏');
+        await loadFunc(); // 刷新对应列表
+      } catch (err) { alert('取消收藏失败：' + err.message); }
+    }
+
+    // 收藏项目列表（带删除按钮）
+    async function loadProjectsCollection() {
+      try {
+        const data = await fetchWithAuth(`${API_BASE_URL}/collection/list?targetType=item&limit=16`);
+        const grid = document.getElementById('projectsGrid');
+        const empty = document.getElementById('projectsEmpty');
         if (data && data.length > 0) {
-          grid.innerHTML = data.map(item => {
-            return `
-              <div class="collect-card">
-                <img src="${item.imageUrl || 'https://picsum.photos/200/120?random=' + item.id}" class="collect-img" alt="${item.name}">
-                <div class="collect-body">
-                  <div class="collect-title">${item.name}</div>
-                  <div class="collect-sub">${item.category || ''} · ${item.region || ''}</div>
-                </div>
+          grid.innerHTML = data.map(item => `
+            <div class="collect-card" data-id="${item.targetId}" data-type="item">
+              <img src="${item.imageUrl || 'https://picsum.photos/200/120?random=' + item.targetId}" class="collect-img" alt="${item.name}">
+              <div class="collect-body">
+                <div class="collect-title">${item.name}</div>
+                <div class="collect-sub">${item.category || ''} · ${item.region || ''}</div>
               </div>
-            `;
-          }).join('');
+              <div class="delete-collect" data-id="${item.targetId}" data-type="item"><i class="fas fa-trash-alt"></i></div>
+            </div>
+          `).join('');
           grid.style.display = 'grid';
           empty.style.display = 'none';
+          // 绑定删除事件
+          document.querySelectorAll('#projectsGrid .delete-collect').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              const targetId = btn.dataset.id;
+              await deleteCollection('item', targetId, 'projectsGrid', 'projectsEmpty', loadProjectsCollection);
+            });
+          });
         } else {
           grid.innerHTML = '';
           empty.style.display = 'block';
         }
-      } catch (err) {
-        console.error(`加载${targetType}收藏失败`, err);
-        document.getElementById(gridId).innerHTML = '';
-        document.getElementById(emptyId).style.display = 'block';
-      }
+      } catch (err) { console.error('加载项目收藏失败', err); document.getElementById('projectsEmpty').style.display = 'block'; }
+    }
+
+    // 收藏点位列表（带删除按钮）
+    async function loadSitesCollection() {
+      try {
+        const data = await fetchWithAuth(`${API_BASE_URL}/collection/list?targetType=site&limit=16`);
+        const grid = document.getElementById('sitesGrid');
+        const empty = document.getElementById('sitesEmpty');
+        if (data && data.length > 0) {
+          grid.innerHTML = data.map(item => `
+            <div class="collect-card" data-id="${item.targetId}" data-type="site">
+              <img src="${item.imageUrl || 'https://picsum.photos/200/120?random=' + item.targetId}" class="collect-img" alt="${item.name}">
+              <div class="collect-body">
+                <div class="collect-title">${item.name}</div>
+                <div class="collect-sub">${item.category || ''} · ${item.region || ''}</div>
+              </div>
+              <div class="delete-collect" data-id="${item.targetId}" data-type="site"><i class="fas fa-trash-alt"></i></div>
+            </div>
+          `).join('');
+          grid.style.display = 'grid';
+          empty.style.display = 'none';
+          document.querySelectorAll('#sitesGrid .delete-collect').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              const targetId = btn.dataset.id;
+              await deleteCollection('site', targetId, 'sitesGrid', 'sitesEmpty', loadSitesCollection);
+            });
+          });
+        } else {
+          grid.innerHTML = '';
+          empty.style.display = 'block';
+        }
+      } catch (err) { console.error('加载点位收藏失败', err); document.getElementById('sitesEmpty').style.display = 'block'; }
+    }
+
+    // 收藏活动列表（带删除按钮）
+    async function loadActivitiesCollection() {
+      try {
+        const data = await fetchWithAuth(`${API_BASE_URL}/collection/list?targetType=activity&limit=16`);
+        const grid = document.getElementById('activitiesGrid');
+        const empty = document.getElementById('activitiesEmpty');
+        if (data && data.length > 0) {
+          grid.innerHTML = data.map(item => `
+            <div class="collect-card" data-id="${item.targetId}" data-type="activity">
+              <img src="${item.imageUrl || 'https://picsum.photos/200/120?random=' + item.targetId}" class="collect-img" alt="${item.name}">
+              <div class="collect-body">
+                <div class="collect-title">${item.name}</div>
+                <div class="collect-sub">${item.category || ''} · ${item.region || ''}</div>
+              </div>
+              <div class="delete-collect" data-id="${item.targetId}" data-type="activity"><i class="fas fa-trash-alt"></i></div>
+            </div>
+          `).join('');
+          grid.style.display = 'grid';
+          empty.style.display = 'none';
+          document.querySelectorAll('#activitiesGrid .delete-collect').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              const targetId = btn.dataset.id;
+              await deleteCollection('activity', targetId, 'activitiesGrid', 'activitiesEmpty', loadActivitiesCollection);
+            });
+          });
+        } else {
+          grid.innerHTML = '';
+          empty.style.display = 'block';
+        }
+      } catch (err) { console.error('加载活动收藏失败', err); document.getElementById('activitiesEmpty').style.display = 'block'; }
     }
 
     async function loadActivityInfo() {
       try {
-        // 获取用户参与的活动（报名记录）
         const signups = await fetchWithAuth(`${API_BASE_URL}/activity/my-signups?limit=30`);
-        let activityList = signups.map(act => ({
-          ...act,
-          type: 'signup'
-        }));
-
-        // 如果是传承人，获取用户发布的活动
+        let activityList = signups.map(act => ({ ...act, type: 'signup' }));
         if (currentUser.role === 'inheritor') {
           const myActivities = await fetchWithAuth(`${API_BASE_URL}/activity/list?inheritorId=${currentUser.id}`);
-          const myActs = myActivities.map(act => ({
-            ...act,
-            type: 'publish'
-          }));
-          activityList = activityList.concat(myActs);
+          activityList = activityList.concat(myActivities.map(act => ({ ...act, type: 'publish' })));
         }
-
         activityList.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
-
         const list = document.getElementById('activityInfoList');
         const empty = document.getElementById('activityInfoEmpty');
         if (activityList.length > 0) {
           list.innerHTML = activityList.map(act => {
-            const startTime = act.startTime ? new Date(act.startTime).toLocaleString('zh-CN') : '时间未知';
-            const endTime = act.endTime ? new Date(act.endTime).toLocaleString('zh-CN') : '时间未知';
+            const startTime = act.startTime ? new Date(act.startTime).toLocaleString() : '时间未知';
+            const endTime = act.endTime ? new Date(act.endTime).toLocaleString() : '时间未知';
             const status = act.status === 1 ? '进行中' : (act.status === 2 ? '已结束' : '');
-            return `
-              <li class="timeline-item">
-                <span class="timeline-time">${startTime}</span>
-                <div class="timeline-content">
-                  <span class="timeline-title">${act.title}</span>
-                  <span class="timeline-desc">${act.type === 'publish' ? '（我发布的）' : '（我报名的）'} 时间: ${startTime} ~ ${endTime} ${status}</span>
-                </div>
-              </li>
-            `;
+            return `<li class="timeline-item"><span class="timeline-time">${startTime}</span><div class="timeline-content"><span class="timeline-title">${act.title}</span><span class="timeline-desc">${act.type === 'publish' ? '（我发布的）' : '（我报名的）'} 时间: ${startTime} ~ ${endTime} ${status}</span></div></li>`;
           }).join('');
           list.style.display = 'block';
           empty.style.display = 'none';
-        } else {
-          list.innerHTML = '';
-          empty.style.display = 'block';
-        }
-      } catch (err) {
-        console.error('加载活动信息失败', err);
-        document.getElementById('activityInfoEmpty').style.display = 'block';
-      }
+        } else { list.innerHTML = ''; empty.style.display = 'block'; }
+      } catch (err) { console.error('加载活动信息失败', err); document.getElementById('activityInfoEmpty').style.display = 'block'; }
     }
 
     async function loadRecruitInfo() {
       try {
         const applications = await fetchWithAuth(`${API_BASE_URL}/recruit/my-applications?limit=30`);
         const posts = (currentUser && currentUser.role === 'inheritor') ? await fetchWithAuth(`${API_BASE_URL}/recruit/my-posts?limit=30`) : [];
-
         const empty = document.getElementById('recruitInfoEmpty');
         const applicationsDiv = document.getElementById('recruitInfoApplications');
         const postsDiv = document.getElementById('recruitInfoPosts');
-
-        applicationsDiv.innerHTML = '';
-        postsDiv.innerHTML = '';
-
-        if (applications.length === 0 && posts.length === 0) {
-          empty.style.display = 'block';
-        } else {
+        applicationsDiv.innerHTML = ''; postsDiv.innerHTML = '';
+        if (applications.length === 0 && posts.length === 0) { empty.style.display = 'block'; }
+        else {
           empty.style.display = 'none';
-
           if (applications.length > 0) {
             let appHtml = '<h6>我申请的招募：</h6><ul class="timeline">';
             applications.forEach(app => {
-              const applyTime = app.applyTime ? new Date(app.applyTime).toLocaleString('zh-CN') : '时间未知';
+              const applyTime = app.applyTime ? new Date(app.applyTime).toLocaleString() : '时间未知';
               const statusText = app.status === 'pending' ? '待审核' : (app.status === 'accepted' ? '已通过' : '已拒绝');
-              appHtml += `
-                <li class="timeline-item">
-                  <span class="timeline-time">${applyTime}</span>
-                  <div class="timeline-content">
-                    <span class="timeline-title">${app.recruitTitle}</span>
-                    <span class="timeline-desc">状态：${statusText}</span>
-                  </div>
-                </li>
-              `;
+              appHtml += `<li class="timeline-item"><span class="timeline-time">${applyTime}</span><div class="timeline-content"><span class="timeline-title">${app.recruitTitle}</span><span class="timeline-desc">状态：${statusText}</span></div></li>`;
             });
             appHtml += '</ul>';
             applicationsDiv.innerHTML = appHtml;
           }
-
           if (posts.length > 0) {
             let postHtml = '<h6 class="mt-3">我发布的招募：</h6><ul class="timeline">';
             posts.forEach(post => {
-              const createTime = post.createTime ? new Date(post.createTime).toLocaleString('zh-CN') : '时间未知';
+              const createTime = post.createTime ? new Date(post.createTime).toLocaleString() : '时间未知';
               const statusText = post.status === 0 ? '招募中' : '已结束';
-              postHtml += `
-                <li class="timeline-item">
-                  <span class="timeline-time">${createTime}</span>
-                  <div class="timeline-content">
-                    <span class="timeline-title">${post.title}</span>
-                    <span class="timeline-desc">状态：${statusText}，申请人数：${post.applicantCount}</span>
-                  </div>
-                </li>
-              `;
+              postHtml += `<li class="timeline-item"><span class="timeline-time">${createTime}</span><div class="timeline-content"><span class="timeline-title">${post.title}</span><span class="timeline-desc">状态：${statusText}，申请人数：${post.applicantCount}</span></div></li>`;
             });
             postHtml += '</ul>';
             postsDiv.innerHTML = postHtml;
           }
         }
-      } catch (err) {
-        console.error('加载招募信息失败', err);
-        document.getElementById('recruitInfoEmpty').style.display = 'block';
-      }
+      } catch (err) { console.error('加载招募信息失败', err); document.getElementById('recruitInfoEmpty').style.display = 'block'; }
     }
 
     async function init() {
@@ -937,13 +777,12 @@
       if (!token) { alert('请先登录'); window.location.href = 'Index.html'; return; }
       await loadUserInfo();
       await loadRadarData();
-      await loadCollections('item', 'projectsGrid', 'projectsEmpty');
-      await loadCollections('site', 'sitesGrid', 'sitesEmpty');
-      await loadCollections('activity', 'activitiesGrid', 'activitiesEmpty');
+      await loadProjectsCollection();
+      await loadSitesCollection();
+      await loadActivitiesCollection();
       await loadActivityInfo();
       await loadRecruitInfo();
     }
-
     init();
   })();
 </script>
