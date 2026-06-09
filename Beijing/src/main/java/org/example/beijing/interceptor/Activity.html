@@ -536,6 +536,7 @@
         <button class="btn-jingyun-outline btn-sm" id="moreArtworksBtn">更多作品</button>
     </div>
 
+    <!-- 非遗交流板块 -->
     <div class="section-title">
         <div class="title-icon-text"><i class="fas fa-comments"></i> 非遗交流</div>
     </div>
@@ -563,6 +564,7 @@
     </div>
 </div>
 
+<!-- 发布招募模态框 -->
 <div class="modal fade modal-jingyun" id="publishRecruitModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -586,6 +588,7 @@
     </div>
 </div>
 
+<!-- 发布活动模态框 -->
 <div class="modal fade modal-jingyun" id="publishActivityModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -626,6 +629,7 @@
     </div>
 </div>
 
+<!-- 发布作品模态框 -->
 <div class="modal fade modal-jingyun" id="publishArtworkModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -654,6 +658,7 @@
     </div>
 </div>
 
+<!-- 编辑活动模态框 -->
 <div class="modal fade modal-jingyun" id="editActivityModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -698,6 +703,7 @@
     </div>
 </div>
 
+<!-- 编辑作品模态框 -->
 <div class="modal fade modal-jingyun" id="editArtworkModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -730,6 +736,7 @@
     </div>
 </div>
 
+<!-- 编辑招募模态框 -->
 <div class="modal fade modal-jingyun" id="editRecruitModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -753,6 +760,7 @@
     </div>
 </div>
 
+<!-- 活动报名列表模态框 -->
 <div class="modal fade modal-jingyun" id="activitySignupsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -768,6 +776,7 @@
     </div>
 </div>
 
+<!-- 招募申请列表模态框 -->
 <div class="modal fade modal-jingyun" id="recruitApplicationsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -783,6 +792,7 @@
     </div>
 </div>
 
+<!-- 全部留言模态框 -->
 <div class="modal fade modal-jingyun" id="allMessagesModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -792,6 +802,7 @@
     </div>
 </div>
 
+<!-- 更多活动模态框 -->
 <div class="modal fade modal-jingyun" id="moreActivitiesModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -804,6 +815,7 @@
     </div>
 </div>
 
+<!-- 更多作品模态框 -->
 <div class="modal fade modal-jingyun" id="moreArtworksModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -816,6 +828,7 @@
     </div>
 </div>
 
+<!-- 更多招募模态框 -->
 <div class="modal fade modal-jingyun" id="moreRecruitsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -865,6 +878,7 @@
             }
         }
 
+        // 发布菜单逻辑
         const publishBtn = document.getElementById('publishBtn');
         const publishMenu = document.getElementById('publishMenu');
         if (publishBtn) {
@@ -896,42 +910,8 @@
             return await uploadWithAuth(`${API_BASE_URL}/upload/image`, formData);
         }
 
+        // ========== 活动板块 ==========
         let allActivities = [];
-        let collectedStatusMap = {};
-
-        async function checkActivityCollected(activityId) {
-            try {
-                const data = await fetchWithAuth(`${API_BASE_URL}/collection/check?targetType=activity&targetId=${activityId}`);
-                return data.collected === true;
-            } catch (err) {
-                console.error('检查收藏状态失败', err);
-                return false;
-            }
-        }
-
-        async function addActivityCollection(activityId, btn) {
-            try {
-                await fetchWithAuth(`${API_BASE_URL}/collection/add`, {
-                    method: 'POST',
-                    body: JSON.stringify({ targetType: 'activity', targetId: activityId })
-                });
-                btn.disabled = true;
-                btn.innerText = '已收藏';
-                btn.dataset.collected = 'true';
-                return true;
-            } catch (err) {
-                if (err.message && (err.message.includes('已经收藏过了') || err.message.includes('duplicate'))) {
-                    btn.disabled = true;
-                    btn.innerText = '已收藏';
-                    btn.dataset.collected = 'true';
-                    alert('已收藏，请在个人信息界面取消收藏');
-                } else {
-                    alert('收藏失败：' + err.message);
-                }
-                return false;
-            }
-        }
-
         async function loadActivities() {
             try {
                 allActivities = await fetchWithAuth(`${API_BASE_URL}/activity/list?status=1`);
@@ -939,10 +919,6 @@
                 if (!allActivities || allActivities.length === 0) {
                     grid.innerHTML = '<div class="no-data">暂无活动</div>';
                     return;
-                }
-                collectedStatusMap = {};
-                for (const act of allActivities) {
-                    collectedStatusMap[act.id] = await checkActivityCollected(act.id);
                 }
                 const displayActivities = allActivities.slice(0, 3);
                 grid.innerHTML = displayActivities.map(act => renderActivityCard(act, true)).join('');
@@ -959,7 +935,7 @@
             return 'high';
         }
 
-        function renderActivityCard(act, showActions) {
+        function renderActivityCard(act, showActions = true) {
             const isMyActivity = isInheritor && act.inheritorId === currentUser.id;
             const isFull = act.currentParticipants >= act.maxParticipants;
             const now = new Date();
@@ -986,9 +962,6 @@
                     </div>
                 `;
             }
-            const isCollected = collectedStatusMap[act.id] === true;
-            const collectDisabled = isCollected;
-            const collectText = isCollected ? '已收藏' : '收藏';
             return `
                 <div class="col">
                     <div class="heritage-card" data-id="${act.id}">
@@ -1012,7 +985,7 @@
                             </div>
                             <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: 0.5rem;">
                                 ${!isMyActivity ? `<button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${signupDisabled ? 'disabled' : ''}>${signupBtnText}</button>` : ''}
-                                <button class="btn-jingyun-outline btn-sm collect-btn" data-id="${act.id}" data-collected="${isCollected}" ${collectDisabled ? 'disabled' : ''}>${collectText}</button>
+                                <button class="btn-jingyun-outline btn-sm collect-btn ms-2" data-id="${act.id}">收藏</button>
                             </div>
                         </div>
                     </div>
@@ -1035,12 +1008,16 @@
             document.querySelectorAll('.collect-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
                     const activityId = this.dataset.id;
-                    const isCollected = this.dataset.collected === 'true';
-                    if (isCollected) {
-                        alert('已收藏，请在个人信息界面取消收藏');
-                        return;
-                    }
-                    await addActivityCollection(activityId, this);
+                    if (this.disabled) return;
+                    try {
+                        await fetchWithAuth(`${API_BASE_URL}/collection/add`, {
+                            method: 'POST',
+                            body: JSON.stringify({ targetType: 'activity', targetId: activityId })
+                        });
+                        alert('收藏成功！');
+                        this.disabled = true;
+                        this.innerText = '已收藏';
+                    } catch (err) { alert('收藏失败：' + err.message); }
                 });
             });
             document.querySelectorAll('.end-activity').forEach(btn => {
@@ -1180,27 +1157,19 @@
                     empty.style.display = 'block';
                 } else {
                     empty.style.display = 'none';
-                    let html = '';
-                    for (const act of activities) {
-                        let isCollected = false;
-                        try {
-                            isCollected = await checkActivityCollected(act.id);
-                        } catch(e) {}
-                        html += `
-                            <div class="modal-card" data-id="${act.id}">
-                                <img src="${act.imageUrl || 'https://picsum.photos/400/200?random=' + act.id}" class="modal-card-img" alt="${act.title}">
-                                <h5>${escapeHtml(act.title)}</h5>
-                                <p>时间: ${new Date(act.startTime).toLocaleString()} ~ ${new Date(act.endTime).toLocaleString()}</p>
-                                <p>名额: ${act.currentParticipants}/${act.maxParticipants}</p>
-                                <p>传承人ID: ${act.inheritorId}</p>
-                                <div class="d-flex gap-2 mt-2">
-                                    <button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${act.currentParticipants >= act.maxParticipants ? 'disabled' : ''}>报名</button>
-                                    <button class="btn-jingyun-outline btn-sm collect-modal-btn" data-id="${act.id}" data-collected="${isCollected}" ${isCollected ? 'disabled' : ''}>${isCollected ? '已收藏' : '收藏'}</button>
-                                </div>
+                    grid.innerHTML = activities.map(act => `
+                        <div class="modal-card" data-id="${act.id}">
+                            <img src="${act.imageUrl || 'https://picsum.photos/400/200?random=' + act.id}" class="modal-card-img" alt="${act.title}">
+                            <h5>${escapeHtml(act.title)}</h5>
+                            <p>时间: ${new Date(act.startTime).toLocaleString()} ~ ${new Date(act.endTime).toLocaleString()}</p>
+                            <p>名额: ${act.currentParticipants}/${act.maxParticipants}</p>
+                            <p>传承人ID: ${act.inheritorId}</p>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${act.currentParticipants >= act.maxParticipants ? 'disabled' : ''}>报名</button>
+                                <button class="btn-jingyun-outline btn-sm collect-btn" data-id="${act.id}">收藏</button>
                             </div>
-                        `;
-                    }
-                    grid.innerHTML = html;
+                        </div>
+                    `).join('');
                     bindModalActivityEvents();
                 }
                 new bootstrap.Modal(document.getElementById('moreActivitiesModal')).show();
@@ -1219,24 +1188,23 @@
                     } catch (err) { alert('报名失败：' + err.message); }
                 });
             });
-            document.querySelectorAll('#allActivitiesGrid .collect-modal-btn').forEach(btn => {
+            document.querySelectorAll('#allActivitiesGrid .collect-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
                     const id = this.dataset.id;
-                    const isCollected = this.dataset.collected === 'true';
-                    if (isCollected) {
-                        alert('已收藏，请在个人信息界面取消收藏');
-                        return;
-                    }
-                    const success = await addActivityCollection(id, this);
-                    if (success) {
+                    try {
+                        await fetchWithAuth(`${API_BASE_URL}/collection/add`, {
+                            method: 'POST',
+                            body: JSON.stringify({ targetType: 'activity', targetId: id })
+                        });
+                        alert('收藏成功！');
                         this.disabled = true;
                         this.innerText = '已收藏';
-                        this.dataset.collected = 'true';
-                    }
+                    } catch (err) { alert('收藏失败：' + err.message); }
                 });
             });
         }
 
+        // ========== 作品板块 ==========
         let allArtworks = [];
         async function loadArtworks() {
             try {
@@ -1346,10 +1314,14 @@
             } catch (err) { alert('加载作品失败：' + err.message); }
         });
 
+        // 非遗交流留言板
         async function loadMessages(limit = 3) {
             try {
+                console.log('正在加载留言...');
                 const messages = await fetchWithAuth(`${API_BASE_URL}/forum/messages?limit=30`);
+                console.log('获取到的留言数据:', messages);
                 if (!messages || messages.length === 0) {
+                    console.log('暂无留言数据');
                     document.getElementById('messageList').innerHTML = '<div class="no-data">暂无交流，快来发布第一条留言吧~</div>';
                     allMessages = [];
                     return;
@@ -1369,6 +1341,7 @@
                 return;
             }
             container.innerHTML = messages.map(m => {
+                // 处理可能的空值
                 const userName = m.userName || '匿名';
                 const content = m.content || '';
                 const createdAt = m.createdAt ? new Date(m.createdAt).toLocaleString() : '时间未知';
@@ -1407,7 +1380,10 @@
                     body: JSON.stringify({ content })
                 });
                 input.value = '';
+                // 重新加载最新留言
                 await loadMessages(3);
+                // 同时刷新全部留言缓存（可选）
+                console.log('发布成功，已刷新留言列表');
             } catch (err) {
                 alert('发布失败：' + err.message);
             }
@@ -1439,6 +1415,7 @@
             new bootstrap.Modal(document.getElementById('allMessagesModal')).show();
         });
 
+        // ========== 招募板块 ==========
         let allRecruits = [];
         async function loadRecruits() {
             try {
@@ -1633,6 +1610,7 @@
             new bootstrap.Modal(document.getElementById('moreRecruitsModal')).show();
         });
 
+        // ========== 发布相关 ==========
         document.getElementById('submitPublishActivity').addEventListener('click', async function() {
             const title = document.getElementById('activityTitle').value.trim();
             const type = document.getElementById('activityType').value;

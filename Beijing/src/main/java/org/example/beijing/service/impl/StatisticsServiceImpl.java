@@ -7,6 +7,7 @@ import org.example.beijing.dto.ChartDataDTO;
 import org.example.beijing.entity.User;
 import org.example.beijing.mapper.CollectionMapper;
 import org.example.beijing.mapper.LoginLogMapper;
+import org.example.beijing.mapper.SiteMapper;
 import org.example.beijing.mapper.UserMapper;
 import org.example.beijing.service.StatisticsService;
 import org.example.beijing.service.WordCloudService;
@@ -25,6 +26,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     private final LoginLogMapper loginLogMapper;
     private final WordCloudService wordCloudService;
     private final UserMapper userMapper;
+    private final SiteMapper siteMapper;
 
     private LocalDateTime getStartTime(String period) {
         LocalDateTime now = LocalDateTime.now();
@@ -97,7 +99,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public ChartDataDTO.RoseChart getRegionRose() {
-        List<Map<String, Object>> regionStats = collectionMapper.selectRegionCount();
+        // 修改为从 heritage_site 表获取真实点位区域分布数据
+        List<Map<String, Object>> regionStats = siteMapper.selectSiteRegionCount();
         List<Map<String, Object>> data = new ArrayList<>();
         for (Map<String, Object> row : regionStats) {
             Map<String, Object> item = new HashMap<>();

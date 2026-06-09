@@ -161,6 +161,7 @@
         }
         .anchorBL { display: none !important; }
 
+        /* 自定义信息窗样式 */
         .custom-info-window {
             position: absolute;
             background: #fff6e8;
@@ -548,6 +549,7 @@
     </div>
 </div>
 
+<!-- 天气模态框 -->
 <div class="custom-modal-overlay" id="weatherModalOverlay">
     <div class="custom-modal">
         <div class="custom-modal-header">
@@ -561,6 +563,7 @@
     </div>
 </div>
 
+<!-- 详细天气模态框 -->
 <div class="custom-modal-overlay weather-detail-modal" id="weatherDetailModalOverlay">
     <div class="custom-modal">
         <div class="custom-modal-header">
@@ -574,6 +577,7 @@
     </div>
 </div>
 
+<!-- 路线模态框 -->
 <div class="custom-modal-overlay" id="routeMapModalOverlay">
     <div class="custom-modal">
         <div class="custom-modal-header">
@@ -610,6 +614,7 @@
         let currentRouteLayer = null;
         let currentCustomInfoWindow = null;
 
+        // 自定义地图样式
         const customMapStyle = [
             { "featureType": "background", "elementType": "geometry", "stylers": { "color": "#f7efd6" } },
             { "featureType": "road", "elementType": "geometry", "stylers": { "color": "#e6d5b8" } },
@@ -624,6 +629,7 @@
             { "featureType": "administrative", "elementType": "labels", "stylers": { "color": "#8b6946", "fontSize": 12 } }
         ];
 
+        // 天气相关函数
         function getWeatherIcon(code) {
             if (code === 0) return 'fa-sun';
             if (code === 1) return 'fa-sun';
@@ -782,6 +788,7 @@
                 .catch(err => { console.error(err); body.innerHTML = '<p class="text-center text-danger">天气加载失败</p>'; });
         }
 
+        // 清除路线
         function clearCurrentRoute() {
             if (currentRouteLayer) {
                 try {
@@ -795,6 +802,7 @@
             }
         }
 
+        // ========== 收藏相关 ==========
         async function checkCollected(siteId) {
             try {
                 const data = await fetchWithAuth(`${API_BASE_URL}/collection/check?targetType=site&targetId=${siteId}`);
@@ -816,7 +824,17 @@
                 return false;
             }
         }
+        async function removeCollection(siteId) {
+            try {
+                await fetchWithAuth(`${API_BASE_URL}/collection/remove?targetType=site&targetId=${siteId}`, { method: 'DELETE' });
+                return true;
+            } catch (err) {
+                alert('取消收藏失败：' + err.message);
+                return false;
+            }
+        }
 
+        // 自定义信息窗（带收藏按钮，我的位置不显示收藏按钮）
         async function showCustomInfoWindow(pointData, marker) {
             if (currentCustomInfoWindow) {
                 currentCustomInfoWindow.remove();
@@ -834,24 +852,28 @@
             div.style.left = left + 'px';
             div.style.top = top + 'px';
 
+            // 判断是否为“我的位置”
             const isCurrentLocation = (pointData.id === 'current');
-
+            
             let routeButtonsHtml = '';
             if (isCurrentLocation) {
+                // 我的位置：只显示天气按钮，不显示收藏按钮
                 routeButtonsHtml = `
                     <div class="route-buttons">
                         <button class="weather-btn" data-id="${pointData.id}"><i class="fas fa-cloud-sun"></i> 天气</button>
                     </div>
                 `;
             } else {
+                // 非遗点位：显示路线按钮、天气按钮和收藏按钮
+                // 获取收藏状态
                 let isCollected = false;
                 try {
                     isCollected = await checkCollected(pointData.id);
                 } catch(e) { console.warn(e); }
-                const collectBtnHtml = isCollected
-                    ? `<button class="collect-btn" data-id="${pointData.id}" data-collected="true" disabled style="background:#8a6d4e; text-align:center; cursor:not-allowed;"><i class="fas fa-heart"></i> 已收藏</button>`
+                const collectBtnHtml = isCollected 
+                    ? `<button class="collect-btn collected" data-id="${pointData.id}" data-collected="true" style="background:#8a6d4e; text-align:center;"><i class="fas fa-heart"></i> 已收藏</button>`
                     : `<button class="collect-btn" data-id="${pointData.id}" data-collected="false" style="text-align:center;"><i class="fas fa-heart"></i> 收藏</button>`;
-
+                
                 routeButtonsHtml = `
                     <div class="route-buttons">
                         <button class="route-btn" data-mode="driving" data-id="${pointData.id}"><i class="fas fa-car"></i> 驾车</button>
@@ -876,6 +898,7 @@
             document.getElementById('map').appendChild(div);
             currentCustomInfoWindow = div;
 
+            // 拖动逻辑
             let isDrag = false;
             let startX, startY, startLeft, startTop;
             div.addEventListener('mousedown', (e) => {
@@ -905,7 +928,8 @@
                 div.remove();
                 currentCustomInfoWindow = null;
             });
-
+            
+            // 路线按钮（仅非遗点位有）
             if (!isCurrentLocation) {
                 div.querySelectorAll('.route-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -918,11 +942,13 @@
                     });
                 });
             }
-
+            
+            // 天气按钮（所有点位都有）
             div.querySelectorAll('.weather-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const id = btn.dataset.id;
                     if (isCurrentLocation) {
+                        // 我的位置
                         if (currentLocation) {
                             showWeatherModal(currentLocation.lat, currentLocation.lng, '我的位置');
                         }
@@ -934,7 +960,8 @@
                     currentCustomInfoWindow = null;
                 });
             });
-
+            
+            // 收藏按钮（仅非遗点位有）
             if (!isCurrentLocation) {
                 const collectButton = div.querySelector('.collect-btn');
                 if (collectButton) {
@@ -942,23 +969,28 @@
                         e.stopPropagation();
                         const siteId = collectButton.dataset.id;
                         const isCurrentlyCollected = collectButton.dataset.collected === 'true';
+                        let success = false;
                         if (isCurrentlyCollected) {
-                            alert('已收藏，请在个人信息界面取消收藏');
-                            return;
-                        }
-                        const success = await addCollection(siteId);
-                        if (success) {
-                            collectButton.innerHTML = '<i class="fas fa-heart"></i> 已收藏';
-                            collectButton.disabled = true;
-                            collectButton.dataset.collected = 'true';
-                            collectButton.style.background = '#8a6d4e';
-                            collectButton.style.cursor = 'not-allowed';
+                            success = await removeCollection(siteId);
+                            if (success) {
+                                collectButton.innerHTML = '<i class="fas fa-heart"></i> 收藏';
+                                collectButton.dataset.collected = 'false';
+                                collectButton.style.background = '';
+                            }
+                        } else {
+                            success = await addCollection(siteId);
+                            if (success) {
+                                collectButton.innerHTML = '<i class="fas fa-heart"></i> 已收藏';
+                                collectButton.dataset.collected = 'true';
+                                collectButton.style.background = '#8a6d4e';
+                            }
                         }
                     });
                 }
             }
         }
 
+        // 路线规划（只计算方案，不自动显示）
         let currentPlanData = null;
         function planRouteWithOptions(pointData, mode) {
             if (!currentLocation) { alert('未获取到您的当前位置，请先点击“定位到我”按钮'); return; }
@@ -1197,6 +1229,7 @@
             planRouteWithOptions(pointData, mode);
         }
 
+        // 地图基础功能
         function initMap() {
             map = new BMapGL.Map('map', { preserveDrawingBuffer: true });
             const point = new BMapGL.Point(116.403, 39.915);
@@ -1304,6 +1337,7 @@
             } else alert('浏览器不支持定位');
         }
 
+        // 清除路线按钮
         document.getElementById('clearRouteBtn').addEventListener('click', () => {
             clearCurrentRoute();
             if (currentCustomInfoWindow) {
@@ -1313,6 +1347,7 @@
             alert('已清除所有路线');
         });
 
+        // 事件绑定
         document.getElementById('weatherModalCloseBtn').addEventListener('click', closeWeatherModal);
         document.getElementById('weatherModalFooterClose').addEventListener('click', closeWeatherModal);
         document.getElementById('weatherModalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeWeatherModal(); });
