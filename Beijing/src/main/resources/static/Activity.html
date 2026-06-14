@@ -313,79 +313,126 @@
             white-space: nowrap;
         }
 
-        .modal-jingyun .modal-content {
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .custom-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .custom-modal {
             background: #fff6e8;
             border: 3px solid #ad8865;
             border-radius: 2rem;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        .more-btn {
+            width: 90%;
+            max-width: 1000px;
+            max-height: 85vh;
             display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        .custom-modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #c7a97e;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+        }
+        .custom-modal-title {
+            font-size: 2rem;
+            font-family: 'STKaiti', serif;
+            color: #3c291b;
+        }
+        .custom-modal-close {
+            background: none;
+            border: none;
+            font-size: 3rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #8d765b;
+        }
+        .custom-modal-close:hover {
+            color: #a6552b;
+        }
+        .custom-modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            color: #2e1e12;
+        }
+        .custom-modal-footer {
+            padding: 1rem 2rem;
+            border-top: 1px solid #d6bc9a;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
             gap: 0.5rem;
         }
-        .more-btn-center {
-            text-align: center;
-            margin: 1.5rem 0;
+        .btn-custom-close {
+            background: #b6844e;
+            border: none;
+            border-radius: 40px;
+            padding: 0.5rem 1.8rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
         }
-        .modal-card-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-        .artwork-card {
-            position: relative;
-        }
-        .artwork-actions {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            display: flex;
-            gap: 0.3rem;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        .artwork-card:hover .artwork-actions {
-            opacity: 1;
-        }
-        .activity-actions {
-            display: flex;
-            gap: 0.3rem;
-            margin-top: 0.5rem;
+        .btn-custom-close:hover {
+            background: #c79b65;
         }
 
-        .modal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 1rem;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 0.5rem;
-        }
+		.modal-grid {
+		    display: grid;
+		    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+		    gap: 1rem;
+		    max-height: 60vh;
+		    overflow-y: auto;
+		    padding: 0.5rem;
+		}
 
-        .modal-card {
-            background: #faefe0;
-            border: 1px solid #d6bc9a;
-            border-radius: 1.2rem;
-            padding: 0.8rem;
-            transition: background 0.3s;
-        }
+		
+		.modal-card {
+		    background: #faefe0;
+		    border: 1px solid #d6bc9a;
+		    border-radius: 1.2rem;
+		    padding: 0.8rem;
+		    display: flex;
+		    flex-direction: column;
+		}
+		
+		.modal-card-img {
+		    width: 100%;
+		    aspect-ratio: 16 / 9;
+		    object-fit: cover;
+		    border-radius: 0.8rem;
+		    margin-bottom: 0.8rem;
+		}
 
-        .modal-card h5 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-        .modal-card p { font-size: 0.85rem; margin: 0.2rem 0; }
-
-        .no-data {
-            color: #dc3545 !important;
-            text-align: center;
-            width: 100%;
-            margin: 2rem 0;
-            display: block;
-            flex: 0 0 100%;
-            grid-column: 1 / -1;
-        }
+        .modal-card h5 { font-size: 1rem; margin-bottom: 0.3rem; }
+        .modal-card p { font-size: 0.8rem; margin: 0.2rem 0; }
+		.button-group {
+		    display: flex;
+		    flex-wrap: nowrap;
+		    gap: 0.4rem;
+		    justify-content: center;
+		    margin-top: 0.6rem;
+		}
+		.button-group .btn-sm {
+		    font-size: 0.7rem;
+		    padding: 0.2rem 0.6rem;
+		    white-space: nowrap;
+		}
         .signup-item {
             display: flex;
             justify-content: space-between;
@@ -410,74 +457,27 @@
         .bg-success { background-color: #28a745; color: white; }
         .bg-danger { background-color: #dc3545; color: white; }
 
-        body.theme-dark .role-bar,
-        body.theme-dark .heritage-card,
-        body.theme-dark .artwork-item,
-        body.theme-dark .message-board,
-        body.theme-dark .recruit-item,
-        body.theme-dark .modal-content,
-        body.theme-dark .modal-card,
-        body.theme-dark .float-publish-menu {
+        body.theme-dark .custom-modal,
+        body.theme-dark .modal-card {
             background: #2d2d2d !important;
             border-color: #5a4a3a !important;
             color: #e0e0e0 !important;
         }
-        body.theme-dark .card-title,
-        body.theme-dark .card-text,
-        body.theme-dark .card-sub,
-        body.theme-dark .message-name,
-        body.theme-dark .message-time,
-        body.theme-dark .message-text,
-        body.theme-dark .recruit-info h4,
-        body.theme-dark .recruit-info p {
-            color: #e0e0e0 !important;
-        }
-        body.theme-dark .message-avatar {
-            background: #5a4a3a !important;
-        }
-        body.theme-dark .reply-input input {
-            background: #3d3d3d !important;
-            border-color: #5a4a3a !important;
-            color: #e0e0e0 !important;
-        }
-
-        body.theme-soft .role-bar,
-        body.theme-soft .heritage-card,
-        body.theme-soft .artwork-item,
-        body.theme-soft .message-board,
-        body.theme-soft .recruit-item,
-        body.theme-soft .modal-content,
-        body.theme-soft .modal-card,
-        body.theme-soft .float-publish-menu {
-            background: #fff8e7 !important;
-            border-color: #d6bc9a !important;
-            color: #5f4b3a !important;
-        }
-        body.theme-soft .card-title,
-        body.theme-soft .card-text,
-        body.theme-soft .card-sub,
-        body.theme-soft .message-name,
-        body.theme-soft .message-time,
-        body.theme-soft .message-text,
-        body.theme-soft .recruit-info h4,
-        body.theme-soft .recruit-info p {
-            color: #5f4b3a !important;
-        }
-        body.theme-soft .message-avatar {
-            background: #c2a27e !important;
-        }
-        body.theme-soft .reply-input input {
+        body.theme-soft .custom-modal,
+        body.theme-soft .modal-card {
             background: #fff8e7 !important;
             border-color: #d6bc9a !important;
             color: #5f4b3a !important;
         }
 
-        #moreActivitiesBtn, #moreArtworksBtn, #moreRecruitsBtn {
+        .more-btn-center {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .more-btn-white {
             color: #ffffff !important;
         }
-        body.theme-soft #moreActivitiesBtn,
-        body.theme-soft #moreArtworksBtn,
-        body.theme-soft #moreRecruitsBtn {
+        body.theme-soft .more-btn-white {
             color: #000000 !important;
         }
     </style>
@@ -525,7 +525,7 @@
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-4" id="activityGrid"></div>
     <div class="more-btn-center">
-        <button class="btn-jingyun-outline btn-sm" id="moreActivitiesBtn">更多活动</button>
+        <button class="btn-jingyun-outline btn-sm more-btn-white" id="moreActivitiesBtn">更多活动</button>
     </div>
 
     <div class="section-title">
@@ -533,7 +533,7 @@
     </div>
     <div class="artwork-grid mb-5" id="artworkGrid"></div>
     <div class="more-btn-center">
-        <button class="btn-jingyun-outline btn-sm" id="moreArtworksBtn">更多作品</button>
+        <button class="btn-jingyun-outline btn-sm more-btn-white" id="moreArtworksBtn">更多作品</button>
     </div>
 
     <div class="section-title">
@@ -555,7 +555,7 @@
     </div>
     <div class="recruit-list" id="recruitList"></div>
     <div class="more-btn-center">
-        <button class="btn-jingyun-outline btn-sm" id="moreRecruitsBtn">更多招募</button>
+        <button class="btn-jingyun-outline btn-sm more-btn-white" id="moreRecruitsBtn">更多招募</button>
     </div>
 
     <div class="footer-note">
@@ -563,265 +563,147 @@
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="publishRecruitModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">发布学徒招募</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="publishRecruitForm">
-                    <div class="mb-3"><label class="form-label">招募标题</label><input type="text" class="form-control" id="recruitTitle" required></div>
-                    <div class="mb-3"><label class="form-label">招募描述</label><textarea class="form-control" id="recruitDesc" rows="3" required></textarea></div>
-                    <div class="mb-3"><label class="form-label">传承人姓名</label><input type="text" class="form-control" id="recruitInheritor" required></div>
-                    <div class="mb-3"><label class="form-label">最大申请人数</label><input type="number" class="form-control" id="recruitMaxApplicants" value="10" min="1" required></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-jingyun" id="submitPublishRecruit">发布</button>
-            </div>
+<div id="publishActivityModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">发布活动</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body">
+            <form id="publishActivityForm">
+                <div class="mb-3"><label class="form-label">活动标题</label><input type="text" class="form-control" id="activityTitle" required></div>
+                <div class="mb-3"><label class="form-label">活动类型</label><select class="form-select" id="activityType"><option value="体验课">体验课</option><option value="讲座">讲座</option><option value="展览">展览</option><option value="演出">演出</option></select></div>
+                <div class="mb-3"><label class="form-label">开始时间</label><input type="datetime-local" class="form-control" id="activityStartTime" required></div>
+                <div class="mb-3"><label class="form-label">结束时间</label><input type="datetime-local" class="form-control" id="activityEndTime" required></div>
+                <div class="mb-3"><label class="form-label">最大参与人数</label><input type="number" class="form-control" id="activityMaxParticipants" value="10" min="1"></div>
+                <div class="mb-3"><label class="form-label">活动描述</label><textarea class="form-control" id="activityDesc" rows="3" required></textarea></div>
+                <div class="mb-3"><label class="form-label">活动封面</label><input type="file" class="form-control" id="activityImageFile" accept="image/*" required></div>
+                <div class="mb-3"><label class="form-label">点位ID（可选）</label><input type="number" class="form-control" id="activitySiteId" placeholder="可选"></div>
+                <input type="hidden" id="activityImageUrl">
+            </form>
         </div>
+        <div class="custom-modal-footer"><button class="btn-custom-close" id="submitPublishActivityBtn">发布</button><button class="btn-custom-close close-modal">取消</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="publishActivityModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">发布活动</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="publishActivityForm">
-                    <div class="mb-3"><label class="form-label">活动标题</label><input type="text" class="form-control" id="activityTitle" required></div>
-                    <div class="mb-3"><label class="form-label">活动类型</label>
-                        <select class="form-select" id="activityType">
-                            <option value="体验课">体验课</option>
-                            <option value="讲座">讲座</option>
-                            <option value="展览">展览</option>
-                            <option value="演出">演出</option>
-                        </select>
-                    </div>
-                    <div class="mb-3"><label class="form-label">开始时间</label><input type="datetime-local" class="form-control" id="activityStartTime" required></div>
-                    <div class="mb-3"><label class="form-label">结束时间</label><input type="datetime-local" class="form-control" id="activityEndTime" required></div>
-                    <div class="mb-3"><label class="form-label">最大参与人数</label><input type="number" class="form-control" id="activityMaxParticipants" value="10" min="1"></div>
-                    <div class="mb-3"><label class="form-label">活动描述</label><textarea class="form-control" id="activityDesc" rows="3" required></textarea></div>
-                    <div class="mb-3"><label class="form-label">活动封面</label>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="file" class="form-control" id="activityImageFile" accept="image/*" required>
-                            <span class="text-muted small" id="activityFileName"></span>
-                        </div>
-                    </div>
-                    <div class="mb-3"><label class="form-label">点位ID（可选）</label><input type="number" class="form-control" id="activitySiteId" placeholder="可选"></div>
-                    <input type="hidden" id="activityImageUrl">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-jingyun" id="submitPublishActivity">发布</button>
-            </div>
+<div id="publishArtworkModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">发布作品</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body">
+            <form id="publishArtworkForm">
+                <div class="mb-3"><label class="form-label">作品标题</label><input type="text" class="form-control" id="artworkTitle" required></div>
+                <div class="mb-3"><label class="form-label">作品描述</label><textarea class="form-control" id="artworkDesc" rows="3" required></textarea></div>
+                <div class="mb-3"><label class="form-label">作品图片</label><input type="file" class="form-control" id="artworkImageFile" accept="image/*" required></div>
+                <input type="hidden" id="artworkImageUrl">
+            </form>
         </div>
+        <div class="custom-modal-footer"><button class="btn-custom-close" id="submitPublishArtworkBtn">发布</button><button class="btn-custom-close close-modal">取消</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="publishArtworkModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">发布作品</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="publishArtworkForm">
-                    <div class="mb-3"><label class="form-label">作品标题</label><input type="text" class="form-control" id="artworkTitle" required></div>
-                    <div class="mb-3"><label class="form-label">作品描述</label><textarea class="form-control" id="artworkDesc" rows="3" required></textarea></div>
-                    <div class="mb-3"><label class="form-label">作品图片</label>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="file" class="form-control" id="artworkImageFile" accept="image/*" required>
-                            <span class="text-muted small" id="artworkFileName"></span>
-                        </div>
-                    </div>
-                    <input type="hidden" id="artworkImageUrl">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-jingyun" id="submitPublishArtwork">发布</button>
-            </div>
+<div id="publishRecruitModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">发布学徒招募</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body">
+            <form id="publishRecruitForm">
+                <div class="mb-3"><label class="form-label">招募标题</label><input type="text" class="form-control" id="recruitTitle" required></div>
+                <div class="mb-3"><label class="form-label">招募描述</label><textarea class="form-control" id="recruitDesc" rows="3" required></textarea></div>
+                <div class="mb-3"><label class="form-label">传承人姓名</label><input type="text" class="form-control" id="recruitInheritor" required></div>
+                <div class="mb-3"><label class="form-label">最大申请人数</label><input type="number" class="form-control" id="recruitMaxApplicants" value="10" min="1" required></div>
+            </form>
         </div>
+        <div class="custom-modal-footer"><button class="btn-custom-close" id="submitPublishRecruitBtn">发布</button><button class="btn-custom-close close-modal">取消</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="editActivityModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">编辑活动</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editActivityForm">
-                    <input type="hidden" id="editActivityId">
-                    <div class="mb-3"><label class="form-label">活动标题</label><input type="text" class="form-control" id="editActivityTitle" required></div>
-                    <div class="mb-3"><label class="form-label">活动类型</label>
-                        <select class="form-select" id="editActivityType">
-                            <option value="体验课">体验课</option>
-                            <option value="讲座">讲座</option>
-                            <option value="展览">展览</option>
-                            <option value="演出">演出</option>
-                        </select>
-                    </div>
-                    <div class="mb-3"><label class="form-label">开始时间</label><input type="datetime-local" class="form-control" id="editActivityStartTime" required></div>
-                    <div class="mb-3"><label class="form-label">结束时间</label><input type="datetime-local" class="form-control" id="editActivityEndTime" required></div>
-                    <div class="mb-3"><label class="form-label">最大参与人数</label><input type="number" class="form-control" id="editActivityMaxParticipants" min="1" required></div>
-                    <div class="mb-3"><label class="form-label">活动描述</label><textarea class="form-control" id="editActivityDesc" rows="3" required></textarea></div>
-                    <div class="mb-3"><label class="form-label">当前封面</label>
-                        <div><img id="editActivityCurrentImage" src="" style="max-width:200px; max-height:150px; border-radius:0.5rem;"></div>
-                    </div>
-                    <div class="mb-3"><label class="form-label">更新封面（可选）</label>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="file" class="form-control" id="editActivityImageFile" accept="image/*">
-                            <span class="text-muted small" id="editActivityFileName"></span>
-                        </div>
-                    </div>
-                    <div class="mb-3"><label class="form-label">点位ID（可选）</label><input type="number" class="form-control" id="editActivitySiteId" placeholder="可选"></div>
-                    <input type="hidden" id="editActivityImageUrl">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-jingyun" id="submitEditActivity">保存修改</button>
-            </div>
+<div id="editActivityModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">编辑活动</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body">
+            <form id="editActivityForm">
+                <input type="hidden" id="editActivityId">
+                <div class="mb-3"><label class="form-label">活动标题</label><input type="text" class="form-control" id="editActivityTitle" required></div>
+                <div class="mb-3"><label class="form-label">活动类型</label><select class="form-select" id="editActivityType"><option value="体验课">体验课</option><option value="讲座">讲座</option><option value="展览">展览</option><option value="演出">演出</option></select></div>
+                <div class="mb-3"><label class="form-label">开始时间</label><input type="datetime-local" class="form-control" id="editActivityStartTime" required></div>
+                <div class="mb-3"><label class="form-label">结束时间</label><input type="datetime-local" class="form-control" id="editActivityEndTime" required></div>
+                <div class="mb-3"><label class="form-label">最大参与人数</label><input type="number" class="form-control" id="editActivityMaxParticipants" min="1" required></div>
+                <div class="mb-3"><label class="form-label">活动描述</label><textarea class="form-control" id="editActivityDesc" rows="3" required></textarea></div>
+                <div class="mb-3"><label class="form-label">当前封面</label><div><img id="editActivityCurrentImage" src="" style="max-width:200px; max-height:150px; border-radius:0.5rem;"></div></div>
+                <div class="mb-3"><label class="form-label">更新封面（可选）</label><input type="file" class="form-control" id="editActivityImageFile" accept="image/*"></div>
+                <div class="mb-3"><label class="form-label">点位ID（可选）</label><input type="number" class="form-control" id="editActivitySiteId" placeholder="可选"></div>
+                <input type="hidden" id="editActivityImageUrl">
+            </form>
         </div>
+        <div class="custom-modal-footer"><button class="btn-custom-close" id="submitEditActivityBtn">保存</button><button class="btn-custom-close close-modal">取消</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="editArtworkModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">编辑作品</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editArtworkForm">
-                    <input type="hidden" id="editArtworkId">
-                    <div class="mb-3"><label class="form-label">作品标题</label><input type="text" class="form-control" id="editArtworkTitle" required></div>
-                    <div class="mb-3"><label class="form-label">作品描述</label><textarea class="form-control" id="editArtworkDesc" rows="3" required></textarea></div>
-                    <div class="mb-3"><label class="form-label">当前图片</label>
-                        <div><img id="editArtworkCurrentImage" src="" style="max-width:200px; max-height:150px; border-radius:0.5rem;"></div>
-                    </div>
-                    <div class="mb-3"><label class="form-label">更新图片（可选）</label>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="file" class="form-control" id="editArtworkImageFile" accept="image/*">
-                            <span class="text-muted small" id="editArtworkFileName"></span>
-                        </div>
-                    </div>
-                    <input type="hidden" id="editArtworkImageUrl">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-jingyun" id="submitEditArtwork">保存修改</button>
-            </div>
+<div id="editArtworkModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">编辑作品</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body">
+            <form id="editArtworkForm">
+                <input type="hidden" id="editArtworkId">
+                <div class="mb-3"><label class="form-label">作品标题</label><input type="text" class="form-control" id="editArtworkTitle" required></div>
+                <div class="mb-3"><label class="form-label">作品描述</label><textarea class="form-control" id="editArtworkDesc" rows="3" required></textarea></div>
+                <div class="mb-3"><label class="form-label">当前图片</label><div><img id="editArtworkCurrentImage" src="" style="max-width:200px; max-height:150px; border-radius:0.5rem;"></div></div>
+                <div class="mb-3"><label class="form-label">更新图片（可选）</label><input type="file" class="form-control" id="editArtworkImageFile" accept="image/*"></div>
+                <input type="hidden" id="editArtworkImageUrl">
+            </form>
         </div>
+        <div class="custom-modal-footer"><button class="btn-custom-close" id="submitEditArtworkBtn">保存</button><button class="btn-custom-close close-modal">取消</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="editRecruitModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">编辑招募</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editRecruitForm">
-                    <input type="hidden" id="editRecruitId">
-                    <div class="mb-3"><label class="form-label">招募标题</label><input type="text" class="form-control" id="editRecruitTitle" required></div>
-                    <div class="mb-3"><label class="form-label">招募描述</label><textarea class="form-control" id="editRecruitDesc" rows="3" required></textarea></div>
-                    <div class="mb-3"><label class="form-label">传承人姓名</label><input type="text" class="form-control" id="editRecruitInheritor" required></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-jingyun" id="submitEditRecruit">保存修改</button>
-            </div>
+<div id="editRecruitModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">编辑招募</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body">
+            <form id="editRecruitForm">
+                <input type="hidden" id="editRecruitId">
+                <div class="mb-3"><label class="form-label">招募标题</label><input type="text" class="form-control" id="editRecruitTitle" required></div>
+                <div class="mb-3"><label class="form-label">招募描述</label><textarea class="form-control" id="editRecruitDesc" rows="3" required></textarea></div>
+                <div class="mb-3"><label class="form-label">传承人姓名</label><input type="text" class="form-control" id="editRecruitInheritor" required></div>
+            </form>
         </div>
+        <div class="custom-modal-footer"><button class="btn-custom-close" id="submitEditRecruitBtn">保存</button><button class="btn-custom-close close-modal">取消</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="activitySignupsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="activitySignupsModalTitle">活动报名列表</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div id="activitySignupsList"></div>
-                <div id="activitySignupsEmpty" class="no-data" style="display: none;">暂无报名</div>
-            </div>
-        </div>
+<div id="activitySignupsModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title" id="activitySignupsModalTitle">活动报名列表</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body" id="activitySignupsModalBody"></div>
+        <div class="custom-modal-footer"><button class="btn-custom-close close-modal">关闭</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="recruitApplicationsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="recruitApplicationsModalTitle">招募申请列表</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div id="recruitApplicationsList"></div>
-                <div id="recruitApplicationsEmpty" class="no-data" style="display: none;">暂无申请</div>
-            </div>
-        </div>
+<div id="recruitApplicationsModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title" id="recruitApplicationsModalTitle">招募申请列表</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body" id="recruitApplicationsModalBody"></div>
+        <div class="custom-modal-footer"><button class="btn-custom-close close-modal">关闭</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="allMessagesModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title">全部交流</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body" id="allMessagesList"></div>
-        </div>
+<div id="moreActivitiesModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">全部进行中的活动</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body"><div class="modal-grid" id="allActivitiesGrid"></div><div id="allActivitiesEmpty" class="no-data" style="display:none;">暂无进行中的活动</div></div>
+        <div class="custom-modal-footer"><button class="btn-custom-close close-modal">关闭</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="moreActivitiesModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title">全部进行中的活动</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body">
-                <div class="modal-grid" id="allActivitiesGrid"></div>
-                <div id="allActivitiesEmpty" class="no-data" style="display: none;">暂无进行中的活动</div>
-            </div>
-        </div>
+<div id="moreArtworksModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">全部传承人作品</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body"><div class="modal-grid" id="allArtworksGrid"></div><div id="allArtworksEmpty" class="no-data" style="display:none;">暂无作品</div></div>
+        <div class="custom-modal-footer"><button class="btn-custom-close close-modal">关闭</button></div>
     </div>
 </div>
 
-<div class="modal fade modal-jingyun" id="moreArtworksModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title">全部传承人作品</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body">
-                <div class="modal-grid" id="allArtworksGrid"></div>
-                <div id="allArtworksEmpty" class="no-data" style="display: none">暂无作品</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade modal-jingyun" id="moreRecruitsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title">全部招募</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body" id="allRecruitsList"></div>
-        </div>
+<div id="moreRecruitsModal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header"><span class="custom-modal-title">全部招募</span><button class="custom-modal-close">&times;</button></div>
+        <div class="custom-modal-body"><div class="modal-grid" id="allRecruitsGrid"></div><div id="allRecruitsEmpty" class="no-data" style="display:none;">暂无招募</div></div>
+        <div class="custom-modal-footer"><button class="btn-custom-close close-modal">关闭</button></div>
     </div>
 </div>
 
@@ -834,883 +716,960 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/common.js"></script>
 <script>
-    (function() {
-        const API_BASE_URL = 'http://localhost:8080/api';
-        let currentUser = null;
-        let isInheritor = false;
-        let allMessages = [];
+(function() {
+    const API_BASE_URL = 'http://localhost:8080/api';
+    let currentUser = null;
+    let isInheritor = false;
+    let allMessages = [];
+    let allActivities = [];
+    let allArtworks = [];
+    let allRecruits = [];
 
-        async function loadUserInfo() {
-            try {
-                currentUser = await fetchWithAuth(`${API_BASE_URL}/user/info`);
-                isInheritor = currentUser.role === 'inheritor';
-                updateRoleUI();
-            } catch (err) { console.error('获取用户信息失败', err); }
-        }
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add('show');
+    }
+    function hideModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.remove('show');
+    }
+    function closeAllModals() {
+        document.querySelectorAll('.custom-modal-overlay').forEach(m => m.classList.remove('show'));
+    }
+    document.querySelectorAll('.custom-modal-close, .close-modal').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const modal = btn.closest('.custom-modal-overlay');
+            if (modal) modal.classList.remove('show');
+        });
+    });
+    document.querySelectorAll('.custom-modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.classList.remove('show');
+        });
+    });
 
-        function updateRoleUI() {
-            const roleDisplay = document.getElementById('roleDisplay');
+    async function loadUserInfo() {
+        try {
+            currentUser = await fetchWithAuth(API_BASE_URL + '/user/info');
+            isInheritor = currentUser.role === 'inheritor';
+            updateRoleUI();
+        } catch (err) { console.error(err); }
+    }
+    function updateRoleUI() {
+        const roleDisplay = document.getElementById('roleDisplay');
+        if (roleDisplay) {
             roleDisplay.innerText = isInheritor ? '传承人' : '普通用户';
             roleDisplay.style.backgroundColor = isInheritor ? '#b6844e' : '#a97c53';
-            const publishBtn = document.getElementById('publishBtn');
-            publishBtn.style.display = isInheritor ? 'flex' : 'none';
-            const inviteCodeSpan = document.querySelector('.role-bar div:last-child');
-            const smallHint = document.querySelector('.role-info .small');
-            if (isInheritor) {
-                if (inviteCodeSpan) inviteCodeSpan.style.display = 'none';
-                if (smallHint) smallHint.style.display = 'none';
-            } else {
-                if (inviteCodeSpan) inviteCodeSpan.style.display = 'block';
-                if (smallHint) smallHint.style.display = 'inline-block';
-            }
         }
-
         const publishBtn = document.getElementById('publishBtn');
-        const publishMenu = document.getElementById('publishMenu');
-        if (publishBtn) {
-            publishBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                publishMenu.style.display = publishMenu.style.display === 'none' ? 'flex' : 'none';
-            });
-            document.addEventListener('click', (e) => {
-                if (publishMenu && !publishMenu.contains(e.target) && e.target !== publishBtn) {
-                    publishMenu.style.display = 'none';
-                }
-            });
+        if (publishBtn) publishBtn.style.display = isInheritor ? 'flex' : 'none';
+        const inviteCodeSpan = document.querySelector('.role-bar div:last-child');
+        const smallHint = document.querySelector('.role-info .small');
+        if (isInheritor) {
+            if (inviteCodeSpan) inviteCodeSpan.style.display = 'none';
+            if (smallHint) smallHint.style.display = 'none';
+        } else {
+            if (inviteCodeSpan) inviteCodeSpan.style.display = 'block';
+            if (smallHint) smallHint.style.display = 'inline-block';
         }
+    }
 
-        document.querySelectorAll('[data-publish]').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const type = this.dataset.publish;
-                publishMenu.style.display = 'none';
-                if (type === 'activity') new bootstrap.Modal(document.getElementById('publishActivityModal')).show();
-                else if (type === 'artwork') new bootstrap.Modal(document.getElementById('publishArtworkModal')).show();
-                else if (type === 'recruit') new bootstrap.Modal(document.getElementById('publishRecruitModal')).show();
+    async function uploadImage(file, type) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('type', type);
+        return await uploadWithAuth(API_BASE_URL + '/upload/image', formData);
+    }
+
+    document.getElementById('submitPublishActivityBtn')?.addEventListener('click', async () => {
+        const title = document.getElementById('activityTitle')?.value.trim();
+        const type = document.getElementById('activityType')?.value;
+        const startTime = document.getElementById('activityStartTime')?.value;
+        const endTime = document.getElementById('activityEndTime')?.value;
+        const maxParticipants = parseInt(document.getElementById('activityMaxParticipants')?.value);
+        const description = document.getElementById('activityDesc')?.value.trim();
+        const siteId = document.getElementById('activitySiteId')?.value ? parseInt(document.getElementById('activitySiteId').value) : null;
+        const imageFile = document.getElementById('activityImageFile')?.files[0];
+        if (!title || !startTime || !endTime || !description) { alert('请填写必填项'); return; }
+        if (!imageFile) { alert('请上传活动封面图片'); return; }
+        try {
+            const imageUrl = await uploadImage(imageFile, 'activity');
+            await fetchWithAuth(API_BASE_URL + '/activity/publish', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title, type, startTime, endTime, maxParticipants, description, siteId,
+                    imageUrl, inheritorId: currentUser.id
+                })
             });
-        });
+            alert('活动发布成功');
+            hideModal('publishActivityModal');
+            document.getElementById('publishActivityForm')?.reset();
+            loadActivities();
+        } catch (err) { alert('发布失败：' + err.message); }
+    });
+    document.getElementById('submitPublishArtworkBtn')?.addEventListener('click', async () => {
+        const title = document.getElementById('artworkTitle')?.value.trim();
+        const description = document.getElementById('artworkDesc')?.value.trim();
+        const imageFile = document.getElementById('artworkImageFile')?.files[0];
+        if (!title || !description) { alert('请填写标题和描述'); return; }
+        if (!imageFile) { alert('请上传作品图片'); return; }
+        try {
+            const imageUrl = await uploadImage(imageFile, 'artwork');
+            await fetchWithAuth(API_BASE_URL + '/artwork/publish', {
+                method: 'POST',
+                body: JSON.stringify({ title, description, imageUrl })
+            });
+            alert('作品发布成功');
+            hideModal('publishArtworkModal');
+            document.getElementById('publishArtworkForm')?.reset();
+            loadArtworks();
+        } catch (err) { alert('发布失败：' + err.message); }
+    });
+    document.getElementById('submitPublishRecruitBtn')?.addEventListener('click', async () => {
+        const title = document.getElementById('recruitTitle')?.value.trim();
+        const description = document.getElementById('recruitDesc')?.value.trim();
+        const inheritorName = document.getElementById('recruitInheritor')?.value.trim();
+        const maxApplicants = parseInt(document.getElementById('recruitMaxApplicants')?.value);
+        if (!title || !description || !inheritorName || !maxApplicants) { alert('请填写所有字段'); return; }
+        try {
+            await fetchWithAuth(API_BASE_URL + '/recruit/add', {
+                method: 'POST',
+                body: JSON.stringify({ title, description, inheritorName, maxApplicants })
+            });
+            alert('招募发布成功');
+            hideModal('publishRecruitModal');
+            document.getElementById('publishRecruitForm')?.reset();
+            loadRecruits();
+        } catch (err) { alert('发布失败：' + err.message); }
+    });
 
-        async function uploadImage(file, type) {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('type', type);
-            return await uploadWithAuth(`${API_BASE_URL}/upload/image`, formData);
-        }
-
-        let allActivities = [];
-        let collectedStatusMap = {};
-
-        async function checkActivityCollected(activityId) {
-            try {
-                const data = await fetchWithAuth(`${API_BASE_URL}/collection/check?targetType=activity&targetId=${activityId}`);
-                return data.collected === true;
-            } catch (err) {
-                console.error('检查收藏状态失败', err);
-                return false;
-            }
-        }
-
-        async function addActivityCollection(activityId, btn) {
-            try {
-                await fetchWithAuth(`${API_BASE_URL}/collection/add`, {
-                    method: 'POST',
-                    body: JSON.stringify({ targetType: 'activity', targetId: activityId })
-                });
+    async function checkActivityCollected(activityId) {
+        try {
+            const data = await fetchWithAuth(API_BASE_URL + '/collection/check?targetType=activity&targetId=' + activityId);
+            return data.collected === true;
+        } catch { return false; }
+    }
+    async function addActivityCollection(activityId, btn) {
+        try {
+            await fetchWithAuth(API_BASE_URL + '/collection/add', {
+                method: 'POST',
+                body: JSON.stringify({ targetType: 'activity', targetId: activityId })
+            });
+            btn.disabled = true;
+            btn.innerText = '已收藏';
+            btn.dataset.collected = 'true';
+            return true;
+        } catch (err) {
+            if (err.message && err.message.includes('已经收藏过了')) {
                 btn.disabled = true;
                 btn.innerText = '已收藏';
                 btn.dataset.collected = 'true';
-                return true;
-            } catch (err) {
-                if (err.message && (err.message.includes('已经收藏过了') || err.message.includes('duplicate'))) {
-                    btn.disabled = true;
-                    btn.innerText = '已收藏';
-                    btn.dataset.collected = 'true';
+                alert('已收藏，请在个人信息界面取消收藏');
+            } else {
+                alert('收藏失败：' + err.message);
+            }
+            return false;
+        }
+    }
+
+    async function loadActivities() {
+        try {
+            allActivities = await fetchWithAuth(API_BASE_URL + '/activity/list?status=1');
+            const grid = document.getElementById('activityGrid');
+            if (!grid) return;
+            if (!allActivities.length) {
+                grid.innerHTML = '<div class="no-data">暂无活动</div>';
+                return;
+            }
+            const collected = {};
+            for (const act of allActivities) {
+                collected[act.id] = await checkActivityCollected(act.id);
+            }
+            const display = allActivities.slice(0, 3);
+            grid.innerHTML = display.map(act => renderActivityCard(act, collected[act.id])).join('');
+            bindActivityEvents();
+        } catch (err) { console.error(err); }
+    }
+    function renderActivityCard(act, isCollected) {
+        const isMyActivity = isInheritor && act.inheritorId === currentUser.id;
+        const isFull = act.currentParticipants >= act.maxParticipants;
+        const isEnded = new Date(act.endTime) < new Date();
+        const canSignup = !isMyActivity && !isFull && !isEnded && act.status === 1;
+        const signupBtnText = isEnded ? '已结束' : (isFull ? '已满' : '报名');
+        const percent = act.maxParticipants > 0 ? (act.currentParticipants / act.maxParticipants) * 100 : 0;
+        const progressClass = percent < 50 ? 'low' : (percent < 80 ? 'medium' : 'high');
+        let actionButtons = '';
+        if (isInheritor && isMyActivity) {
+            actionButtons = `
+                <div class="activity-actions">
+                    <button class="btn-jingyun-outline btn-sm view-activity-signups" data-id="${act.id}"><i class="fas fa-users"></i> 查看申请</button>
+                    <button class="btn-jingyun-outline btn-sm edit-activity" data-id="${act.id}"><i class="fas fa-edit"></i> 编辑</button>
+                    ${act.status === 1 ? `<button class="btn-jingyun-outline btn-sm end-activity" data-id="${act.id}"><i class="fas fa-stop"></i> 结束</button>` : ''}
+                </div>
+            `;
+        } else {
+            actionButtons = `<div class="activity-actions"><button class="btn-jingyun-outline btn-sm view-activity-signups" data-id="${act.id}"><i class="fas fa-users"></i> 查看申请</button></div>`;
+        }
+        return `
+            <div class="col">
+                <div class="heritage-card" data-id="${act.id}">
+                    <img src="${act.imageUrl || 'https://picsum.photos/400/200?random=' + act.id}" class="card-img-top" alt="${act.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${escapeHtml(act.title)}</h5>
+                        <div class="card-sub"><i class="fas fa-user"></i> 传承人ID: ${act.inheritorId}</div>
+                        <div class="card-sub"><i class="fas fa-clock"></i> ${new Date(act.startTime).toLocaleString()} ~ ${new Date(act.endTime).toLocaleString()}</div>
+                        <p class="card-text">${escapeHtml(act.description || '暂无描述')}</p>
+                        ${actionButtons}
+                    </div>
+                    <div class="card-footer">
+                        <div style="width:100%">
+                            <div class="progress-custom"><div class="progress-fill ${progressClass}" style="width: ${percent}%;"></div></div>
+                            <div class="progress-label"><span><i class="fas fa-users"></i> 已报名 ${act.currentParticipants}</span><span>名额 ${act.maxParticipants}</span></div>
+                        </div>
+                        <div style="width:100%; display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                            ${!isMyActivity ? `<button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${!canSignup ? 'disabled' : ''}>${signupBtnText}</button>` : ''}
+                            <button class="btn-jingyun-outline btn-sm collect-btn" data-id="${act.id}" data-collected="${isCollected}" ${isCollected ? 'disabled' : ''}>${isCollected ? '已收藏' : '收藏'}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    function bindActivityEvents() {
+        document.querySelectorAll('.signup-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                if (btn.disabled) return;
+                try {
+                    await fetchWithAuth(API_BASE_URL + '/activity/signup/' + id, { method: 'POST' });
+                    alert('申请已提交，请等待审核');
+                    loadActivities();
+                } catch (err) { alert('报名失败：' + err.message); }
+            });
+        });
+        document.querySelectorAll('.collect-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                const isCollected = btn.dataset.collected === 'true';
+                if (isCollected) {
                     alert('已收藏，请在个人信息界面取消收藏');
-                } else {
-                    alert('收藏失败：' + err.message);
-                }
-                return false;
-            }
-        }
-
-        async function loadActivities() {
-            try {
-                allActivities = await fetchWithAuth(`${API_BASE_URL}/activity/list?status=1`);
-                const grid = document.getElementById('activityGrid');
-                if (!allActivities || allActivities.length === 0) {
-                    grid.innerHTML = '<div class="no-data">暂无活动</div>';
                     return;
                 }
-                collectedStatusMap = {};
-                for (const act of allActivities) {
-                    collectedStatusMap[act.id] = await checkActivityCollected(act.id);
-                }
-                const displayActivities = allActivities.slice(0, 3);
-                grid.innerHTML = displayActivities.map(act => renderActivityCard(act, true)).join('');
-                bindActivityEvents();
-            } catch (err) {
-                console.error('加载活动失败', err);
-                document.getElementById('activityGrid').innerHTML = '<div class="no-data">加载失败</div>';
-            }
-        }
-
-        function getProgressClass(percent) {
-            if (percent < 50) return 'low';
-            if (percent < 80) return 'medium';
-            return 'high';
-        }
-
-        function renderActivityCard(act, showActions) {
-            const isMyActivity = isInheritor && act.inheritorId === currentUser.id;
-            const isFull = act.currentParticipants >= act.maxParticipants;
-            const now = new Date();
-            const endTime = new Date(act.endTime);
-            const isEnded = endTime < now;
-            const canSignup = !isMyActivity && !isFull && !isEnded && act.status === 1;
-            const signupBtnText = isEnded ? '已结束' : (isFull ? '已满' : '报名');
-            const signupDisabled = !canSignup;
-            const percent = act.maxParticipants > 0 ? (act.currentParticipants / act.maxParticipants) * 100 : 0;
-            const progressClass = getProgressClass(percent);
-            let actionButtons = '';
-            if (showActions && isInheritor && isMyActivity) {
-                actionButtons = `
-                    <div class="activity-actions">
-                        <button class="btn-jingyun-outline btn-sm view-activity-signups" data-id="${act.id}"><i class="fas fa-users"></i> 查看申请</button>
-                        <button class="btn-jingyun-outline btn-sm edit-activity" data-id="${act.id}"><i class="fas fa-edit"></i> 编辑</button>
-                        ${act.status === 1 ? `<button class="btn-jingyun-outline btn-sm end-activity" data-id="${act.id}"><i class="fas fa-stop"></i> 结束</button>` : ''}
-                    </div>
-                `;
-            } else if (!isMyActivity) {
-                actionButtons = `
-                    <div class="activity-actions">
-                        <button class="btn-jingyun-outline btn-sm view-activity-signups" data-id="${act.id}"><i class="fas fa-users"></i> 查看申请</button>
-                    </div>
-                `;
-            }
-            const isCollected = collectedStatusMap[act.id] === true;
-            const collectDisabled = isCollected;
-            const collectText = isCollected ? '已收藏' : '收藏';
-            return `
-                <div class="col">
-                    <div class="heritage-card" data-id="${act.id}">
-                        <img src="${act.imageUrl || 'https://picsum.photos/400/200?random=' + act.id}" class="card-img-top" alt="${act.title}">
-                        <div class="card-body">
-                            <h5 class="card-title">${escapeHtml(act.title)}</h5>
-                            <div class="card-sub"><i class="fas fa-user"></i> 传承人ID: ${act.inheritorId}</div>
-                            <div class="card-sub"><i class="fas fa-clock"></i> ${new Date(act.startTime).toLocaleString()} ~ ${new Date(act.endTime).toLocaleString()}</div>
-                            <p class="card-text">${escapeHtml(act.description || '暂无描述')}</p>
-                            ${actionButtons}
+                await addActivityCollection(id, btn);
+            });
+        });
+        document.querySelectorAll('.end-activity').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (!confirm('确定要结束该活动吗？')) return;
+                const id = btn.dataset.id;
+                try {
+                    await fetchWithAuth(API_BASE_URL + '/activity/end/' + id, { method: 'POST' });
+                    alert('活动已结束');
+                    loadActivities();
+                } catch (err) { alert('操作失败：' + err.message); }
+            });
+        });
+        document.querySelectorAll('.edit-activity').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const act = allActivities.find(a => a.id == id);
+                if (!act) { alert('活动不存在'); return; }
+                showEditActivityModal(act);
+            });
+        });
+        document.querySelectorAll('.view-activity-signups').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                await showActivitySignupsModal(id);
+            });
+        });
+    }
+    async function showActivitySignupsModal(activityId) {
+        try {
+            const signups = await fetchWithAuth(API_BASE_URL + '/activity/' + activityId + '/signups');
+            const activity = allActivities.find(a => a.id == activityId);
+            const title = activity ? `报名列表 - ${activity.title}` : '活动报名列表';
+            let html = '';
+            if (!signups || !signups.length) {
+                html = '<div class="no-data">暂无报名</div>';
+            } else {
+                html = signups.map(s => `
+                    <div class="signup-item">
+                        <div class="signup-info">
+                            ${s.username ? `<strong>${escapeHtml(s.username)}</strong> ` : ''}
+                            申请时间：${new Date(s.applyTime).toLocaleString()}
+                            <span class="badge ${s.status === 'pending' ? 'bg-warning' : (s.status === 'accepted' ? 'bg-success' : 'bg-danger')}">${s.status === 'pending' ? '待审核' : (s.status === 'accepted' ? '已通过' : '已拒绝')}</span>
                         </div>
-                        <div class="card-footer">
-                            <div style="width: 100%;">
-                                <div class="progress-custom">
-                                    <div class="progress-fill ${progressClass}" style="width: ${percent}%;"></div>
-                                </div>
-                                <div class="progress-label">
-                                    <span><i class="fas fa-users"></i> 已报名 ${act.currentParticipants}</span>
-                                    <span>名额 ${act.maxParticipants}</span>
-                                </div>
-                            </div>
-                            <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: 0.5rem;">
-                                ${!isMyActivity ? `<button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${signupDisabled ? 'disabled' : ''}>${signupBtnText}</button>` : ''}
-                                <button class="btn-jingyun-outline btn-sm collect-btn" data-id="${act.id}" data-collected="${isCollected}" ${collectDisabled ? 'disabled' : ''}>${collectText}</button>
-                            </div>
+                        ${isInheritor && activity && activity.inheritorId === currentUser.id && s.status === 'pending' ? `
+                        <div class="signup-actions">
+                            <button class="btn-jingyun btn-sm approve-activity-signup" data-id="${s.id}" data-activity-id="${activityId}">同意</button>
+                            <button class="btn-jingyun-outline btn-sm reject-activity-signup" data-id="${s.id}" data-activity-id="${activityId}">拒绝</button>
                         </div>
+                        ` : ''}
                     </div>
-                </div>
-            `;
-        }
-
-        function bindActivityEvents() {
-            document.querySelectorAll('.signup-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const activityId = this.dataset.id;
-                    if (this.disabled) return;
-                    try {
-                        await fetchWithAuth(`${API_BASE_URL}/activity/signup/${activityId}`, { method: 'POST' });
-                        alert('申请已提交，请等待审核');
-                        loadActivities();
-                    } catch (err) { alert('报名失败：' + err.message); }
-                });
-            });
-            document.querySelectorAll('.collect-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const activityId = this.dataset.id;
-                    const isCollected = this.dataset.collected === 'true';
-                    if (isCollected) {
-                        alert('已收藏，请在个人信息界面取消收藏');
-                        return;
-                    }
-                    await addActivityCollection(activityId, this);
-                });
-            });
-            document.querySelectorAll('.end-activity').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    if (!confirm('确定要结束该活动吗？')) return;
-                    const activityId = this.dataset.id;
-                    try {
-                        await fetchWithAuth(`${API_BASE_URL}/activity/end/${activityId}`, { method: 'POST' });
-                        alert('活动已结束');
-                        loadActivities();
-                    } catch (err) { alert('操作失败：' + err.message); }
-                });
-            });
-            document.querySelectorAll('.edit-activity').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    const activityId = this.dataset.id;
-                    try {
-                        const act = allActivities.find(a => a.id == activityId);
-                        if (!act) { alert('活动不存在'); return; }
-                        document.getElementById('editActivityId').value = act.id;
-                        document.getElementById('editActivityTitle').value = act.title;
-                        document.getElementById('editActivityType').value = act.type;
-                        const start = new Date(act.startTime);
-                        const end = new Date(act.endTime);
-                        document.getElementById('editActivityStartTime').value = start.toISOString().slice(0,16);
-                        document.getElementById('editActivityEndTime').value = end.toISOString().slice(0,16);
-                        document.getElementById('editActivityMaxParticipants').value = act.maxParticipants;
-                        document.getElementById('editActivityDesc').value = act.description;
-                        document.getElementById('editActivityCurrentImage').src = act.imageUrl || '';
-                        document.getElementById('editActivityImageUrl').value = act.imageUrl || '';
-                        document.getElementById('editActivitySiteId').value = act.siteId || '';
-                        new bootstrap.Modal(document.getElementById('editActivityModal')).show();
-                    } catch (err) { alert('加载失败：' + err.message); }
-                });
-            });
-            document.querySelectorAll('.view-activity-signups').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    const activityId = this.dataset.id;
-                    await loadActivitySignups(activityId);
-                    new bootstrap.Modal(document.getElementById('activitySignupsModal')).show();
-                });
-            });
-        }
-
-        async function loadActivitySignups(activityId) {
-            try {
-                const signups = await fetchWithAuth(`${API_BASE_URL}/activity/${activityId}/signups`);
-                const container = document.getElementById('activitySignupsList');
-                const empty = document.getElementById('activitySignupsEmpty');
-                const title = document.getElementById('activitySignupsModalTitle');
-                const activity = allActivities.find(a => a.id == activityId);
-                title.innerText = activity ? `报名列表 - ${activity.title}` : '活动报名列表';
-                if (!signups || signups.length === 0) {
-                    container.innerHTML = '';
-                    empty.style.display = 'block';
-                } else {
-                    empty.style.display = 'none';
-                    container.innerHTML = signups.map(s => `
-                        <div class="signup-item" data-id="${s.id}">
-                            <div class="signup-info">
-                                ${s.username ? `<strong>${escapeHtml(s.username)}</strong> ` : ''}
-                                申请时间：${new Date(s.applyTime).toLocaleString()}
-                                <span class="badge ${s.status === 'pending' ? 'bg-warning' : (s.status === 'accepted' ? 'bg-success' : 'bg-danger')}">
-                                    ${s.status === 'pending' ? '待审核' : (s.status === 'accepted' ? '已通过' : '已拒绝')}
-                                </span>
-                            </div>
-                            ${isInheritor && activity && activity.inheritorId === currentUser.id && s.status === 'pending' ? `
-                            <div class="signup-actions">
-                                <button class="btn-jingyun btn-sm approve-activity-signup" data-id="${s.id}" data-activity-id="${activityId}">同意</button>
-                                <button class="btn-jingyun-outline btn-sm reject-activity-signup" data-id="${s.id}" data-activity-id="${activityId}">拒绝</button>
-                            </div>
-                            ` : ''}
-                        </div>
-                    `).join('');
-                    if (isInheritor && activity && activity.inheritorId === currentUser.id) {
-                        document.querySelectorAll('.approve-activity-signup').forEach(btn => {
+                `).join('');
+                if (isInheritor && activity && activity.inheritorId === currentUser.id) {
+                    setTimeout(() => {
+                        document.querySelectorAll('#activitySignupsModal .approve-activity-signup').forEach(btn => {
                             btn.addEventListener('click', async () => {
                                 const signupId = btn.dataset.id;
                                 const actId = btn.dataset.activityId;
                                 try {
-                                    await fetchWithAuth(`${API_BASE_URL}/activity/signup/${signupId}/approve`, { method: 'POST' });
+                                    await fetchWithAuth(API_BASE_URL + '/activity/signup/' + signupId + '/approve', { method: 'POST' });
                                     alert('已同意');
-                                    await loadActivitySignups(actId);
+                                    showActivitySignupsModal(actId);
                                 } catch (err) { alert('操作失败：' + err.message); }
                             });
                         });
-                        document.querySelectorAll('.reject-activity-signup').forEach(btn => {
+                        document.querySelectorAll('#activitySignupsModal .reject-activity-signup').forEach(btn => {
                             btn.addEventListener('click', async () => {
                                 const signupId = btn.dataset.id;
                                 const actId = btn.dataset.activityId;
                                 try {
-                                    await fetchWithAuth(`${API_BASE_URL}/activity/signup/${signupId}/reject`, { method: 'POST' });
+                                    await fetchWithAuth(API_BASE_URL + '/activity/signup/' + signupId + '/reject', { method: 'POST' });
                                     alert('已拒绝');
-                                    await loadActivitySignups(actId);
+                                    showActivitySignupsModal(actId);
                                 } catch (err) { alert('操作失败：' + err.message); }
                             });
                         });
-                    }
+                    }, 50);
                 }
-            } catch (err) { alert('加载报名列表失败：' + err.message); }
-        }
+            }
+            document.getElementById('activitySignupsModalTitle').innerText = title;
+            document.getElementById('activitySignupsModalBody').innerHTML = html;
+            showModal('activitySignupsModal');
+        } catch (err) { alert('加载报名列表失败：' + err.message); }
+    }
+    function showEditActivityModal(act) {
+        document.getElementById('editActivityId').value = act.id;
+        document.getElementById('editActivityTitle').value = act.title;
+        document.getElementById('editActivityType').value = act.type;
+        document.getElementById('editActivityStartTime').value = new Date(act.startTime).toISOString().slice(0,16);
+        document.getElementById('editActivityEndTime').value = new Date(act.endTime).toISOString().slice(0,16);
+        document.getElementById('editActivityMaxParticipants').value = act.maxParticipants;
+        document.getElementById('editActivityDesc').value = act.description;
+        document.getElementById('editActivityCurrentImage').src = act.imageUrl || '';
+        document.getElementById('editActivityImageUrl').value = act.imageUrl || '';
+        document.getElementById('editActivitySiteId').value = act.siteId || '';
+        showModal('editActivityModal');
+    }
+    document.getElementById('submitEditActivityBtn')?.addEventListener('click', async () => {
+        const id = document.getElementById('editActivityId').value;
+        const title = document.getElementById('editActivityTitle').value.trim();
+        const type = document.getElementById('editActivityType').value;
+        const startTime = document.getElementById('editActivityStartTime').value;
+        const endTime = document.getElementById('editActivityEndTime').value;
+        const maxParticipants = parseInt(document.getElementById('editActivityMaxParticipants').value);
+        const description = document.getElementById('editActivityDesc').value.trim();
+        const siteId = document.getElementById('editActivitySiteId').value ? parseInt(document.getElementById('editActivitySiteId').value) : null;
+        const imageFile = document.getElementById('editActivityImageFile').files[0];
+        let imageUrl = document.getElementById('editActivityImageUrl').value;
+        if (!title || !startTime || !endTime || !description) { alert('请填写必填项'); return; }
+        try {
+            if (imageFile) imageUrl = await uploadImage(imageFile, 'activity');
+            await fetchWithAuth(API_BASE_URL + '/activity/' + id, {
+                method: 'PUT',
+                body: JSON.stringify({ title, type, startTime, endTime, maxParticipants, description, siteId, imageUrl })
+            });
+            alert('更新成功');
+            hideModal('editActivityModal');
+            loadActivities();
+        } catch (err) { alert('更新失败：' + err.message); }
+    });
 
-        document.getElementById('submitEditActivity').addEventListener('click', async function() {
-            const id = document.getElementById('editActivityId').value;
-            const title = document.getElementById('editActivityTitle').value.trim();
-            const type = document.getElementById('editActivityType').value;
-            const startTime = document.getElementById('editActivityStartTime').value;
-            const endTime = document.getElementById('editActivityEndTime').value;
-            const maxParticipants = parseInt(document.getElementById('editActivityMaxParticipants').value);
-            const description = document.getElementById('editActivityDesc').value.trim();
-            const siteId = document.getElementById('editActivitySiteId').value ? parseInt(document.getElementById('editActivitySiteId').value) : null;
-            const imageFile = document.getElementById('editActivityImageFile').files[0];
-            let imageUrl = document.getElementById('editActivityImageUrl').value;
-            if (!title || !startTime || !endTime || !description) { alert('请填写必填项'); return; }
-            try {
-                if (imageFile) imageUrl = await uploadImage(imageFile, 'activity');
-                await fetchWithAuth(`${API_BASE_URL}/activity/${id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify({ title, type, startTime, endTime, maxParticipants, description, siteId, imageUrl })
-                });
-                alert('更新成功');
-                bootstrap.Modal.getInstance(document.getElementById('editActivityModal')).hide();
-                loadActivities();
-            } catch (err) { alert('更新失败：' + err.message); }
-        });
-
-        document.getElementById('moreActivitiesBtn').addEventListener('click', async function() {
-            try {
-                const activities = await fetchWithAuth(`${API_BASE_URL}/activity/list?status=1`);
-                const grid = document.getElementById('allActivitiesGrid');
-                const empty = document.getElementById('allActivitiesEmpty');
-                if (activities.length === 0) {
-                    grid.innerHTML = '';
-                    empty.style.display = 'block';
-                } else {
-                    empty.style.display = 'none';
-                    let html = '';
-                    for (const act of activities) {
-                        let isCollected = false;
-                        try {
-                            isCollected = await checkActivityCollected(act.id);
-                        } catch(e) {}
-                        html += `
-                            <div class="modal-card" data-id="${act.id}">
-                                <img src="${act.imageUrl || 'https://picsum.photos/400/200?random=' + act.id}" class="modal-card-img" alt="${act.title}">
-                                <h5>${escapeHtml(act.title)}</h5>
-                                <p>时间: ${new Date(act.startTime).toLocaleString()} ~ ${new Date(act.endTime).toLocaleString()}</p>
-                                <p>名额: ${act.currentParticipants}/${act.maxParticipants}</p>
-                                <p>传承人ID: ${act.inheritorId}</p>
-                                <div class="d-flex gap-2 mt-2">
-                                    <button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${act.currentParticipants >= act.maxParticipants ? 'disabled' : ''}>报名</button>
-                                    <button class="btn-jingyun-outline btn-sm collect-modal-btn" data-id="${act.id}" data-collected="${isCollected}" ${isCollected ? 'disabled' : ''}>${isCollected ? '已收藏' : '收藏'}</button>
-                                </div>
-                            </div>
+    document.getElementById('moreActivitiesBtn')?.addEventListener('click', async () => {
+        try {
+            const activities = await fetchWithAuth(API_BASE_URL + '/activity/list?status=1');
+            const grid = document.getElementById('allActivitiesGrid');
+            const empty = document.getElementById('allActivitiesEmpty');
+            if (!activities.length) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+            } else {
+                empty.style.display = 'none';
+                const collected = {};
+                for (const act of activities) {
+                    collected[act.id] = await checkActivityCollected(act.id);
+                }
+                let html = '';
+                for (const act of activities) {
+                    const isMyActivity = isInheritor && act.inheritorId === currentUser.id;
+                    const isFull = act.currentParticipants >= act.maxParticipants;
+                    const isEnded = new Date(act.endTime) < new Date();
+                    const canSignup = !isMyActivity && !isFull && !isEnded && act.status === 1;
+                    const signupBtnHtml = !isMyActivity ? `<button class="btn-jingyun btn-sm signup-btn" data-id="${act.id}" ${!canSignup ? 'disabled' : ''}>${isEnded ? '已结束' : (isFull ? '已满' : '报名')}</button>` : '';
+                    const collectBtnHtml = `<button class="btn-jingyun-outline btn-sm collect-btn" data-id="${act.id}" data-collected="${collected[act.id]}" ${collected[act.id] ? 'disabled' : ''}>${collected[act.id] ? '已收藏' : '收藏'}</button>`;
+                    let actionHtml = '';
+                    if (isInheritor && isMyActivity) {
+                        actionHtml = `
+                            <button class="btn-jingyun-outline btn-sm view-activity-signups" data-id="${act.id}"><i class="fas fa-users"></i> 查看申请</button>
+                            <button class="btn-jingyun-outline btn-sm edit-activity" data-id="${act.id}"><i class="fas fa-edit"></i> 编辑</button>
+                            ${act.status === 1 ? `<button class="btn-jingyun-outline btn-sm end-activity" data-id="${act.id}"><i class="fas fa-stop"></i> 结束</button>` : ''}
                         `;
+                    } else {
+                        actionHtml = `<button class="btn-jingyun-outline btn-sm view-activity-signups" data-id="${act.id}"><i class="fas fa-users"></i> 查看申请</button>`;
                     }
-                    grid.innerHTML = html;
-                    bindModalActivityEvents();
+                    html += `
+                        <div class="modal-card" data-id="${act.id}">
+                            <img src="${act.imageUrl || 'https://picsum.photos/400/200?random=' + act.id}" class="modal-card-img" alt="${act.title}">
+                            <h5>${escapeHtml(act.title)}</h5>
+                            <p>时间: ${new Date(act.startTime).toLocaleString()} ~ ${new Date(act.endTime).toLocaleString()}</p>
+                            <p>名额: ${act.currentParticipants}/${act.maxParticipants}</p>
+                            <p>传承人ID: ${act.inheritorId}</p>
+                            <div class="button-group">
+                                ${signupBtnHtml}
+                                ${collectBtnHtml}
+                                ${actionHtml}
+                            </div>
+                        </div>
+                    `;
                 }
-                new bootstrap.Modal(document.getElementById('moreActivitiesModal')).show();
-            } catch (err) { alert('加载活动失败：' + err.message); }
-        });
-
-        function bindModalActivityEvents() {
-            document.querySelectorAll('#allActivitiesGrid .signup-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const id = this.dataset.id;
-                    if (this.disabled) return;
-                    try {
-                        await fetchWithAuth(`${API_BASE_URL}/activity/signup/${id}`, { method: 'POST' });
-                        alert('申请已提交，请等待审核');
-                        loadActivities();
-                    } catch (err) { alert('报名失败：' + err.message); }
-                });
-            });
-            document.querySelectorAll('#allActivitiesGrid .collect-modal-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const id = this.dataset.id;
-                    const isCollected = this.dataset.collected === 'true';
-                    if (isCollected) {
-                        alert('已收藏，请在个人信息界面取消收藏');
-                        return;
-                    }
-                    const success = await addActivityCollection(id, this);
-                    if (success) {
-                        this.disabled = true;
-                        this.innerText = '已收藏';
-                        this.dataset.collected = 'true';
-                    }
-                });
-            });
-        }
-
-        let allArtworks = [];
-        async function loadArtworks() {
-            try {
-                allArtworks = await fetchWithAuth(`${API_BASE_URL}/artwork/latest?limit=6`);
-                const grid = document.getElementById('artworkGrid');
-                if (!allArtworks || allArtworks.length === 0) {
-                    grid.innerHTML = '<div class="no-data">暂无作品</div>';
-                    return;
-                }
-                grid.innerHTML = allArtworks.map(a => renderArtworkCard(a)).join('');
-                bindArtworkEvents();
-            } catch (err) {
-                console.error('加载作品失败', err);
-                document.getElementById('artworkGrid').innerHTML = '<div class="no-data">加载失败</div>';
+                grid.innerHTML = html;
+                setTimeout(() => {
+                    document.querySelectorAll('#moreActivitiesModal .signup-btn').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            const id = btn.dataset.id;
+                            if (btn.disabled) return;
+                            try {
+                                await fetchWithAuth(API_BASE_URL + '/activity/signup/' + id, { method: 'POST' });
+                                alert('申请已提交，请等待审核');
+                                loadActivities();
+                                hideModal('moreActivitiesModal');
+                            } catch (err) { alert('报名失败：' + err.message); }
+                        });
+                    });
+                    document.querySelectorAll('#moreActivitiesModal .collect-btn').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            const id = btn.dataset.id;
+                            const isCollected = btn.dataset.collected === 'true';
+                            if (isCollected) {
+                                alert('已收藏，请在个人信息界面取消收藏');
+                                return;
+                            }
+                            await addActivityCollection(id, btn);
+                        });
+                    });
+                    document.querySelectorAll('#moreActivitiesModal .view-activity-signups').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            const id = btn.dataset.id;
+                            hideModal('moreActivitiesModal');
+                            setTimeout(() => showActivitySignupsModal(id), 200);
+                        });
+                    });
+                    document.querySelectorAll('#moreActivitiesModal .edit-activity').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const id = btn.dataset.id;
+                            const act = activities.find(a => a.id == id);
+                            if (act) {
+                                hideModal('moreActivitiesModal');
+                                setTimeout(() => showEditActivityModal(act), 200);
+                            }
+                        });
+                    });
+                    document.querySelectorAll('#moreActivitiesModal .end-activity').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            if (!confirm('确定要结束该活动吗？')) return;
+                            const id = btn.dataset.id;
+                            try {
+                                await fetchWithAuth(API_BASE_URL + '/activity/end/' + id, { method: 'POST' });
+                                alert('活动已结束');
+                                loadActivities();
+                                hideModal('moreActivitiesModal');
+                            } catch (err) { alert('操作失败：' + err.message); }
+                        });
+                    });
+                }, 50);
             }
-        }
+            showModal('moreActivitiesModal');
+        } catch (err) { alert('加载活动失败：' + err.message); }
+    });
 
-        function renderArtworkCard(artwork) {
-            let actionButtons = '';
-            if (isInheritor && artwork.inheritorId === currentUser.id) {
-                actionButtons = `
-                    <div class="artwork-actions">
-                        <button class="btn-jingyun-outline btn-sm edit-artwork" data-id="${artwork.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn-jingyun-outline btn-sm delete-artwork" data-id="${artwork.id}"><i class="fas fa-trash"></i></button>
-                    </div>
-                `;
+    async function loadArtworks() {
+        try {
+            allArtworks = await fetchWithAuth(API_BASE_URL + '/artwork/latest?limit=6');
+            const grid = document.getElementById('artworkGrid');
+            if (!grid) return;
+            if (!allArtworks.length) {
+                grid.innerHTML = '<div class="no-data">暂无作品</div>';
+                return;
             }
-            return `
-                <div class="artwork-item artwork-card" data-id="${artwork.id}">
-                    <img src="${artwork.imageUrl}" alt="${artwork.title}">
-                    ${actionButtons}
-                    <div class="artwork-info">
-                        <strong>${escapeHtml(artwork.title)}</strong>
-                        <div class="small">${escapeHtml(artwork.description)}</div>
-                    </div>
+            grid.innerHTML = allArtworks.map(a => renderArtworkCard(a)).join('');
+            bindArtworkEvents();
+        } catch (err) { console.error(err); }
+    }
+    function renderArtworkCard(artwork) {
+        let actionButtons = '';
+        if (isInheritor && artwork.inheritorId === currentUser.id) {
+            actionButtons = `
+                <div class="artwork-actions">
+                    <button class="btn-jingyun-outline btn-sm edit-artwork" data-id="${artwork.id}"><i class="fas fa-edit"></i></button>
+                    <button class="btn-jingyun-outline btn-sm delete-artwork" data-id="${artwork.id}"><i class="fas fa-trash"></i></button>
                 </div>
             `;
         }
-
-        function bindArtworkEvents() {
-            document.querySelectorAll('.delete-artwork').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    if (!confirm('确定要删除该作品吗？')) return;
-                    const artworkId = this.dataset.id;
-                    try {
-                        await fetchWithAuth(`${API_BASE_URL}/artwork/${artworkId}`, { method: 'DELETE' });
-                        alert('删除成功');
-                        loadArtworks();
-                    } catch (err) { alert('删除失败：' + err.message); }
-                });
+        return `
+            <div class="artwork-item artwork-card" data-id="${artwork.id}">
+                <img src="${artwork.imageUrl}" alt="${artwork.title}">
+                ${actionButtons}
+                <div class="artwork-info">
+                    <strong>${escapeHtml(artwork.title)}</strong>
+                    <div class="small">${escapeHtml(artwork.description)}</div>
+                </div>
+            </div>
+        `;
+    }
+    function bindArtworkEvents() {
+        document.querySelectorAll('.delete-artwork').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (!confirm('确定要删除该作品吗？')) return;
+                const id = btn.dataset.id;
+                try {
+                    await fetchWithAuth(API_BASE_URL + '/artwork/' + id, { method: 'DELETE' });
+                    alert('删除成功');
+                    loadArtworks();
+                } catch (err) { alert('删除失败：' + err.message); }
             });
-            document.querySelectorAll('.edit-artwork').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    const artworkId = this.dataset.id;
-                    const artwork = allArtworks.find(a => a.id == artworkId);
-                    if (!artwork) { alert('作品不存在'); return; }
-                    document.getElementById('editArtworkId').value = artwork.id;
-                    document.getElementById('editArtworkTitle').value = artwork.title;
-                    document.getElementById('editArtworkDesc').value = artwork.description;
-                    document.getElementById('editArtworkCurrentImage').src = artwork.imageUrl;
-                    document.getElementById('editArtworkImageUrl').value = artwork.imageUrl;
-                    new bootstrap.Modal(document.getElementById('editArtworkModal')).show();
-                });
-            });
-        }
-
-        document.getElementById('submitEditArtwork').addEventListener('click', async function() {
-            const id = document.getElementById('editArtworkId').value;
-            const title = document.getElementById('editArtworkTitle').value.trim();
-            const description = document.getElementById('editArtworkDesc').value.trim();
-            const imageFile = document.getElementById('editArtworkImageFile').files[0];
-            let imageUrl = document.getElementById('editArtworkImageUrl').value;
-            if (!title || !description) { alert('请填写标题和描述'); return; }
-            try {
-                if (imageFile) imageUrl = await uploadImage(imageFile, 'artwork');
-                await fetchWithAuth(`${API_BASE_URL}/artwork/${id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify({ title, description, imageUrl })
-                });
-                alert('更新成功');
-                bootstrap.Modal.getInstance(document.getElementById('editArtworkModal')).hide();
-                loadArtworks();
-            } catch (err) { alert('更新失败：' + err.message); }
         });
-
-        document.getElementById('moreArtworksBtn').addEventListener('click', async function() {
-            try {
-                const artworks = await fetchWithAuth(`${API_BASE_URL}/artwork/latest?limit=30`);
-                const grid = document.getElementById('allArtworksGrid');
-                const empty = document.getElementById('allArtworksEmpty');
-                if (artworks.length === 0) {
-                    grid.innerHTML = '';
-                    empty.style.display = 'block';
-                } else {
-                    empty.style.display = 'none';
-                    grid.innerHTML = artworks.map(a => `
+        document.querySelectorAll('.edit-artwork').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const artwork = allArtworks.find(a => a.id == id);
+                if (!artwork) { alert('作品不存在'); return; }
+                document.getElementById('editArtworkId').value = artwork.id;
+                document.getElementById('editArtworkTitle').value = artwork.title;
+                document.getElementById('editArtworkDesc').value = artwork.description;
+                document.getElementById('editArtworkCurrentImage').src = artwork.imageUrl;
+                document.getElementById('editArtworkImageUrl').value = artwork.imageUrl;
+                showModal('editArtworkModal');
+            });
+        });
+    }
+    document.getElementById('submitEditArtworkBtn')?.addEventListener('click', async () => {
+        const id = document.getElementById('editArtworkId').value;
+        const title = document.getElementById('editArtworkTitle').value.trim();
+        const description = document.getElementById('editArtworkDesc').value.trim();
+        const imageFile = document.getElementById('editArtworkImageFile').files[0];
+        let imageUrl = document.getElementById('editArtworkImageUrl').value;
+        if (!title || !description) { alert('请填写标题和描述'); return; }
+        try {
+            if (imageFile) imageUrl = await uploadImage(imageFile, 'artwork');
+            await fetchWithAuth(API_BASE_URL + '/artwork/' + id, {
+                method: 'PUT',
+                body: JSON.stringify({ title, description, imageUrl })
+            });
+            alert('更新成功');
+            hideModal('editArtworkModal');
+            loadArtworks();
+        } catch (err) { alert('更新失败：' + err.message); }
+    });
+    document.getElementById('moreArtworksBtn')?.addEventListener('click', async () => {
+        try {
+            const artworks = await fetchWithAuth(API_BASE_URL + '/artwork/latest?limit=30');
+            const grid = document.getElementById('allArtworksGrid');
+            const empty = document.getElementById('allArtworksEmpty');
+            if (!artworks.length) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+            } else {
+                empty.style.display = 'none';
+                let html = '';
+                for (const a of artworks) {
+                    html += `
                         <div class="modal-card">
                             <img src="${a.imageUrl}" class="modal-card-img" alt="${a.title}">
                             <h5>${escapeHtml(a.title)}</h5>
                             <p>${escapeHtml(a.description)}</p>
                         </div>
-                    `).join('');
-                }
-                new bootstrap.Modal(document.getElementById('moreArtworksModal')).show();
-            } catch (err) { alert('加载作品失败：' + err.message); }
-        });
-
-        async function loadMessages(limit = 3) {
-            try {
-                const messages = await fetchWithAuth(`${API_BASE_URL}/forum/messages?limit=30`);
-                if (!messages || messages.length === 0) {
-                    document.getElementById('messageList').innerHTML = '<div class="no-data">暂无交流，快来发布第一条留言吧~</div>';
-                    allMessages = [];
-                    return;
-                }
-                allMessages = messages;
-                displayMessages(messages.slice(0, limit));
-            } catch (err) {
-                console.error('加载交流失败', err);
-                document.getElementById('messageList').innerHTML = '<div class="no-data">加载失败，请检查网络连接</div>';
-            }
-        }
-
-        function displayMessages(messages) {
-            const container = document.getElementById('messageList');
-            if (!messages || messages.length === 0) {
-                container.innerHTML = '<div class="no-data">暂无交流，快来发布第一条留言吧~</div>';
-                return;
-            }
-            container.innerHTML = messages.map(m => {
-                const userName = m.userName || '匿名';
-                const content = m.content || '';
-                const createdAt = m.createdAt ? new Date(m.createdAt).toLocaleString() : '时间未知';
-                return `
-                    <div class="message-item">
-                        <div class="message-avatar"><i class="fas fa-user"></i></div>
-                        <div class="message-content">
-                            <div class="message-header">
-                                <span class="message-name">${escapeHtml(userName)}</span>
-                                <span class="message-time">${createdAt}</span>
-                            </div>
-                            <div class="message-text">${escapeHtml(content)}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-
-        document.getElementById('askBtn').addEventListener('click', async function() {
-            const input = document.getElementById('questionInput');
-            const content = input.value.trim();
-            if (!content) { alert('请输入内容'); return; }
-            try {
-                await fetchWithAuth(`${API_BASE_URL}/forum/post`, {
-                    method: 'POST',
-                    body: JSON.stringify({ content })
-                });
-                input.value = '';
-                await loadMessages(3);
-            } catch (err) {
-                alert('发布失败：' + err.message);
-            }
-        });
-
-        document.getElementById('moreMessagesBtn').addEventListener('click', function() {
-            const modalBody = document.getElementById('allMessagesList');
-            if (!allMessages || allMessages.length === 0) {
-                modalBody.innerHTML = '<div class="no-data">暂无交流</div>';
-            } else {
-                modalBody.innerHTML = allMessages.map(m => {
-                    const userName = m.userName || '匿名';
-                    const content = m.content || '';
-                    const createdAt = m.createdAt ? new Date(m.createdAt).toLocaleString() : '时间未知';
-                    return `
-                        <div class="message-item">
-                            <div class="message-avatar"><i class="fas fa-user"></i></div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-name">${escapeHtml(userName)}</span>
-                                    <span class="message-time">${createdAt}</span>
-                                </div>
-                                <div class="message-text">${escapeHtml(content)}</div>
-                            </div>
-                        </div>
                     `;
-                }).join('');
+                }
+                grid.innerHTML = html;
             }
-            new bootstrap.Modal(document.getElementById('allMessagesModal')).show();
-        });
+            showModal('moreArtworksModal');
+        } catch (err) { alert('加载作品失败：' + err.message); }
+    });
 
-        let allRecruits = [];
-        async function loadRecruits() {
-            try {
-                allRecruits = await fetchWithAuth(`${API_BASE_URL}/recruit/list`);
-                const activeRecruits = allRecruits.filter(r => r.status === 0);
-                displayRecruits(activeRecruits.slice(0, 3));
-            } catch (err) {
-                console.error('加载招募失败', err);
-                document.getElementById('recruitList').innerHTML = '<div class="no-data">暂无招募</div>';
-            }
-        }
-
-        function displayRecruits(recruits) {
-            const container = document.getElementById('recruitList');
-            if (recruits.length === 0) {
-                container.innerHTML = '<div class="no-data">暂无招募</div>';
+    async function loadMessages(limit = 3) {
+        try {
+            const messages = await fetchWithAuth(API_BASE_URL + '/forum/messages?limit=30');
+            const container = document.getElementById('messageList');
+            if (!container) return;
+            if (!messages || !messages.length) {
+                container.innerHTML = '<div class="no-data">暂无交流，快来发布第一条留言吧~</div>';
+                allMessages = [];
                 return;
             }
-            container.innerHTML = recruits.map(recruit => {
-                const createTime = recruit.createTime ? new Date(recruit.createTime).toLocaleString() : '时间未知';
-                const isMyPost = isInheritor && recruit.inheritorId === currentUser.id;
-                return `
-                    <div class="recruit-item" data-id="${recruit.id}">
-                        <div class="recruit-info">
-                            <h4><i class="fas fa-hands"></i> ${escapeHtml(recruit.title)}</h4>
-                            <p>${escapeHtml(recruit.description)} — 传承人：${escapeHtml(recruit.inheritorName)}</p>
-                            <p class="small">发布时间：${createTime} | 状态：${recruit.status === 0 ? '招募中' : '已结束'}</p>
-                            <p class="small">申请人数：${recruit.applicantCount}/${recruit.maxApplicants}</p>
-                        </div>
-                        <div class="recruit-actions">
-                            ${renderRecruitActions(recruit, isMyPost)}
-                        </div>
+            allMessages = messages;
+            displayMessages(messages.slice(0, limit));
+        } catch (err) { console.error(err); }
+    }
+    function displayMessages(messages) {
+        const container = document.getElementById('messageList');
+        if (!container) return;
+        if (!messages || !messages.length) {
+            container.innerHTML = '<div class="no-data">暂无交流</div>';
+            return;
+        }
+        container.innerHTML = messages.map(m => {
+            const userName = m.userName || '匿名';
+            const content = m.content || '';
+            const createdAt = m.createdAt ? new Date(m.createdAt).toLocaleString() : '时间未知';
+            return `
+                <div class="message-item">
+                    <div class="message-avatar"><i class="fas fa-user"></i></div>
+                    <div class="message-content">
+                        <div class="message-header"><span class="message-name">${escapeHtml(userName)}</span><span class="message-time">${createdAt}</span></div>
+                        <div class="message-text">${escapeHtml(content)}</div>
                     </div>
-                `;
-            }).join('');
-            bindRecruitEvents();
-        }
-
-        function renderRecruitActions(recruit, isMyPost) {
-            let actions = `<button class="btn-jingyun-outline btn-sm view-recruit-applications" data-id="${recruit.id}"><i class="fas fa-users"></i> 查看申请</button>`;
-            if (isMyPost) {
-                if (recruit.status === 0) actions += `<button class="btn-jingyun-outline btn-sm end-recruit" data-id="${recruit.id}">结束</button>`;
-                actions += `<button class="btn-jingyun-outline btn-sm edit-recruit" data-id="${recruit.id}">编辑</button>`;
-            } else {
-                const userStatus = recruit.userStatus || 'none';
-                if (userStatus === 'none') actions += `<button class="btn-jingyun btn-sm apply-recruit" data-id="${recruit.id}">申请</button>`;
-                else if (userStatus === 'pending') actions += `<span class="text-warning">待审核</span>`;
-                else if (userStatus === 'accepted') actions += `<span class="text-success">已参与</span>`;
-                else actions += `<span class="text-danger">已拒绝</span>`;
-            }
-            return actions;
-        }
-
-        function bindRecruitEvents() {
-            document.querySelectorAll('.end-recruit').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    if (!confirm('确定要结束该招募吗？')) return;
-                    const recruitId = this.dataset.id;
-                    try {
-                        await fetchWithAuth(`${API_BASE_URL}/recruit/end`, { method: 'POST', body: JSON.stringify({ recruitId }) });
-                        alert('招募已结束');
-                        loadRecruits();
-                    } catch (err) { alert('操作失败：' + err.message); }
-                });
+                </div>
+            `;
+        }).join('');
+    }
+    document.getElementById('askBtn')?.addEventListener('click', async () => {
+        const input = document.getElementById('questionInput');
+        const content = input?.value.trim();
+        if (!content) { alert('请输入内容'); return; }
+        try {
+            await fetchWithAuth(API_BASE_URL + '/forum/post', {
+                method: 'POST',
+                body: JSON.stringify({ content })
             });
-            document.querySelectorAll('.edit-recruit').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    const recruitId = this.dataset.id;
-                    const recruit = allRecruits.find(r => r.id == recruitId);
-                    if (!recruit) { alert('招募不存在'); return; }
-                    document.getElementById('editRecruitId').value = recruit.id;
-                    document.getElementById('editRecruitTitle').value = recruit.title;
-                    document.getElementById('editRecruitDesc').value = recruit.description;
-                    document.getElementById('editRecruitInheritor').value = recruit.inheritorName;
-                    new bootstrap.Modal(document.getElementById('editRecruitModal')).show();
-                });
-            });
-            document.querySelectorAll('.apply-recruit').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    const recruitId = this.dataset.id;
-                    try {
-                        await fetchWithAuth(`${API_BASE_URL}/recruit/apply`, { method: 'POST', body: JSON.stringify({ recruitId }) });
-                        alert('申请已提交，请等待审核');
-                        loadRecruits();
-                    } catch (err) { alert('申请失败：' + err.message); }
-                });
-            });
-            document.querySelectorAll('.view-recruit-applications').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.stopPropagation();
-                    const recruitId = this.dataset.id;
-                    await loadRecruitApplications(recruitId);
-                    new bootstrap.Modal(document.getElementById('recruitApplicationsModal')).show();
-                });
-            });
+            if (input) input.value = '';
+            loadMessages(3);
+        } catch (err) { alert('发布失败：' + err.message); }
+    });
+    document.getElementById('moreMessagesBtn')?.addEventListener('click', () => {
+        if (!allMessages || !allMessages.length) {
+            alert('暂无交流');
+            return;
         }
-
-        async function loadRecruitApplications(recruitId) {
-            try {
-                const apps = await fetchWithAuth(`${API_BASE_URL}/recruit/${recruitId}/applications`);
-                const container = document.getElementById('recruitApplicationsList');
-                const empty = document.getElementById('recruitApplicationsEmpty');
-                const title = document.getElementById('recruitApplicationsModalTitle');
-                const recruit = allRecruits.find(r => r.id == recruitId);
-                title.innerText = recruit ? `申请列表 - ${recruit.title}` : '招募申请列表';
-                if (!apps || apps.length === 0) {
-                    container.innerHTML = '';
-                    empty.style.display = 'block';
-                } else {
-                    empty.style.display = 'none';
-                    container.innerHTML = apps.map(a => `
-                        <div class="signup-item" data-id="${a.id}">
-                            <div class="signup-info">
-                                ${a.username ? `<strong>${escapeHtml(a.username)}</strong> ` : ''}
-                                申请时间：${new Date(a.applyTime).toLocaleString()}
-                                <span class="badge ${a.status === 'pending' ? 'bg-warning' : (a.status === 'accepted' ? 'bg-success' : 'bg-danger')}">
-                                    ${a.status === 'pending' ? '待审核' : (a.status === 'accepted' ? '已通过' : '已拒绝')}
-                                </span>
-                            </div>
-                            ${isInheritor && recruit && recruit.inheritorId === currentUser.id && a.status === 'pending' ? `
-                            <div class="signup-actions">
-                                <button class="btn-jingyun btn-sm approve-recruit-application" data-id="${a.id}" data-recruit-id="${recruitId}">同意</button>
-                                <button class="btn-jingyun-outline btn-sm reject-recruit-application" data-id="${a.id}" data-recruit-id="${recruitId}">拒绝</button>
-                            </div>
-                            ` : ''}
-                        </div>
-                    `).join('');
-                    if (isInheritor && recruit && recruit.inheritorId === currentUser.id) {
-                        document.querySelectorAll('.approve-recruit-application').forEach(btn => {
-                            btn.addEventListener('click', async () => {
-                                const appId = btn.dataset.id;
-                                const rId = btn.dataset.recruitId;
-                                try {
-                                    await fetchWithAuth(`${API_BASE_URL}/recruit/application/${appId}/approve`, { method: 'POST' });
-                                    alert('已同意');
-                                    await loadRecruitApplications(rId);
-                                } catch (err) { alert('操作失败：' + err.message); }
-                            });
-                        });
-                        document.querySelectorAll('.reject-recruit-application').forEach(btn => {
-                            btn.addEventListener('click', async () => {
-                                const appId = btn.dataset.id;
-                                const rId = btn.dataset.recruitId;
-                                try {
-                                    await fetchWithAuth(`${API_BASE_URL}/recruit/application/${appId}/reject`, { method: 'POST' });
-                                    alert('已拒绝');
-                                    await loadRecruitApplications(rId);
-                                } catch (err) { alert('操作失败：' + err.message); }
-                            });
-                        });
-                    }
-                }
-            } catch (err) { alert('加载申请列表失败：' + err.message); }
+        let html = '';
+        for (const m of allMessages) {
+            const userName = m.userName || '匿名';
+            const content = m.content || '';
+            const createdAt = m.createdAt ? new Date(m.createdAt).toLocaleString() : '时间未知';
+            html += `
+                <div class="message-item">
+                    <div class="message-avatar"><i class="fas fa-user"></i></div>
+                    <div class="message-content">
+                        <div class="message-header"><span class="message-name">${escapeHtml(userName)}</span><span class="message-time">${createdAt}</span></div>
+                        <div class="message-text">${escapeHtml(content)}</div>
+                    </div>
+                </div>
+            `;
         }
-
-        document.getElementById('submitEditRecruit').addEventListener('click', async function() {
-            const id = document.getElementById('editRecruitId').value;
-            const title = document.getElementById('editRecruitTitle').value.trim();
-            const description = document.getElementById('editRecruitDesc').value.trim();
-            const inheritorName = document.getElementById('editRecruitInheritor').value.trim();
-            if (!title || !description || !inheritorName) { alert('请填写所有字段'); return; }
-            try {
-                await fetchWithAuth(`${API_BASE_URL}/recruit/${id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify({ title, description, inheritorName })
-                });
-                alert('更新成功');
-                bootstrap.Modal.getInstance(document.getElementById('editRecruitModal')).hide();
-                loadRecruits();
-            } catch (err) { alert('更新失败：' + err.message); }
+        const modalHtml = `
+            <div class="custom-modal-overlay" id="dynamicAllMessagesModal">
+                <div class="custom-modal">
+                    <div class="custom-modal-header"><span class="custom-modal-title">全部交流</span><button class="custom-modal-close">&times;</button></div>
+                    <div class="custom-modal-body">${html}</div>
+                    <div class="custom-modal-footer"><button class="btn-custom-close close-modal">关闭</button></div>
+                </div>
+            </div>
+        `;
+        const existing = document.getElementById('dynamicAllMessagesModal');
+        if (existing) existing.remove();
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        const modalEl = document.getElementById('dynamicAllMessagesModal');
+        modalEl.querySelectorAll('.custom-modal-close, .close-modal').forEach(btn => {
+            btn.addEventListener('click', () => modalEl.remove());
         });
+        modalEl.addEventListener('click', (e) => { if (e.target === modalEl) modalEl.remove(); });
+        modalEl.classList.add('show');
+    });
 
-        document.getElementById('moreRecruitsBtn').addEventListener('click', function() {
-            const modalBody = document.getElementById('allRecruitsList');
-            if (!allRecruits || allRecruits.length === 0) {
-                modalBody.innerHTML = '<div class="no-data">暂无招募</div>';
+    async function loadRecruits() {
+        try {
+            allRecruits = await fetchWithAuth(API_BASE_URL + '/recruit/list');
+            const active = allRecruits.filter(r => r.status === 0);
+            displayRecruits(active.slice(0, 3));
+        } catch (err) { console.error(err); }
+    }
+    function displayRecruits(recruits) {
+        const container = document.getElementById('recruitList');
+        if (!container) return;
+        if (!recruits.length) {
+            container.innerHTML = '<div class="no-data">暂无招募</div>';
+            return;
+        }
+        container.innerHTML = recruits.map(r => {
+            const createTime = r.createTime ? new Date(r.createTime).toLocaleString() : '时间未知';
+            const isMyPost = isInheritor && r.inheritorId === currentUser.id;
+            return `
+                <div class="recruit-item" data-id="${r.id}">
+                    <div class="recruit-info">
+                        <h4><i class="fas fa-hands"></i> ${escapeHtml(r.title)}</h4>
+                        <p>${escapeHtml(r.description)} — 传承人：${escapeHtml(r.inheritorName)}</p>
+                        <p class="small">发布时间：${createTime} | 状态：${r.status === 0 ? '招募中' : '已结束'}</p>
+                        <p class="small">申请人数：${r.applicantCount}/${r.maxApplicants}</p>
+                    </div>
+                    <div class="recruit-actions">${renderRecruitActions(r, isMyPost)}</div>
+                </div>
+            `;
+        }).join('');
+        bindRecruitEvents();
+    }
+    function renderRecruitActions(recruit, isMyPost) {
+        let actions = `<button class="btn-jingyun-outline btn-sm view-recruit-applications" data-id="${recruit.id}"><i class="fas fa-users"></i> 查看申请</button>`;
+        if (isMyPost) {
+            if (recruit.status === 0) actions += `<button class="btn-jingyun-outline btn-sm end-recruit" data-id="${recruit.id}">结束</button>`;
+            actions += `<button class="btn-jingyun-outline btn-sm edit-recruit" data-id="${recruit.id}">编辑</button>`;
+        } else {
+            const userStatus = recruit.userStatus || 'none';
+            if (userStatus === 'none') actions += `<button class="btn-jingyun btn-sm apply-recruit" data-id="${recruit.id}">申请</button>`;
+            else if (userStatus === 'pending') actions += `<span class="text-warning">待审核</span>`;
+            else if (userStatus === 'accepted') actions += `<span class="text-success">已参与</span>`;
+            else actions += `<span class="text-danger">已拒绝</span>`;
+        }
+        return actions;
+    }
+    function bindRecruitEvents() {
+        document.querySelectorAll('.end-recruit').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (!confirm('确定要结束该招募吗？')) return;
+                const id = btn.dataset.id;
+                try {
+                    await fetchWithAuth(API_BASE_URL + '/recruit/end', { method: 'POST', body: JSON.stringify({ recruitId: id }) });
+                    alert('招募已结束');
+                    loadRecruits();
+                } catch (err) { alert('操作失败：' + err.message); }
+            });
+        });
+        document.querySelectorAll('.edit-recruit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const recruit = allRecruits.find(r => r.id == id);
+                if (!recruit) { alert('招募不存在'); return; }
+                document.getElementById('editRecruitId').value = recruit.id;
+                document.getElementById('editRecruitTitle').value = recruit.title;
+                document.getElementById('editRecruitDesc').value = recruit.description;
+                document.getElementById('editRecruitInheritor').value = recruit.inheritorName;
+                showModal('editRecruitModal');
+            });
+        });
+        document.querySelectorAll('.apply-recruit').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                try {
+                    await fetchWithAuth(API_BASE_URL + '/recruit/apply', { method: 'POST', body: JSON.stringify({ recruitId: id }) });
+                    alert('申请已提交，请等待审核');
+                    loadRecruits();
+                } catch (err) { alert('申请失败：' + err.message); }
+            });
+        });
+        document.querySelectorAll('.view-recruit-applications').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                await showRecruitApplicationsModal(id);
+            });
+        });
+    }
+    async function showRecruitApplicationsModal(recruitId) {
+        try {
+            const apps = await fetchWithAuth(API_BASE_URL + '/recruit/' + recruitId + '/applications');
+            const recruit = allRecruits.find(r => r.id == recruitId);
+            const title = recruit ? `申请列表 - ${recruit.title}` : '招募申请列表';
+            let html = '';
+            if (!apps || !apps.length) {
+                html = '<div class="no-data">暂无申请</div>';
             } else {
-                modalBody.innerHTML = allRecruits.map(r => `
-                    <div class="modal-card">
-                        <h5>${escapeHtml(r.title)}</h5>
-                        <p>${escapeHtml(r.description)}</p>
-                        <p>传承人：${escapeHtml(r.inheritorName)}</p>
-                        <p>发布时间：${r.createTime ? new Date(r.createTime).toLocaleString() : '未知'}</p>
-                        <p>状态：${r.status === 0 ? '招募中' : '已结束'}</p>
-                        <p>申请人数：${r.applicantCount}/${r.maxApplicants}</p>
+                html = apps.map(a => `
+                    <div class="signup-item">
+                        <div class="signup-info">
+                            ${a.username ? `<strong>${escapeHtml(a.username)}</strong> ` : ''}
+                            申请时间：${new Date(a.applyTime).toLocaleString()}
+                            <span class="badge ${a.status === 'pending' ? 'bg-warning' : (a.status === 'accepted' ? 'bg-success' : 'bg-danger')}">${a.status === 'pending' ? '待审核' : (a.status === 'accepted' ? '已通过' : '已拒绝')}</span>
+                        </div>
+                        ${isInheritor && recruit && recruit.inheritorId === currentUser.id && a.status === 'pending' ? `
+                        <div class="signup-actions">
+                            <button class="btn-jingyun btn-sm approve-recruit-application" data-id="${a.id}" data-recruit-id="${recruitId}">同意</button>
+                            <button class="btn-jingyun-outline btn-sm reject-recruit-application" data-id="${a.id}" data-recruit-id="${recruitId}">拒绝</button>
+                        </div>
+                        ` : ''}
                     </div>
                 `).join('');
+                if (isInheritor && recruit && recruit.inheritorId === currentUser.id) {
+                    setTimeout(() => {
+                        document.querySelectorAll('#recruitApplicationsModal .approve-recruit-application').forEach(btn => {
+                            btn.addEventListener('click', async () => {
+                                const appId = btn.dataset.id;
+                                const rId = btn.dataset.recruitId;
+                                try {
+                                    await fetchWithAuth(API_BASE_URL + '/recruit/application/' + appId + '/approve', { method: 'POST' });
+                                    alert('已同意');
+                                    showRecruitApplicationsModal(rId);
+                                } catch (err) { alert('操作失败：' + err.message); }
+                            });
+                        });
+                        document.querySelectorAll('#recruitApplicationsModal .reject-recruit-application').forEach(btn => {
+                            btn.addEventListener('click', async () => {
+                                const appId = btn.dataset.id;
+                                const rId = btn.dataset.recruitId;
+                                try {
+                                    await fetchWithAuth(API_BASE_URL + '/recruit/application/' + appId + '/reject', { method: 'POST' });
+                                    alert('已拒绝');
+                                    showRecruitApplicationsModal(rId);
+                                } catch (err) { alert('操作失败：' + err.message); }
+                            });
+                        });
+                    }, 50);
+                }
             }
-            new bootstrap.Modal(document.getElementById('moreRecruitsModal')).show();
-        });
+            document.getElementById('recruitApplicationsModalTitle').innerText = title;
+            document.getElementById('recruitApplicationsModalBody').innerHTML = html;
+            showModal('recruitApplicationsModal');
+        } catch (err) { alert('加载申请列表失败：' + err.message); }
+    }
+    document.getElementById('submitEditRecruitBtn')?.addEventListener('click', async () => {
+        const id = document.getElementById('editRecruitId').value;
+        const title = document.getElementById('editRecruitTitle').value.trim();
+        const description = document.getElementById('editRecruitDesc').value.trim();
+        const inheritorName = document.getElementById('editRecruitInheritor').value.trim();
+        if (!title || !description || !inheritorName) { alert('请填写所有字段'); return; }
+        try {
+            await fetchWithAuth(API_BASE_URL + '/recruit/' + id, {
+                method: 'PUT',
+                body: JSON.stringify({ title, description, inheritorName })
+            });
+            alert('更新成功');
+            hideModal('editRecruitModal');
+            loadRecruits();
+        } catch (err) { alert('更新失败：' + err.message); }
+    });
+    document.getElementById('moreRecruitsBtn')?.addEventListener('click', async () => {
+        try {
+            const recruits = allRecruits;
+            const grid = document.getElementById('allRecruitsGrid');
+            const empty = document.getElementById('allRecruitsEmpty');
+            if (!recruits.length) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+            } else {
+                empty.style.display = 'none';
+                let html = '';
+                for (const r of recruits) {
+                    const createTime = r.createTime ? new Date(r.createTime).toLocaleString() : '时间未知';
+                    const isMyPost = isInheritor && r.inheritorId === currentUser.id;
+                    let actionsHtml = '';
+                    if (isMyPost) {
+                        actionsHtml = `<div class="recruit-actions" style="margin-top:0.8rem;">
+                            <button class="btn-jingyun-outline btn-sm view-recruit-applications" data-id="${r.id}"><i class="fas fa-users"></i> 查看申请</button>
+                            ${r.status === 0 ? `<button class="btn-jingyun-outline btn-sm end-recruit" data-id="${r.id}">结束</button>` : ''}
+                            <button class="btn-jingyun-outline btn-sm edit-recruit" data-id="${r.id}">编辑</button>
+                        </div>`;
+                    } else {
+                        const userStatus = r.userStatus || 'none';
+                        let actionBtn = '';
+                        if (userStatus === 'none') actionBtn = `<button class="btn-jingyun btn-sm apply-recruit" data-id="${r.id}">申请</button>`;
+                        else if (userStatus === 'pending') actionBtn = `<span class="text-warning">待审核</span>`;
+                        else if (userStatus === 'accepted') actionBtn = `<span class="text-success">已参与</span>`;
+                        else actionBtn = `<span class="text-danger">已拒绝</span>`;
+                        actionsHtml = `<div class="recruit-actions" style="margin-top:0.8rem;">
+                            <button class="btn-jingyun-outline btn-sm view-recruit-applications" data-id="${r.id}"><i class="fas fa-users"></i> 查看申请</button>
+                            ${actionBtn}
+                        </div>`;
+                    }
+                    html += `
+                        <div class="modal-card" data-id="${r.id}">
+                            <h5>${escapeHtml(r.title)}</h5>
+                            <p>${escapeHtml(r.description)}</p>
+                            <p>传承人：${escapeHtml(r.inheritorName)}</p>
+                            <p>发布时间：${createTime}</p>
+                            <p>状态：${r.status === 0 ? '招募中' : '已结束'}</p>
+                            <p>申请人数：${r.applicantCount}/${r.maxApplicants}</p>
+                            ${actionsHtml}
+                        </div>
+                    `;
+                }
+                grid.innerHTML = html;
+                setTimeout(() => {
+                    document.querySelectorAll('#moreRecruitsModal .view-recruit-applications').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            const id = btn.dataset.id;
+                            hideModal('moreRecruitsModal');
+                            setTimeout(() => showRecruitApplicationsModal(id), 200);
+                        });
+                    });
+                    document.querySelectorAll('#moreRecruitsModal .end-recruit').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            if (!confirm('确定要结束该招募吗？')) return;
+                            const id = btn.dataset.id;
+                            try {
+                                await fetchWithAuth(API_BASE_URL + '/recruit/end', { method: 'POST', body: JSON.stringify({ recruitId: id }) });
+                                alert('招募已结束');
+                                loadRecruits();
+                                hideModal('moreRecruitsModal');
+                            } catch (err) { alert('操作失败：' + err.message); }
+                        });
+                    });
+                    document.querySelectorAll('#moreRecruitsModal .edit-recruit').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const id = btn.dataset.id;
+                            const recruit = recruits.find(r => r.id == id);
+                            if (recruit) {
+                                hideModal('moreRecruitsModal');
+                                setTimeout(() => {
+                                    document.getElementById('editRecruitId').value = recruit.id;
+                                    document.getElementById('editRecruitTitle').value = recruit.title;
+                                    document.getElementById('editRecruitDesc').value = recruit.description;
+                                    document.getElementById('editRecruitInheritor').value = recruit.inheritorName;
+                                    showModal('editRecruitModal');
+                                }, 200);
+                            }
+                        });
+                    });
+                    document.querySelectorAll('#moreRecruitsModal .apply-recruit').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            const id = btn.dataset.id;
+                            try {
+                                await fetchWithAuth(API_BASE_URL + '/recruit/apply', { method: 'POST', body: JSON.stringify({ recruitId: id }) });
+                                alert('申请已提交，请等待审核');
+                                loadRecruits();
+                                hideModal('moreRecruitsModal');
+                            } catch (err) { alert('申请失败：' + err.message); }
+                        });
+                    });
+                }, 50);
+            }
+            showModal('moreRecruitsModal');
+        } catch (err) { alert('加载招募失败：' + err.message); }
+    });
 
-        document.getElementById('submitPublishActivity').addEventListener('click', async function() {
-            const title = document.getElementById('activityTitle').value.trim();
-            const type = document.getElementById('activityType').value;
-            const startTime = document.getElementById('activityStartTime').value;
-            const endTime = document.getElementById('activityEndTime').value;
-            const maxParticipants = parseInt(document.getElementById('activityMaxParticipants').value);
-            const description = document.getElementById('activityDesc').value.trim();
-            const siteId = document.getElementById('activitySiteId').value ? parseInt(document.getElementById('activitySiteId').value) : null;
-            const imageFile = document.getElementById('activityImageFile').files[0];
-            if (!title || !startTime || !endTime || !description) { alert('请填写必填项'); return; }
-            if (!imageFile) { alert('请上传活动封面图片'); return; }
-            try {
-                let imageUrl = '';
-                if (imageFile) imageUrl = await uploadImage(imageFile, 'activity');
-                await fetchWithAuth(`${API_BASE_URL}/activity/publish`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        title, type, startTime, endTime, maxParticipants, description, siteId,
-                        imageUrl, inheritorId: currentUser.id
-                    })
-                });
-                alert('活动发布成功');
-                bootstrap.Modal.getInstance(document.getElementById('publishActivityModal')).hide();
-                document.getElementById('publishActivityForm').reset();
-                document.getElementById('activityFileName').innerText = '';
-                loadActivities();
-            } catch (err) { alert('发布失败：' + err.message); }
+    const publishToggleBtn = document.getElementById('publishBtn');
+    const publishMenuDiv = document.getElementById('publishMenu');
+    if (publishToggleBtn && publishMenuDiv) {
+        publishToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            publishMenuDiv.style.display = publishMenuDiv.style.display === 'none' ? 'flex' : 'none';
         });
-
-        document.getElementById('submitPublishArtwork').addEventListener('click', async function() {
-            const title = document.getElementById('artworkTitle').value.trim();
-            const description = document.getElementById('artworkDesc').value.trim();
-            const imageFile = document.getElementById('artworkImageFile').files[0];
-            if (!title || !description) { alert('请填写标题和描述'); return; }
-            if (!imageFile) { alert('请上传作品图片'); return; }
-            try {
-                const imageUrl = await uploadImage(imageFile, 'artwork');
-                await fetchWithAuth(`${API_BASE_URL}/artwork/publish`, {
-                    method: 'POST',
-                    body: JSON.stringify({ title, description, imageUrl })
-                });
-                alert('作品发布成功');
-                bootstrap.Modal.getInstance(document.getElementById('publishArtworkModal')).hide();
-                document.getElementById('publishArtworkForm').reset();
-                document.getElementById('artworkFileName').innerText = '';
-                loadArtworks();
-            } catch (err) { alert('发布失败：' + err.message); }
+        document.addEventListener('click', (e) => {
+            if (!publishMenuDiv.contains(e.target) && e.target !== publishToggleBtn) {
+                publishMenuDiv.style.display = 'none';
+            }
         });
-
-        document.getElementById('submitPublishRecruit').addEventListener('click', async function() {
-            const title = document.getElementById('recruitTitle').value.trim();
-            const description = document.getElementById('recruitDesc').value.trim();
-            const inheritorName = document.getElementById('recruitInheritor').value.trim();
-            const maxApplicants = parseInt(document.getElementById('recruitMaxApplicants').value);
-            if (!title || !description || !inheritorName || !maxApplicants) { alert('请填写所有字段'); return; }
-            try {
-                await fetchWithAuth(`${API_BASE_URL}/recruit/add`, {
-                    method: 'POST',
-                    body: JSON.stringify({ title, description, inheritorName, maxApplicants })
-                });
-                alert('招募发布成功');
-                bootstrap.Modal.getInstance(document.getElementById('publishRecruitModal')).hide();
-                document.getElementById('publishRecruitForm').reset();
-                loadRecruits();
-            } catch (err) { alert('发布失败：' + err.message); }
+    }
+    document.querySelectorAll('[data-publish]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const type = btn.dataset.publish;
+            publishMenuDiv.style.display = 'none';
+            if (type === 'activity') showModal('publishActivityModal');
+            else if (type === 'artwork') showModal('publishArtworkModal');
+            else if (type === 'recruit') showModal('publishRecruitModal');
         });
+    });
 
-        async function init() {
-            const token = getToken();
-            if (!token) { alert('请先登录'); window.location.href = 'Index.html'; return; }
-            await loadUserInfo();
-            await loadActivities();
-            await loadArtworks();
-            await loadMessages(3);
-            await loadRecruits();
-        }
-        init();
-    })();
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text.replace(/[&<>]/g, m => m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'));
+    }
+
+    async function init() {
+        const token = getToken();
+        if (!token) { alert('请先登录'); window.location.href = 'Index.html'; return; }
+        await loadUserInfo();
+        await Promise.all([loadActivities(), loadArtworks(), loadMessages(3), loadRecruits()]);
+    }
+    init();
+})();
 </script>
 </body>
 </html>
