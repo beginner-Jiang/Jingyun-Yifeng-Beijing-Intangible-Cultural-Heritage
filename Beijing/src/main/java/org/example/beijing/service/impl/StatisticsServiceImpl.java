@@ -31,10 +31,14 @@ public class StatisticsServiceImpl implements StatisticsService {
     private LocalDateTime getStartTime(String period) {
         LocalDateTime now = LocalDateTime.now();
         switch (period) {
-            case "week":   return now.minusWeeks(1).with(LocalTime.MIN);
-            case "year":   return now.withDayOfYear(1).with(LocalTime.MIN);
-            case "all":    return LocalDateTime.of(2000, 1, 1, 0, 0);
-            default:       return now.withDayOfMonth(1).with(LocalTime.MIN);
+            case "week":
+                return now.minusWeeks(1).with(LocalTime.MIN);
+            case "year":
+                return now.withDayOfYear(1).with(LocalTime.MIN);
+            case "all":
+                return LocalDateTime.of(2000, 1, 1, 0, 0);
+            default:
+                return now.withDayOfMonth(1).with(LocalTime.MIN);
         }
     }
 
@@ -42,7 +46,11 @@ public class StatisticsServiceImpl implements StatisticsService {
     public ChartDataDTO.BarChart getHotRanking(String period) {
         LocalDateTime start = getStartTime(period);
         LocalDateTime end = LocalDateTime.now().with(LocalTime.MAX);
+        log.info("查询收藏排行榜，period={}, 时间范围: {} ~ {}", period, start, end);
+
         List<Map<String, Object>> results = collectionMapper.selectCountByItem(start, end);
+        log.info("查询到原始数据条数: {}", results.size());
+
         List<String> xAxis = new ArrayList<>();
         List<Integer> series = new ArrayList<>();
         for (Map<String, Object> row : results) {
@@ -53,10 +61,12 @@ public class StatisticsServiceImpl implements StatisticsService {
                 series.add(count.intValue());
             }
         }
+
         if (xAxis.size() > 10) {
             xAxis = xAxis.subList(0, 10);
             series = series.subList(0, 10);
         }
+        log.info("最终排行榜项目数: {}", xAxis.size());
         return new ChartDataDTO.BarChart(xAxis, series);
     }
 
@@ -99,7 +109,6 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public ChartDataDTO.RoseChart getRegionRose() {
-        // 修改为从 heritage_site 表获取真实点位区域分布数据
         List<Map<String, Object>> regionStats = siteMapper.selectSiteRegionCount();
         List<Map<String, Object>> data = new ArrayList<>();
         for (Map<String, Object> row : regionStats) {
